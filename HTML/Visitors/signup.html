@@ -1,10 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Signup</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign Up Page</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  .signup-container {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 300px;
+  }
+  .signup-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .signup-container form {
+    display: flex;
+    flex-direction: column;
+  }
+  .signup-container input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  .signup-container button {
+    padding: 10px;
+    background: #5c6bc0;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  .signup-container button:hover {
+    background: #3f51b5;
+  }
+  .option {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+  }
+  .option input[type="checkbox"] {
+    margin-right: 5px;
+  }
+  .option label {
+    margin: 0;
+  }
+</style>
 </head>
 <body>
-
+  <div class="signup-container">
+    <h2>Sign up</h2>
+    <form>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="text" name="username" placeholder="Username" required>
+      <input type="password" name="password" placeholder="Password" required>
+      <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+      <div class="option">
+        <input type="checkbox" id="show-password">
+        <label for="show-password">Show password</label>
+      </div>
+      <button type="submit">Sign up</button>
+    </form>
+    <a href="login.html">Login</a>
+  </div>
 </body>
 </html>
