@@ -12,7 +12,7 @@
 }
 
 .wrap {
-	background-image: linear-gradient(to right top, #CDB4DB, #FFC8DD, #FFAFCC, #BDE0FE, #A2D2FF);
+	/*background-image: linear-gradient(to right top, #CDB4DB, #FFC8DD, #FFAFCC, #BDE0FE, #A2D2FF);*/
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
