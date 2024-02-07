@@ -10,13 +10,4 @@ $('#signin').click(function () {
     $('.login').removeClass('hidden');
 })
 
-document.addEventListener("DOMContentLoaded", function() {
-    const submitButton = document.querySelector('.submitButton');
-    if (submitButton) {
-        submitButton.addEventListener('click', function() {
-            window.location.href = '/HTML/Users/dashboard.html';
-        });
-    }
-});
-
 

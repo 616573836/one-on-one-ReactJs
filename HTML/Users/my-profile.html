@@ -1,22 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<title>Edit profile page</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="../../STYLE/style_torres.css">
+	<meta charset="utf-8">
+	<title>My profile</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="/STYLE/style_torres.css">
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 </head>
-
 <body>
-  	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
-  	<div class="container">
+	<header id="top-nav" class="navbar navbar-inverse navbar-static-top">
+	<div class="container">
+		<div class="navbar-header">
+			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+				<span class="icon-toggle"></span>
+			</button>
+			<a class="navbar-brand" href="/HTML/Visitors/index.html">One-on-One</a>
+		</div>
+		<div class="navbar-collapse collapse">
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+						<i class="glyphicon glyphicon-user"></i> User <span class="caret"></span></a>
+					<ul id="g-account-menu" class="dropdown-menu" role="menu">
+						<li><a href="#">My Profile</a></li>
+						<li><a href="#"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+</header>
+
+  	<main class="container">
     	<div class="row">
+			<!-- SideBar -->
+			<div class="col-md-3">
+				<a href="#"><strong><i class="glyphicon glyphicon-briefcase"></i> Toolbox</strong></a>
+				<hr>
+				<ul class="nav nav-pills nav-stacked">
+					<li><a href="my-dashboard.html"><i class="glyphicon glyphicon-home"></i> Dashboard</a></li>
+					<li><a href="my-sessions.html"><i class="glyphicon glyphicon-th-list"></i> Sessions</a></li>
+					<li><a href="my-contact.html"><i class="glyphicon glyphicon-briefcase"></i> My contacts</a></li>
+					<li><a href="#"><i class="glyphicon glyphicon-briefcase"></i> My profile</a></li>
+				</ul>
+				<hr>
+			</div>
+			<!-- Content -->
 			<div class="col-xs-12 col-sm-11">
 				<form class="form-horizontal">
 					<div class="panel panel-default">
 						<div class="panel-body text-center">
-							<img src="../../RESOURCES/default_pic.jpg" class="img-circle profile-avatar" alt="User avatar">
+							<img src="/RESOURCES/IMAGES/default_avatar.jpg" class="img-circle profile-avatar" alt="User avatar">
 							<div class="col text-center">
 								<input type="file" name="file" id="file" class="btn_class" />
 								<label for="file">Upload new image</label>
@@ -84,6 +119,10 @@
 				</form>
 			</div>
 		</div>
-	</div>
+	</main>
+
+	<footer>
+
+	</footer>
 </body>
 </html>
