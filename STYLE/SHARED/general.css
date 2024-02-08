@@ -20,10 +20,15 @@
     --container-color: hsl(var(--rest-hue), 0%, 75.29%);
     --container-color-second: hsl(var(--rest-hue), 0%, 50%);
 
+    --container-color-dark: hsl(var(--rest-hue), 0%, 15.29%);
+
     --text-color: hsl(var(--rest-hue), 5%, 0%);
     --title-color: hsl(var(--rest-hue), 5%, 5%);
     --input-color: hsl(var(--rest-hue), 15%, 10%);
+
     --text-color-light: hsl(var(--rest-hue), 100%, 100%);
+    --title-color-light: hsl(var(--rest-hue), 95%, 95%);
+    --input-color-light: hsl(var(--rest-hue), 90%, 90%);
 
     --border-color: hsl(var(--rest-hue), 60%, 99%);
     --scroll-bar-color: hsl(var(--rest-hue), 12%, 90%);
@@ -177,6 +182,46 @@ img{
     color: var(--text-color-light);
 }
 
+.button-sig-light{
+    width: 180px;
+    height: 60px;
+    position: relative;
+    cursor: pointer;
+    background: transparent;
+    border: var(--border-width-bold) solid var(--border-color);
+    border-radius: var(--border-radius);
+    outline: none;
+    transition: 1s ease-in-out;
+}
+
+.button-sig-light svg{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    fill: none;
+    stroke: var(--border-color);
+    stroke-dasharray: 150 480;
+    stroke-dashoffset: 150;
+    transition: 1s ease-in-out;
+}
+
+.button-sig-light span{
+    color: var(--text-color-light);
+    font-size: var(--normal-font-size);
+    font-weight: var(--font-regular);
+}
+
+.button-sig-light:hover{
+    transition: 1s ease-in-out;
+    background: var(--minor-color);
+    border: var(--border-width) solid var(--border-color);
+}
+
+.button-sig-light:hover svg{
+    stroke-dashoffset: -480;
+}
+
 /* BUTTON 2: Normal */
 .button-norm{
     transition: all .5s ease;
@@ -194,6 +239,24 @@ img{
 .button-norm:hover{
     color: var(--text-color-light);
     background-color: var(--major-color);
+}
+
+.button-norm-light{
+    transition: all .5s ease;
+    color: var(--text-color-light);
+    border: var(--border-width-bold) solid var(--border-color);
+    text-transform: uppercase;
+    text-align: center;
+    line-height: 1;
+    background-color: transparent;
+    padding: 10px;
+    outline: none;
+    border-radius: var(--border-radius);
+}
+
+.button-norm-light:hover{
+    color: var(--major-color);
+    background-color: var(--border-color);
 }
 
 /* SCROLL BAR */

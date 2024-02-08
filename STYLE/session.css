@@ -1,5 +1,10 @@
 @import "SHARED/general.css";
 
+.member-panel{
+    background-color: var(--major-color);
+    color: var(--text-color-light);
+}
+
 /* Calendar Grid */
 .fc-header-toolbar {
     vertical-align: baseline;
@@ -21,74 +26,50 @@
 }
 
 /* Edit Panel */
+.edit-panel{
+    background-color: var(--major-color);
+    color: var(--text-color-light);
+}
+
+.edit-panel h1,h2,h3{
+    color: var(--text-color-light);
+}
+
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 16px;
-    background-color: white;
-    border-bottom: 1px solid #c6c6c8;
-}
-
-.header h1 {
-    font-size: 17px;
-    font-weight: 500;
-    margin: 0;
-}
-
-.header button {
-    background: none;
-    border: none;
-    padding: 0;
-    margin: 0;
-    font-size: 17px;
-    color: #007aff;
-}
-
-.event-info {
-    background-color: white;
-    margin-top: 35px;
-    padding: 16px;
-    border-bottom: 1px solid #c6c6c8;
-}
-
-.event-info h2 {
-    font-size: 22px;
-    font-weight: 500;
-    margin: 0;
-}
-
-.event-info p {
-    font-size: 17px;
-    color: #8e8e93;
-    margin: 4px 0 0 0;
 }
 
 .event-details {
-    background-color: white;
     margin-top: 35px;
     padding: 16px;
-    border-bottom: 1px solid #c6c6c8;
 }
 
 .event-details .row {
     padding: 8px 0;
-    border-bottom: 1px solid #c6c6c8;
 }
 
-.event-details .row:last-child {
-    border-bottom: none;
+.event-details input {
+    padding: 5px;
+    background: transparent;
+    border-bottom: var(--border-width) solid var(--text-color-light);
+}
+
+.event-details select {
+    padding: 5px;
+    background: transparent;
+    border-bottom: var(--border-width) solid var(--text-color-light);
 }
 
 .event-details .row h3 {
     font-size: 17px;
-    color: #3a3a3c;
     margin: 0;
 }
 
 .event-details .row p {
     font-size: 17px;
-    color: #8e8e93;
     margin: 0;
 }
 
@@ -104,13 +85,11 @@
     text-align: right;
 }
 
-.event-action p {
-    font-size: 17px;
-    color: #007aff;
-    margin: 8px 0;
+/* Timeline */
+.timeline-container{
+
 }
 
-/* Timeline */
 .timeline {
     position: relative;
 }
@@ -125,7 +104,7 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: #333;
+    background-color: var(--major-color-second);
     margin-right: 20px;
 }
 
@@ -163,7 +142,6 @@
     border-radius: 5px;
 }
 
-/* Additional styles for aesthetics */
 .timeline::before {
     content: '';
     position: absolute;
@@ -171,6 +149,6 @@
     left: 4%;
     width: 2px;
     height: 100%;
-    background-color: #333;
+    background-color: var(--major-color-second);
     transform: translateX(-50%);
 }

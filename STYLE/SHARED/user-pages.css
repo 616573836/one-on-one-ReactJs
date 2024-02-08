@@ -4,6 +4,13 @@ body{
     margin-top:40px;
 }
 
+/* Navigation Bar */
+.navbar{
+	background-color: var(--container-color-dark);
+	color: var(--text-color-light);
+}
+
+/* Main */
 .mid_height{
 	margin-top: 250px;
 }
@@ -92,7 +99,7 @@ body{
 }
 .panel-title > small {
 	font-size: .75em;
-	color: #999999;
+	color: var(--container-color);
 }
 .panel-body *:first-child {
   	margin-top: 0;
