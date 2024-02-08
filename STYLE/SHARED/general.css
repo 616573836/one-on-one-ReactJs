@@ -12,6 +12,7 @@
     --major-color: hsl(var(--major-hue), 100%, 61%);
     --major-color-second: hsl(var(--major-hue), 64.85%, 64.71%);
     --major-color-lighter: hsl(var(--major-hue), 74.85%, 74.71%);
+    --major-color-heaveier: hsl(var(--major-hue), 80%, 35%);
 
     --minor-color: hsl(var(--minor-hue), 100%, 50%);
     --minor-color-second: hsl(var(--minor-hue), 90%, 64.5%);
@@ -47,6 +48,7 @@
     --header-height: 3rem;
 
     /* Font Weight */
+    --font-thin: 100;
     --font-regular: 400;
     --font-medium: 500;
     --font-semi-bold: 600;
@@ -134,6 +136,30 @@ a{
 img{
     max-width: 100%;
     height: auto;
+}
+
+select,
+input{
+    padding: 5px;
+    border: none;
+    background: transparent;
+    font-weight: var(--font-regular);
+}
+
+input::placeholder {
+    letter-spacing: 2px;
+    font-size: var(--font-regular);
+    font-weight: var(--font-thin);
+}
+
+input:focus {
+    outline: none;
+    font-size: var(--h4-font-size);
+    transition: 0.5s all ease;
+}
+
+input:focus::placeholder {
+    opacity: 0;
 }
 
 /* ------- REUSABLE CLASSES -------- */
@@ -242,7 +268,6 @@ img{
 }
 
 .button-norm-light{
-    transition: all .5s ease;
     color: var(--text-color-light);
     border: var(--border-width-bold) solid var(--border-color);
     text-transform: uppercase;
@@ -252,6 +277,7 @@ img{
     padding: 10px;
     outline: none;
     border-radius: var(--border-radius);
+    transition: all .5s ease;
 }
 
 .button-norm-light:hover{

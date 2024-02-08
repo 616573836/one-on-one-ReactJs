@@ -210,31 +210,18 @@ form {
 .accountInput {
 	background: #FFC8DD;
 	width: 65%;
-	color: #ffffff;
-	border: none;
+	color: white;
 	border-bottom: 3px solid rgb(255, 255, 255);
 	padding: 12px;
-	font-weight: 100;
 }
 
 .accountInput::placeholder {
-	font-family: 'Ubuntu', sans-serif;
-	color: #ffffff;
-	letter-spacing: 2px;
-	font-size: 1.0em;
-	font-weight: 100;
+	color: white;
 }
 
 .accountInput:focus {
-	color: #ffffff;
-	outline: none;
+	color: white;
 	border-bottom: 2px solid #FF70A5;
-	font-size: 1.0em;
-	transition: 0.5s all ease;
-}
-
-.accountInput:focus::placeholder {
-	opacity: 0;
 }
 
 label {

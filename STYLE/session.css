@@ -1,8 +1,41 @@
 @import "SHARED/general.css";
 
+/* Member Panel */
 .member-panel{
+    width: 10%;
+    padding: var(--mb-0-5);
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
     background-color: var(--major-color);
     color: var(--text-color-light);
+}
+
+.member-panel h1{
+    color: inherit;
+    font-size: var(--h1-font-size);
+}
+
+.member-panel button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: var(--mb-1);
+    margin-top: var(--mb-1);
+    width: 95%;
+}
+
+.member-panel button img{
+    overflow: hidden;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    margin-right: var(--mb-0-5);
 }
 
 /* Calendar Grid */
@@ -35,7 +68,7 @@
     color: var(--text-color-light);
 }
 
-.header {
+.event-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -49,12 +82,17 @@
 
 .event-details .row {
     padding: 8px 0;
+    align-items: center;
 }
 
 .event-details input {
     padding: 5px;
     background: transparent;
     border-bottom: var(--border-width) solid var(--text-color-light);
+}
+
+.event-details input:focus{
+    border-bottom: var(--border-width-bold) solid var(--major-color-heaveier);
 }
 
 .event-details select {
