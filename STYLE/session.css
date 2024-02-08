@@ -4,6 +4,7 @@
 .member-panel{
     width: 10%;
     padding: var(--mb-0-5);
+    margin: var(--mb-0-25);
 
     display: flex;
     flex-direction: column;
@@ -60,12 +61,20 @@
 
 /* Edit Panel */
 .edit-panel{
+    width: 25%;
+    padding: var(--mb-0-5);
+    margin: var(--mb-0-25);
+
     background-color: var(--major-color);
     color: var(--text-color-light);
 }
 
 .edit-panel h1,h2,h3{
     color: var(--text-color-light);
+}
+
+.edit-panel h1{
+    font-size: var(--h1-font-size);
 }
 
 .event-header {
@@ -91,6 +100,10 @@
     border-bottom: var(--border-width) solid var(--text-color-light);
 }
 
+.event-details input::placeholder {
+    color: var(--input-color-light);
+}
+
 .event-details input:focus{
     border-bottom: var(--border-width-bold) solid var(--major-color-heaveier);
 }
@@ -99,6 +112,10 @@
     padding: 5px;
     background: transparent;
     border-bottom: var(--border-width) solid var(--text-color-light);
+}
+
+.event-details button{
+    align-self: center;
 }
 
 .event-details .row h3 {
@@ -125,7 +142,11 @@
 
 /* Timeline */
 .timeline-container{
+    padding: var(--mb-0-75);
+}
 
+.timeline-container h1 {
+    font-size: var(--h1-font-size);
 }
 
 .timeline {
