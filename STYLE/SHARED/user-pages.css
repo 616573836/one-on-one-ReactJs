@@ -44,14 +44,14 @@ header{
 }
 
 .table thead > tr > th {
-	border-bottom: 1px solid var(--border-color);
+	border-bottom: 1px solid var(--container-color);
 	padding-bottom: 0;
 }
 
 .table tbody > tr > td {
 	font-size: 0.875em;
 	background: var(--body-color);
-	border-top: 10px solid var(--border-color);
+	border-bottom: 1px solid var(--container-color);
 	vertical-align: middle;
 	padding: 12px 8px;
 }
@@ -62,7 +62,7 @@ header{
 }
 
 .table thead > tr > th span {
-	border-bottom: 2px solid var(--border-color);
+	border-bottom: 2px solid var(--container-color);
 	display: inline-block;
 	padding: 0 5px;
 	padding-bottom: 5px;
