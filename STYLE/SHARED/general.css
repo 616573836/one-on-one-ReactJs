@@ -17,6 +17,9 @@
     --minor-color: hsl(var(--minor-hue), 100%, 50%);
     --minor-color-second: hsl(var(--minor-hue), 90%, 64.5%);
 
+    /*TODO change color*/
+    --highlight-today-color:hsl(var(--minor-hue), 90%, 64.5%);
+
     --body-color: hsl(var(--major-hue), 0%, 92.16%);
     --container-color: hsl(var(--rest-hue), 0%, 75.29%);
     --container-color-second: hsl(var(--rest-hue), 0%, 50%);
