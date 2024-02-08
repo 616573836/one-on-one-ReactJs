@@ -137,6 +137,7 @@ img{
 .button-sig{
     width: 180px;
     height: 60px;
+    position: relative;
     cursor: pointer;
     background: transparent;
     border: var(--border-width-bold) solid var(--minor-color);
@@ -145,9 +146,10 @@ img{
 }
 
 .button-sig svg{
-    position: relative;
-    left: 0;
-    top: 0;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
     fill: none;
     stroke: var(--border-color);
     stroke-dasharray: 150 480;
@@ -164,6 +166,7 @@ img{
 .button-sig:hover{
     transition: 1s ease-in-out;
     background: var(--minor-color);
+    border: var(--border-width) solid var(--border-color);
 }
 
 .button-sig:hover svg{
