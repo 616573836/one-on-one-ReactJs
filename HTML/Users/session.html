@@ -113,9 +113,76 @@
                                 </div>
                             </div>
                         </div>
-                        <div style="height: 755px;">
-                            <div>
+                        <div class="overflow-y-auto" style="height: 755px;">
+                            <!-- Calendar Container -->
+                            <div class="grid grid-cols-8 gap-4 p-4">
 
+                                <!-- Sidebar for hours 12 AM to 12 PM -->
+                                <div class="col-span-1 flex flex-col">
+                                    <!-- Empty cell for the corner -->
+                                    <div class="h-8"></div>
+                                    <!-- Repeat for each hour -->
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">12 AM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">1 AM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">2 AM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">3 AM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">4 AM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">5 AM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">6 AM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">7 AM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">8 AM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">9 AM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">10 AM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">11 AM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">12 PM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">12 AM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">1 PM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">2 PM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">3 PM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">4 PM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">5 PM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">6 PM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">7 PM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">8 PM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">9 PM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">10 PM</div>
+                                    <div class="h-16 border-b-2 border-gray-200 flex items-center justify-center">11 PM</div>
+                                </div>
+
+                                <!-- Calendar Days and Time Slots -->
+                                <div class="col-span-7">
+                                    <!-- Days Row -->
+                                    <div class="grid grid-cols-7">
+                                    <div class="h-8 border-b-2 border-gray-200 flex items-center justify-center">Sun</div>
+                                    <div class="h-8 border-b-2 border-gray-200 flex items-center justify-center">Mon</div>
+                                    <div class="h-8 border-b-2 border-gray-200 flex items-center justify-center">Tue</div>
+                                    <div class="h-8 border-b-2 border-gray-200 flex items-center justify-center">Wed</div>
+                                    <div class="h-8 border-b-2 border-gray-200 flex items-center justify-center">Thu</div>
+                                    <div class="h-8 border-b-2 border-gray-200 flex items-center justify-center">Fri</div>
+                                    <div class="h-8 border-b-2 border-gray-200 flex items-center justify-center">Sat</div>
+                                    <!-- ... (Other days here) ... -->
+                                    </div>
+                                    <!-- Time Slots Grid -->
+                                    <div class="grid grid-cols-7 divide-x divide-gray-200">
+                                    <!-- Repeat for each hour in each day column -->
+                                    <!-- Each column represents a day, each div within a column represents a time slot -->
+                                    <!-- Example for Sunday -->
+                                    <div class="flex flex-col">
+                                        <!-- Repeat for each time slot in the day -->
+                                        <div class="h-8 border-b border-gray-200"></div> <!-- Empty slot -->
+                                        <!-- ... -->
+                                        <div class="h-8 border-b border-gray-200 bg-blue-100">12:30am - 1:30am</div> <!-- Occupied slot -->
+                                        <div class="h-8 border-b border-gray-200 bg-blue-100">Event</div> <!-- Occupied slot -->
+                                        <!-- ... -->
+                                    </div>
+                                    <!-- Example for Monday -->
+                                    <div class="flex flex-col">
+                                        <!-- Repeat for each time slot in the day -->
+                                        <!-- ... -->
+                                    </div>
+                                    <!-- ... (Repeat for other days) ... -->
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
