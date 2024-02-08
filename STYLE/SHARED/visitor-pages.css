@@ -1,9 +1,12 @@
+/* IMPORTS */
+@import "general.css";
+@charset "UTF-8";
+
 /*begin-commonstyles library*//*!
  * froala_editor v4.0.6 (https://www.froala.com/wysiwyg-editor)
  * License https://froala.com/wysiwyg-editor/terms/
  * Copyright 2014-2021 Froala Labs
  */
-
 .fr-clearfix::after {
     clear: both;
     display: block;
@@ -134,30 +137,9 @@
     overflow: visible;
 }
 
-/*  .fr-view[dir="rtl"] blockquote {
-    border-left: none;
-    border-right: solid 2px #5E35B1;
-    margin-right: 0;
-    padding-right: 5px;
-    padding-left: 0; }
-    .fr-view[dir="rtl"] blockquote blockquote {
-      border-color: #00BCD4; }
-      .fr-view[dir="rtl"] blockquote blockquote blockquote {
-        border-color: #43A047; }
-  .fr-view blockquote {
-    border-left: solid 2px #5E35B1;
-    margin-left: 0;
-    padding-left: 5px;
-    color: #5E35B1; }
-    .fr-view blockquote blockquote {
-      border-color: #00BCD4;
-      color: #00BCD4; }
-      .fr-view blockquote blockquote blockquote {
-        border-color: #43A047;
-        color: #43A047; } */
 .fr-view span.fr-emoticon {
     font-weight: normal;
-    font-family: "Apple Color Emoji", "Segoe UI Emoji", "NotoColorEmoji", "Segoe UI Symbol", "Android Emoji", "EmojiSymbols";
+    /*font-family: "Apple Color Emoji", "Segoe UI Emoji", "NotoColorEmoji", "Segoe UI Symbol", "Android Emoji", "EmojiSymbols";*/
     display: inline;
     line-height: 0;
 }
@@ -391,7 +373,6 @@
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-    -webkit-opacity: 0.9;
     -moz-opacity: 0.9;
     opacity: 0.9;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
@@ -513,7 +494,6 @@ span.fr-img-caption.fr-view.fr-dii.fr-fir {
 }
 
 /*end-commonstyles library*/
-@charset "UTF-8";
 .u-hidden-block {
     visibility: hidden !important;
 }
@@ -586,7 +566,6 @@ abbr[title] {
 
 b,
 strong {
-    font-weight: inherit;
     font-weight: bold;
 }
 
@@ -49801,8 +49780,6 @@ ol {
         font-size: 3rem;
         font-weight: 700;
         line-height: 1.1;
-        list-icon-spacing: 0.3;
-        list-icon-size: 0.8;
     }
 }
 
@@ -49813,8 +49790,6 @@ ol {
 }
 
 /*end-media rules*/
-/** publish-rules **/
-
 
 /** cms-rules **/
 /*begin-responsive rules*/
@@ -49838,8 +49813,6 @@ ol {
     font-size: 3rem;
     line-height: 1.1;
     font-weight: 700;
-    list-icon-spacing: 0.3;
-    list-icon-size: 0.8;
 }
 
 .u-xs h3 {
@@ -49847,6 +49820,7 @@ ol {
 }
 
 /*end-responsive rules*/
+
 /** cms-rules **/
 
 /** color-rules **/
@@ -49938,10 +49912,7 @@ blockquote {
     color: #ffffff;
 }
 
-/** alt-color-rules **/
-
-
-/*end-variables sitestylecss*/
+/*end-variables sitestyle css*/
 .u-header .u-section-row-1 {
     background-image: none;
 }
@@ -50064,8 +50035,4 @@ blockquote {
     .u-footer .u-text-1 {
         width: 340px;
     }
-}
-
-html {
-
 }

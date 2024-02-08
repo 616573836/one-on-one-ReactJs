@@ -1,4 +1,4 @@
-/* IMPORTS */
+/* IMPORT */
 
 /* VARIABLES */
 :root{
@@ -112,8 +112,7 @@ img{
     height: auto;
 }
 
-/* REUSABLE CLASSES */
-
+/* ------- REUSABLE CLASSES -------- */
 /* BUTTON */
 .button{
 
