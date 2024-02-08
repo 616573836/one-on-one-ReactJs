@@ -4,6 +4,7 @@
 	<meta charset="utf-8">
 	<title>My contacts</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+
 	<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href="../../STYLE/SHARED/general.css" media="screen" rel="stylesheet">
@@ -11,28 +12,27 @@
 </head>
 <body>
 	<header id="top-nav" class="navbar navbar-inverse navbar-static-top">
-	<div class="container">
-		<div class="navbar-header">
-			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-				<span class="icon-toggle"></span>
-			</button>
-			<a class="navbar-brand" href="../Visitors/index.html">One-on-One</a>
+		<div class="container">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+					<span class="icon-toggle"></span>
+				</button>
+				<a class="navbar-brand" href="../Visitors/index.html">One-on-One</a>
+			</div>
+			<div class="navbar-collapse collapse">
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown">
+						<a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+							<i class="glyphicon glyphicon-user"></i> User <span class="caret"></span></a>
+						<ul id="g-account-menu" class="dropdown-menu" role="menu">
+							<li><a href="#">My Profile</a></li>
+							<li><a href="#"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
 		</div>
-		<div class="navbar-collapse collapse">
-			<ul class="nav navbar-nav navbar-right">
-				<li class="dropdown">
-					<a class="dropdown-toggle" role="button" data-toggle="dropdown" href="#">
-						<i class="glyphicon glyphicon-user"></i> User <span class="caret"></span></a>
-					<ul id="g-account-menu" class="dropdown-menu" role="menu">
-						<li><a href="#">My Profile</a></li>
-						<li><a href="#"><i class="glyphicon glyphicon-lock"></i> Logout</a></li>
-					</ul>
-				</li>
-			</ul>
-		</div>
-	</div>
-</header>
-
+	</header>
 	<main class="container">
 		<div class="row">
 			<!-- SideBar -->
@@ -198,7 +198,6 @@
 			</div>
 		</div>
 	</main>
-
 	<footer>
 
 	</footer>

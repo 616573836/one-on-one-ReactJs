@@ -1,6 +1,6 @@
+@charset "UTF-8";
 /* IMPORTS */
 @import "general.css";
-@charset "UTF-8";
 
 /*begin-commonstyles library*//*!
  * froala_editor v4.0.6 (https://www.froala.com/wysiwyg-editor)
@@ -139,7 +139,6 @@
 
 .fr-view span.fr-emoticon {
     font-weight: normal;
-    /*font-family: "Apple Color Emoji", "Segoe UI Emoji", "NotoColorEmoji", "Segoe UI Symbol", "Android Emoji", "EmojiSymbols";*/
     display: inline;
     line-height: 0;
 }
@@ -1417,8 +1416,6 @@ a {
 .u-link:focus,
 .u-link:active:focus,
 .u-link.active:focus {
-    outline: thin dotted;
-    outline: 5px auto -webkit-focus-ring-color;
     outline-offset: -2px;
 }
 
@@ -1477,7 +1474,6 @@ a {
     outline-width: 0;
     background-color: transparent;
     margin: 0;
-    -webkit-text-decoration-skip: objects;
 }
 
 .u-image.u-logo {
@@ -49794,29 +49790,29 @@ ol {
 /** cms-rules **/
 /*begin-responsive rules*/
 .u-sm h1.u-title {
-    font-size: 3.75rem;
+    font-size: var(--big-font-size);
 }
 
 .u-xs h1.u-title {
-    font-size: 3rem;
+    font-size: var(--h1-font-size);
 }
 
 .u-xs h2.u-subtitle {
-    font-size: 1.5rem;
+    font-size: var(--h2-font-size);
 }
 
 .u-xs h1:not(.u-title) {
-    font-size: 1.875rem;
+    font-size: var(--h2-font-size);
 }
 
 .u-xs h2:not(.u-subtitle) {
-    font-size: 3rem;
+    font-size: var(--h2-font-size);
     line-height: 1.1;
-    font-weight: 700;
+    font-weight: var(--font-bold);
 }
 
 .u-xs h3 {
-    font-size: 1.5rem;
+    font-size: var(--h3-font-size);
 }
 
 /*end-responsive rules*/
@@ -49828,88 +49824,88 @@ ol {
 .u-gradient > .u-container-layout > a,
 .u-image:not(.u-shading) > .u-container-layout > a,
 a {
-    color: #a37fdf;
+    color: var(--major-color-lighter);
 }
 
 .u-overlap.u-overlap-transparent:not(.u-overlap-contrast) .u-header :not(.u-nav-item) > a:hover,
 .u-gradient > .u-container-layout > a:hover,
 .u-image:not(.u-shading) > .u-container-layout > a:hover,
 a:hover {
-    color: #8f63d8;
+    color: var(--major-color);
 }
 
 .u-overlap.u-overlap-transparent:not(.u-overlap-contrast) .u-header :not(.u-nav-item) > .u-btn,
 .u-gradient > .u-container-layout > .u-btn,
 .u-image:not(.u-shading) > .u-container-layout > .u-btn,
 .u-btn {
-    background-color: #a37fdf;
-    color: #ffffff;
+    background-color: var(--major-color-second);
+    color: var(--body-color);
 }
 
 .u-overlap.u-overlap-transparent:not(.u-overlap-contrast) .u-header :not(.u-nav-item) > .u-btn:hover,
 .u-gradient > .u-container-layout > .u-btn:hover,
 .u-image:not(.u-shading) > .u-container-layout > .u-btn:hover,
 .u-btn:hover {
-    background-color: #8f63d8;
-    color: #e6e6e6;
+    background-color: var(--major-color);
+    color: var(--body-color);
 }
 
 .u-overlap.u-overlap-transparent:not(.u-overlap-contrast) .u-header :not(.u-nav-item) > .u-btn:focus,
 .u-gradient > .u-container-layout > .u-btn:focus,
 .u-image:not(.u-shading) > .u-container-layout > .u-btn:focus,
 .u-btn:focus {
-    background-color: #8f63d8;
-    color: #e6e6e6;
+    background-color: var(--major-color);
+    color: var(--body-color);
 }
 
 .u-overlap.u-overlap-transparent:not(.u-overlap-contrast) .u-header :not(.u-nav-item) > .u-btn:active,
 .u-gradient > .u-container-layout > .u-btn:active,
 .u-image:not(.u-shading) > .u-container-layout > .u-btn:active,
 .u-btn:active {
-    background-color: #8f63d8;
-    color: #e6e6e6;
+    background-color: var(--major-color);
+    color: var(--body-color);
 }
 
 .u-overlap.u-overlap-transparent:not(.u-overlap-contrast) .u-header :not(.u-nav-item) > blockquote,
 .u-gradient > .u-container-layout > blockquote,
 .u-image:not(.u-shading) > .u-container-layout > blockquote,
 blockquote {
-    border-color: #a37fdf;
+    border-color: var(--major-color-second);
 }
 
 .u-overlap.u-overlap-transparent:not(.u-overlap-contrast) .u-header :not(.u-nav-item) > .u-input,
 .u-gradient > .u-container-layout > .u-input,
 .u-image:not(.u-shading) > .u-container-layout > .u-input,
 .u-input {
-    border-color: #b3b3b3;
-    background-color: #ffffff;
-    color: #000000;
+    border-color: var(--container-color);
+    background-color: var(--body-color);
+    color: var(--text-color);
 }
 
 /** color-rules **/
 
 /** alt-color-rules **/
 .u-body-color a, .u-palette-1-base a, .u-palette-1-dark-3 a, .u-palette-1-dark-2 a, .u-palette-1-dark-1 a, .u-palette-1 a, .u-palette-1-light-1 a, .u-palette-2-base a, .u-palette-2-dark-3 a, .u-palette-2-dark-2 a, .u-palette-2-dark-1 a, .u-palette-2 a, .u-palette-2-light-1 a, .u-palette-3-base a, .u-palette-3-dark-3 a, .u-palette-3-dark-2 a, .u-palette-3-dark-1 a, .u-palette-3 a, .u-palette-3-light-1 a, .u-palette-4-base a, .u-palette-4-dark-3 a, .u-palette-4-dark-2 a, .u-palette-4-dark-1 a, .u-palette-4 a, .u-palette-5-base a, .u-palette-5-dark-3 a, .u-palette-5-dark-2 a, .u-palette-5-dark-1 a, .u-palette-5 a, .u-palette-5-light-1 a, .u-palette-5-light-2 a, .u-grey-40 a, .u-grey-30 a, .u-grey-90 a, .u-grey-80 a, .u-grey-75 a, .u-black a, .u-grey-70 a, .u-grey-60 a, .u-grey-50 a, .u-grey-dark-3 a, .u-grey-dark-2 a, .u-grey-dark-1 a, .u-grey a, .u-shading a, .u-overlap-contrast .u-header a:not(.u-nav-link):not(.u-btn) {
-    color: #d8c8f2;
+    color: var(--major-color-lighter);
 }
 
 .u-body-color a:hover, .u-palette-1-base a:hover, .u-palette-1-dark-3 a:hover, .u-palette-1-dark-2 a:hover, .u-palette-1-dark-1 a:hover, .u-palette-1 a:hover, .u-palette-1-light-1 a:hover, .u-palette-2-base a:hover, .u-palette-2-dark-3 a:hover, .u-palette-2-dark-2 a:hover, .u-palette-2-dark-1 a:hover, .u-palette-2 a:hover, .u-palette-2-light-1 a:hover, .u-palette-3-base a:hover, .u-palette-3-dark-3 a:hover, .u-palette-3-dark-2 a:hover, .u-palette-3-dark-1 a:hover, .u-palette-3 a:hover, .u-palette-3-light-1 a:hover, .u-palette-4-base a:hover, .u-palette-4-dark-3 a:hover, .u-palette-4-dark-2 a:hover, .u-palette-4-dark-1 a:hover, .u-palette-4 a:hover, .u-palette-5-base a:hover, .u-palette-5-dark-3 a:hover, .u-palette-5-dark-2 a:hover, .u-palette-5-dark-1 a:hover, .u-palette-5 a:hover, .u-palette-5-light-1 a:hover, .u-palette-5-light-2 a:hover, .u-grey-40 a:hover, .u-grey-30 a:hover, .u-grey-90 a:hover, .u-grey-80 a:hover, .u-grey-75 a:hover, .u-black a:hover, .u-grey-70 a:hover, .u-grey-60 a:hover, .u-grey-50 a:hover, .u-grey-dark-3 a:hover, .u-grey-dark-2 a:hover, .u-grey-dark-1 a:hover, .u-grey a:hover {
-    color: #a1a1a1;
+    color: var(--container-color-second);
 }
 
 .u-body-color .u-btn, .u-palette-1-base .u-btn, .u-palette-1-dark-3 .u-btn, .u-palette-1-dark-2 .u-btn, .u-palette-1-dark-1 .u-btn, .u-palette-1 .u-btn, .u-palette-1-light-1 .u-btn, .u-palette-2-base .u-btn, .u-palette-2-dark-3 .u-btn, .u-palette-2-dark-2 .u-btn, .u-palette-2-dark-1 .u-btn, .u-palette-2 .u-btn, .u-palette-2-light-1 .u-btn, .u-palette-3-base .u-btn, .u-palette-3-dark-3 .u-btn, .u-palette-3-dark-2 .u-btn, .u-palette-3-dark-1 .u-btn, .u-palette-3 .u-btn, .u-palette-3-light-1 .u-btn, .u-palette-4-base .u-btn, .u-palette-4-dark-3 .u-btn, .u-palette-4-dark-2 .u-btn, .u-palette-4-dark-1 .u-btn, .u-palette-4 .u-btn, .u-palette-5-base .u-btn, .u-palette-5-dark-3 .u-btn, .u-palette-5-dark-2 .u-btn, .u-palette-5-dark-1 .u-btn, .u-palette-5 .u-btn, .u-palette-5-light-1 .u-btn, .u-palette-5-light-2 .u-btn, .u-grey-40 .u-btn, .u-grey-30 .u-btn, .u-grey-90 .u-btn, .u-grey-80 .u-btn, .u-grey-75 .u-btn, .u-black .u-btn, .u-grey-70 .u-btn, .u-grey-60 .u-btn, .u-grey-50 .u-btn, .u-grey-dark-3 .u-btn, .u-grey-dark-2 .u-btn, .u-grey-dark-1 .u-btn, .u-grey .u-btn, .u-shading .u-btn, .u-overlap-contrast .u-header .u-btn {
-    background-color: #d8c8f2;
-    color: #000000;
+    background-color: var(--major-color-second);
+    color: var(--text-color);
 }
 
 .u-body-color .u-btn:hover, .u-palette-1-base .u-btn:hover, .u-palette-1-dark-3 .u-btn:hover, .u-palette-1-dark-2 .u-btn:hover, .u-palette-1-dark-1 .u-btn:hover, .u-palette-1 .u-btn:hover, .u-palette-1-light-1 .u-btn:hover, .u-palette-2-base .u-btn:hover, .u-palette-2-dark-3 .u-btn:hover, .u-palette-2-dark-2 .u-btn:hover, .u-palette-2-dark-1 .u-btn:hover, .u-palette-2 .u-btn:hover, .u-palette-2-light-1 .u-btn:hover, .u-palette-3-base .u-btn:hover, .u-palette-3-dark-3 .u-btn:hover, .u-palette-3-dark-2 .u-btn:hover, .u-palette-3-dark-1 .u-btn:hover, .u-palette-3 .u-btn:hover, .u-palette-3-light-1 .u-btn:hover, .u-palette-4-base .u-btn:hover, .u-palette-4-dark-3 .u-btn:hover, .u-palette-4-dark-2 .u-btn:hover, .u-palette-4-dark-1 .u-btn:hover, .u-palette-4 .u-btn:hover, .u-palette-5-base .u-btn:hover, .u-palette-5-dark-3 .u-btn:hover, .u-palette-5-dark-2 .u-btn:hover, .u-palette-5-dark-1 .u-btn:hover, .u-palette-5 .u-btn:hover, .u-palette-5-light-1 .u-btn:hover, .u-palette-5-light-2 .u-btn:hover, .u-grey-40 .u-btn:hover, .u-grey-30 .u-btn:hover, .u-grey-90 .u-btn:hover, .u-grey-80 .u-btn:hover, .u-grey-75 .u-btn:hover, .u-black .u-btn:hover, .u-grey-70 .u-btn:hover, .u-grey-60 .u-btn:hover, .u-grey-50 .u-btn:hover, .u-grey-dark-3 .u-btn:hover, .u-grey-dark-2 .u-btn:hover, .u-grey-dark-1 .u-btn:hover, .u-grey .u-btn:hover, .u-shading .u-btn:hover, .u-overlap-contrast .u-header .u-btn:hover {
-    background-color: #bfa4ea;
-    color: #ffffff;
+    background-color: var(--major-color);
+    color: var(--body-color);
 }
 
 .u-body-color .u-btn:active, .u-palette-1-base .u-btn:active, .u-palette-1-dark-3 .u-btn:active, .u-palette-1-dark-2 .u-btn:active, .u-palette-1-dark-1 .u-btn:active, .u-palette-1 .u-btn:active, .u-palette-1-light-1 .u-btn:active, .u-palette-2-base .u-btn:active, .u-palette-2-dark-3 .u-btn:active, .u-palette-2-dark-2 .u-btn:active, .u-palette-2-dark-1 .u-btn:active, .u-palette-2 .u-btn:active, .u-palette-2-light-1 .u-btn:active, .u-palette-3-base .u-btn:active, .u-palette-3-dark-3 .u-btn:active, .u-palette-3-dark-2 .u-btn:active, .u-palette-3-dark-1 .u-btn:active, .u-palette-3 .u-btn:active, .u-palette-3-light-1 .u-btn:active, .u-palette-4-base .u-btn:active, .u-palette-4-dark-3 .u-btn:active, .u-palette-4-dark-2 .u-btn:active, .u-palette-4-dark-1 .u-btn:active, .u-palette-4 .u-btn:active, .u-palette-5-base .u-btn:active, .u-palette-5-dark-3 .u-btn:active, .u-palette-5-dark-2 .u-btn:active, .u-palette-5-dark-1 .u-btn:active, .u-palette-5 .u-btn:active, .u-palette-5-light-1 .u-btn:active, .u-palette-5-light-2 .u-btn:active, .u-grey-40 .u-btn:active, .u-grey-30 .u-btn:active, .u-grey-90 .u-btn:active, .u-grey-80 .u-btn:active, .u-grey-75 .u-btn:active, .u-black .u-btn:active, .u-grey-70 .u-btn:active, .u-grey-60 .u-btn:active, .u-grey-50 .u-btn:active, .u-grey-dark-3 .u-btn:active, .u-grey-dark-2 .u-btn:active, .u-grey-dark-1 .u-btn:active, .u-grey .u-btn:active, .u-shading .u-btn:active, .u-overlap-contrast .u-header .u-btn:active {
-    background-color: #bfa4ea;
-    color: #ffffff;
+    background-color: var(--major-color-lighter);
+    color: var(--body-color);
 }
 
 /*end-variables sitestyle css*/
