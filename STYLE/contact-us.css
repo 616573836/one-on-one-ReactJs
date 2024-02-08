@@ -1,7 +1,7 @@
 @import "SHARED/general.css";
 
 .u-section-1 {
-  background-image: url("/RESOURCES/IMAGES/vbvbbv.jpg");
+  background-image: url("../RESOURCES/IMAGES/vbvbbv.jpg");
   background-position: 50% 50%;
 }
 

@@ -1,7 +1,7 @@
 @import "SHARED/general.css";
 
 .u-section-1 {
-    background-image: url("/RESOURCES/IMAGES/fgfgfg5t.jpg");
+    background-image: url("../RESOURCES/IMAGES/fgfgfg5t.jpg");
     background-position: 50% 50%;
     min-height: 727px;
 }
@@ -150,7 +150,7 @@
 
 .u-section-1 .u-image-1 {
     min-height: 727px;
-    background-image: url("/RESOURCES/IMAGES/ad-min.jpg");
+    background-image: url("../RESOURCES/IMAGES/ad-min.jpg");
     background-position: 33.19% 50%;
 }
 
@@ -369,7 +369,7 @@
 }
 
 .u-section-2 {
-    background-image: url("/RESOURCES/IMAGES/dff.jpg");
+    background-image: url("../RESOURCES/IMAGES/dff.jpg");
     background-position: 50% 50%;
 }
 
@@ -380,7 +380,7 @@
 
 .u-section-2 .u-image-1 {
     min-height: 627px;
-    background-image: url("/RESOURCES/IMAGES/fg.jpg");
+    background-image: url("../RESOURCES/IMAGES/fg.jpg");
     background-position: 100% 50%;
 }
 
@@ -528,7 +528,7 @@
 }
 
 .u-section-3 {
-    background-image: url("/RESOURCES/IMAGES/vbvbbv.jpg");
+    background-image: url("../RESOURCES/IMAGES/vbvbbv.jpg");
     background-position: 50% 50%;
     min-height: 655px;
 }
@@ -568,7 +568,7 @@
 
 .u-section-3 .u-image-1 {
     min-height: 655px;
-    background-image: url("/RESOURCES/IMAGES/dfdf.jpg");
+    background-image: url("../RESOURCES/IMAGES/dfdf.jpg");
     background-position: 50% 50%;
 }
 
@@ -736,7 +736,7 @@
 .u-section-4 .u-image-1 {
     width: 79px;
     height: 79px;
-    background-image: url("/RESOURCES/IMAGES/44d5d282-18f7-4295-9493-b2865af9bf3d.jpg");
+    background-image: url("../RESOURCES/IMAGES/44d5d282-18f7-4295-9493-b2865af9bf3d.jpg");
     background-position: 50% 50%;
     margin: -69px 0 0 auto;
 }
@@ -781,7 +781,7 @@
 .u-section-4 .u-image-2 {
     width: 79px;
     height: 79px;
-    background-image: url("/RESOURCES/IMAGES/1222_150.jpg");
+    background-image: url("../RESOURCES/IMAGES/1222_150.jpg");
     background-position: 50% 50%;
     margin: -69px 0 0 auto;
 }
@@ -827,7 +827,7 @@
 .u-section-4 .u-image-3 {
     width: 79px;
     height: 79px;
-    background-image: url("/RESOURCES/IMAGES/3e323ee9-9fff-450e-aabf-b9b006d5620c.jpg");
+    background-image: url("../RESOURCES/IMAGES/3e323ee9-9fff-450e-aabf-b9b006d5620c.jpg");
     background-position: 50% 50%;
     margin: -69px 0 0 auto;
 }
