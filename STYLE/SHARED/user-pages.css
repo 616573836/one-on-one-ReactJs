@@ -5,8 +5,8 @@ body{
 }
 
 /* Navigation Bar */
-.navbar{
-	background-color: var(--container-color-dark);
+header{
+	background-color: var(--minor-color);
 	color: var(--text-color-light);
 }
 
