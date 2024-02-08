@@ -4,16 +4,17 @@
 /* VARIABLES */
 :root{
     /* Color Hue */
-    --minor-hue: 24.24;
-    --major-hue: 209.21;
-    --rest-hue: 0;
+    --minor-hue: 24deg;
+    --major-hue: 209deg;
+    --rest-hue: 0deg;
 
     /* HSL Color Mode */
     --major-color: hsl(var(--major-hue), 100%, 61%);
     --major-color-second: hsl(var(--major-hue), 64.85%, 64.71%);
     --major-color-lighter: hsl(var(--major-hue), 74.85%, 74.71%);
 
-    --minor-color: hsl(var(--minor-hue), 100%, 100%);
+    /*--minor-color: hsl(var(--minor-hue), 100%, 100%);*/
+    --minor-color: #ff6700;
     --minor-color-second: hsl(var(--minor-hue), 90%, 94.5%);
 
     --body-color: hsl(var(--major-hue), 0%, 92.16%);
@@ -23,7 +24,7 @@
     --text-color: hsl(var(--rest-hue), 5%, 0%);
     --title-color: hsl(var(--rest-hue), 5%, 5%);
     --input-color: hsl(var(--rest-hue), 15%, 10%);
-    --text-color-light: hsl(var(--rest-hue), 10%, 20%);
+    --text-color-light: hsl(var(--rest-hue), 100%, 100%);
 
     --border-color: hsl(var(--rest-hue), 60%, 99%);
     --scroll-bar-color: hsl(var(--rest-hue), 12%, 90%);
@@ -138,26 +139,26 @@ img{
     height: 60px;
     cursor: pointer;
     background: transparent;
-    border: var(--border-width) solid var(--minor-color);
+    border: var(--border-width-bold) solid var(--minor-color);
     outline: none;
     transition: 1s ease-in-out;
 }
 
 .button-sig svg{
-    position: absolute;
+    position: relative;
     left: 0;
     top: 0;
     fill: none;
-    stroke: var(--minor-color);
+    stroke: var(--border-color);
     stroke-dasharray: 150 480;
     stroke-dashoffset: 150;
     transition: 1s ease-in-out;
 }
 
 .button-sig span{
-    color: var(--minor-color-scond);
-    font-size: 18px;
-    font-weight: 100;
+    color: var(--minor-color);
+    font-size: var(--normal-font-size);
+    font-weight: var(--font-regular);
 }
 
 .button-sig:hover{
@@ -167,6 +168,10 @@ img{
 
 .button-sig:hover svg{
     stroke-dashoffset: -480;
+}
+
+.button-sig:hover span{
+    color: var(--text-color-light);
 }
 
 /* BUTTON 2: Normal */

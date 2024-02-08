@@ -69,7 +69,7 @@ body{
 
 .table a.table-link:hover {
 	text-decoration: none;
-	color: var(--);
+	color: var(--major-color-second);
 }
 
 .table a.table-link.danger {
