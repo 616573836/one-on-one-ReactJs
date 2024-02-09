@@ -4,16 +4,53 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Member profile page</title>
+    <title>Edit profile page</title>
 
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="../../STYLE/SHARED/general.css" media="screen" rel="stylesheet">
-    <link href="../../STYLE/session.css" media="screen" rel="stylesheet" >
+    <link href="../../STYLE/SHARED/user-pages.css" media="screen" rel="stylesheet">
+    <link href="../../STYLE/session.css" media="screen" rel="stylesheet">
 </head>
 
 <body>
 
-  	<div class="container">
+<div class="container">
+    <div class="mid_height">
+        <div class="col-xs-12 col-sm-11">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">User information</h4>
+                </div>
+                <div class="column profile-container">
+                    <div>Name: Xuhui Chen</div>
+                    <div>Email: xuhui.chen@mail.utoronto.ca</div>
+                    <div style="display: flex; flex-direction: row; ">
+                        <div>Status: </div>
+                        <div>
+                            <i class="fas fa-check-circle text-white-500 ml-auto"></i>
+                        </div>
 
-	</div>
+                    </div>
+                    <div style="display: flex; flex-direction: row; ">
+                        <button class="button-norm">
+                            Back
+                            <a href="session.html"></a>
+                        </button>
+                        <button class="button-norm">Notify
+                        </button>
+                        <button class="button-norm">DELETE
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    var now = new Date();
+    var datetime = now.toLocaleString();
+    document.getElementById("datetime").innerHTML = datetime;
+</script>
 </body>
 </html>

@@ -332,3 +332,8 @@ button{
 ::-webkit-scrollbar-thumb:hover{
     background-color: var(--major-color-lighter);
 }
+
+.column {
+    display: flex;
+    flex-direction: column;
+}
