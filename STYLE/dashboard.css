@@ -140,7 +140,8 @@
     width: 80px;
     transition: all 0.5s;
     cursor: pointer;
-    margin-left: 390px;
+    float: right;
+    margin-right: 20px;
 }
   
 .button-calendar-wide{
@@ -180,7 +181,8 @@
     width: 80px;
     transition: all 0.5s;
     cursor: pointer;
-    margin-left: 390px;
+    float: right;
+    margin-right: 20px;
 }
   
 .button-calendar-joined{
@@ -220,7 +222,8 @@
     width: 80px;
     transition: all 0.5s;
     cursor: pointer;
-    margin-left: 395px;
+    float: right;
+    margin-right: 20px;
 }
   
 .button-calendar-decline{
