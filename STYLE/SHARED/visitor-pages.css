@@ -37431,7 +37431,7 @@ section.u-black:before,
 .u-container-layout.u-container-layout.u-black:before,
 .u-table-alt-black tr:nth-child(even) {
     color: #ffffff;
-    background-color: #000000;
+    background-color: var(--container-color-dark);
 }
 
 .u-input.u-black,
@@ -37439,7 +37439,7 @@ section.u-black:before,
 .u-button-style.u-black,
 .u-button-style.u-black[class*="u-border-"] {
     color: #ffffff !important;
-    background-color: #000000 !important;
+    background-color: var(--container-color-dark) !important;
 }
 
 .u-button-style.u-black:hover,
@@ -37453,7 +37453,7 @@ section.u-black:before,
 li.active > .u-button-style.u-button-style.u-black,
 li.active > .u-button-style.u-button-style.u-black[class*="u-border-"] {
     color: #ffffff !important;
-    background-color: #000000 !important;
+    background-color: var(--container-color-dark) !important;
 }
 
 .u-hover-black:hover,
@@ -37480,11 +37480,11 @@ li.active > a.u-button-style.u-button-style.u-active-black,
 li.active > a.u-button-style.u-button-style.u-active-black[class*="u-border-"],
 input.u-field-input.u-field-input.u-active-black:checked {
     color: #ffffff !important;
-    background-color: #000000 !important;
+    background-color: var(--container-color-dark) !important;
 }
 
 a.u-link.u-hover-black:hover {
-    color: #000000 !important;
+    color: var(--container-color-dark) !important;
 }
 
 .u-body-color,
@@ -38223,7 +38223,7 @@ section.u-grey-70:before,
 .u-container-layout.u-container-layout.u-grey-70:before,
 .u-table-alt-grey-70 tr:nth-child(even) {
     color: #ffffff;
-    background-color: #4d4d4d;
+    background-color: black;
 }
 
 .u-input.u-grey-70,
@@ -40446,7 +40446,7 @@ a.u-button-style.u-button-style.active > .u-border-active-palette-1-light-1,
 li.active > a.u-button-style.u-button-style.u-border-active-palette-1-light-1,
 input.u-field-input.u-field-input.u-border-active-palette-1-light-1:checked {
     color: #bda3e9 !important;
-    border-color: #bda3e9 !important;
+    border-color: var(--minor-color) !important;
 }
 
 .u-link.u-border-palette-1-light-1[class*="u-border-"] {
@@ -40578,7 +40578,7 @@ a.u-button-style.u-button-style.active > .u-border-active-palette-1-base,
 li.active > a.u-button-style.u-button-style.u-border-active-palette-1-base,
 input.u-field-input.u-field-input.u-border-active-palette-1-base:checked {
     color: #a37fdf !important;
-    border-color: #a37fdf !important;
+    border-color: var(--major-color) !important;
 }
 
 .u-link.u-border-palette-1-base[class*="u-border-"] {
@@ -40586,7 +40586,7 @@ input.u-field-input.u-field-input.u-border-active-palette-1-base:checked {
 }
 
 .u-link.u-border-palette-1-base[class*="u-border-"]:hover {
-    border-color: #8f63d8 !important;
+    border-color: var(--major-color) !important;
 }
 
 .u-border-palette-2-dark-3,
@@ -49549,7 +49549,8 @@ li.active > a.u-button-style.u-text-grey-90,
 li.active > a.u-button-style.u-text-grey-90[class*="u-border-"],
 a.u-button-style.u-text-grey-90,
 a.u-button-style.u-text-grey-90[class*="u-border-"] {
-    color: #1a1a1a !important;
+    
+    color: #ffffff !important;
 }
 
 a.u-button-style.u-text-grey-90:hover,
@@ -49560,7 +49561,8 @@ a.u-button-style.u-button-style.u-text-grey-90:active,
 a.u-button-style.u-button-style.u-text-grey-90[class*="u-border-"]:active,
 a.u-button-style.u-button-style.u-text-grey-90.active,
 a.u-button-style.u-button-style.u-text-grey-90[class*="u-border-"].active {
-    color: #171717 !important;
+    
+    color: #ffffff !important;
 }
 
 a.u-button-style:hover > .u-text-hover-grey-90,
@@ -49586,7 +49588,8 @@ a.u-button-style.u-button-style.active > .u-text-active-grey-90[class*="u-border
 .u-text-hover-grey-90.u-carousel-control:hover,
 .u-popupmenu-items.u-text-hover-grey-90 .u-nav-link:hover,
 .u-popupmenu-items.u-popupmenu-items.u-text-active-grey-90 .u-nav-link.active {
-    color: #1a1a1a !important;
+    
+    color: #ffffff !important;
 }
 
 .u-text-grey-90 .u-svg-link,
@@ -49594,11 +49597,13 @@ a.u-button-style.u-button-style.active > .u-text-active-grey-90[class*="u-border
 .u-button-style:hover > .u-text-hover-grey-90 .u-svg-link,
 .u-button-style.u-button-style.active > .u-text-active-grey-90 .u-svg-link,
 .u-text-hover-grey-90:focus .u-svg-link {
-    fill: #1a1a1a;
+    
+    fill: #ffffff;
 }
 
 .u-link.u-text-grey-90:hover {
-    color: #171717 !important;
+    
+    color: #ffffff !important;
 }
 
 a.u-link.u-text-hover-grey-90:hover {
@@ -49995,6 +50000,7 @@ blockquote {
 }
 
 .u-footer {
+    background-color: var(--container-color-dark);
     background-image: none;
 }
 
@@ -50034,3 +50040,4 @@ blockquote {
         width: 340px;
     }
 }
+
