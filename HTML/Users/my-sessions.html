@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <title>My sessions</title>
 
-    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="../../STYLE/dashboard.css" media="screen" rel="stylesheet">
     <link href="../../STYLE/SHARED/general.css" media="screen" rel="stylesheet">
     <link href="../../STYLE/SHARED/user-pages.css" media="screen" rel="stylesheet" >
 </head>
@@ -14,9 +16,9 @@
 			<img class="header-content" src="../../RESOURCES/IMAGES/default-logo.png" alt="Logo" >
 		</a>
 		<div style="flex: 1 0 0;"></div>
-		<ul class="nav navbar-nav navbar-right">
+        <ul class="nav navbar-nav navbar-right">
 			<li>
-				<a role="button" href="../Visitors/signin-signup.html"><i class="glyphicon glyphicon-user"></i> Logout</a>
+				<a role="button" class="logout_section" href="../Visitors/signin-signup.html"><i class="glyphicon glyphicon-user"></i> Logout</a>
 			</li>
 		</ul>
 		<div class="header-profile">
@@ -36,9 +38,139 @@
                     <li><a href="my-contact.html"><i class="glyphicon glyphicon-briefcase"></i> My contacts</a></li>
                     <li><a href="my-profile.html"><i class="glyphicon glyphicon-briefcase"></i> My profile</a></li>
                 </ul>
-                <hr>
+                <hr>                
             </div>
-            <!-- Content -->
+            <div class="col-md-9">
+                <ul class="timeline">
+                    <li>
+                       <div class="timeline-time">
+                          <span class="date">today</span>
+                          <span class="time">9:00</span>
+                       </div>
+                       <div class="timeline-icon">
+                          <a href="*">&nbsp;</a>
+                       </div>
+                       <div class="timeline-body">
+                          <div class="timeline-header">
+                             <span class="userimage"><img src="../../RESOURCES/IMAGES/default_avatar.jpg" alt=""></span>
+                             <span class="username"><a href="*">Inviter: Charlie Chen</a> <small></small></span>
+                             <span class="pull-right text-muted">Created: 2024-02-04</span>
+                          </div>
+                          <div class="timeline-content">
+                             <p>
+                                Meeting notes: This is the first meeting we'll be having for our CSC309 project, the goal is to set the frames 
+                                of our website and discuss potential work needed to be done.
+                             </p>
+                          </div>
+                          <div class="timeline-likes">
+                             <div class="stats-right">
+                                <span class="stats-text">10 people invited</span>
+                             </div>
+                             <div class="stats">
+                                <span class="fa-stack fa-fw stats-icon">
+                                <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                                <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
+                                </span>
+                                <span class="stats-total">4</span>
+                             </div>
+                             
+                          </div>
+                          <div class="timeline-footer">
+                             <a href="*" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i>Agree to join</a>
+                             <button class="button-calendar"><span>Detail</span></button>
+                          </div>
+                        </div>
+                    </li>
+                    <li>
+                        
+                        <div class="timeline-time">
+                            <span class="date">7 February 2024</span>
+                            <span class="time">18:00</span>
+                        </div>
+                        <div class="timeline-icon">
+                            <a href="*">&nbsp;</a>
+                         </div>
+                        <div class="timeline-body">
+                        <div class="timeline-header">
+                           <span class="userimage"><img src="../../RESOURCES/IMAGES/default_avatar.jpg" alt=""></span>
+                           <span class="username"><a href="*">Inviter: Torres Yu</a> <small></small></span>
+                           <span class="pull-right text-muted">Created: 2024-02-05</span>
+                        </div>
+                        <div class="timeline-content">
+                           <p>
+                              Meeting notes: This is the second meeting we'll be having for our CSC309 project, the goal is decide the layouts and 
+                              art effects of our website pages, also setup code template.
+                           </p>
+                        </div>
+                        <div class="timeline-likes">
+                           <div class="stats-right">
+                              <span class="stats-text">8 people invited</span>
+                           </div>
+                           <div class="stats">
+                              <span class="fa-stack fa-fw stats-icon">
+                              <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                              <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
+                              </span>
+                              <span class="stats-total">3</span>
+                           </div>
+                        </div>
+                        <div class="timeline-footers">
+                           <a href="*"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i>Joined</a>
+                           <button class="button-calendar-joined"><span>Detail</span></button>
+                        </div>
+                     </div>
+                    
+                    </li>
+                    <li>
+                     
+                     <div class="timeline-time">
+                        <span class="date">9 February 2024</span>
+                        <span class="time">12:00</span>
+                     </div>
+                     <div class="timeline-icon">
+                        <a href="*">&nbsp;</a>
+                     </div>
+                     <div class="timeline-body">
+                        <div class="timeline-header">
+                           <span class="userimage"><img src="../../RESOURCES/IMAGES/default_avatar.jpg" alt=""></span>
+                           <span class="username"><a href="*">Inviter: Charlie Chen</a> <small></small></span>
+                           <span class="pull-right text-muted">Created: 2024-02-06</span>
+                        </div>
+                        <div class="timeline-content">
+                           <p>
+                              Meeting notes: This is the third meeting we'll be having for our CSC309 project, the goal is to finish coding 
+                              part for all pages, start linking each pages and unify styles.
+                           </p>
+                        </div>
+                        <div class="timeline-likes">
+                           <div class="stats-right">
+                              <span class="stats-text">4 people invited</span>
+                           </div>
+                           <div class="stats">
+                              <span class="fa-stack fa-fw stats-icon">
+                              <i class="fa fa-circle fa-stack-2x text-primary"></i>
+                              <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
+                              </span>
+                              <span class="stats-total">1</span>
+                           </div>
+                        </div>
+                        <div class="timeline-footer">
+                           <a href="*" class="m-r-15 text-inverse-lighter"><i class="fa fa-thumbs-up fa-fw fa-lg m-r-3"></i>Agree to join</a>
+                           <button class="button-calendar"><span>Detail</span></button>
+                        </div>
+                     </div>
+                    </li>
+                    <li>
+
+                       <div class="timeline-icon">
+                          <a href="*">&nbsp;</a>
+                       </div>
+                       <div class="timeline-body">
+                          <a href="*"><i class="glyphicon glyphicon-calendar"></i> Schedule new meeting </a>
+                       </div>
+                    </li>
+                 </ul>
+            </div>
         </div>
     </main>
 

@@ -185,3 +185,12 @@ form label {
 	margin: 196px auto 16px;
 	border: 4px solid var(--major-color-second);
 }
+
+.logout_section {
+	color: aliceblue;
+}
+
+.logout_section:hover {
+	color: var(--minor-color-second);
+}
+
