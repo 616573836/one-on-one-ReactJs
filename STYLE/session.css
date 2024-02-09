@@ -360,7 +360,8 @@ header button a{
 }
 
 .event-title,
-.event-content{
+.event-content,
+.event-sig-content{
     color: var(--text-color-light);
 }
 
@@ -371,6 +372,28 @@ header button a{
 
 .event-content{
     font-size: var(--font-regular);
+}
+
+.event-sig-content{
+    font-size: var(--h4-font-size);
+    font-weight: var(--font-bold);
+    background-color: var(--minor-color);
+    padding: var(--mb-0-75);
+    margin: var(--mb-0-5) 0;
+}
+
+.event-sig-content input[type="checkbox"] {
+    border-radius: 50%; /* Make the checkbox round */
+}
+
+.event-sig-content li {
+    list-style: none; /* Remove default list styling */
+    margin-bottom: var(--mb-0-5); /* Add some spacing between items */
+}
+
+.event-sig-content label {
+    display: inline-block;
+    margin-right: var(--mb-0-5);
 }
 
 .profile-container {
