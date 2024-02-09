@@ -31,7 +31,7 @@
 
 .welcome {
 	background: white;
-	width: 650px;
+	width: 700px;
 	height: 415px;
 	position: absolute;
 	top: 25%;
@@ -42,10 +42,10 @@
 .box {
 	position: absolute;
 	top: -10%;
-	left: 5%;
-	background: #FFC8DD;
+	left: 0%;
+	background: var(--minor-color);
 	opacity: .98;
-	width: 320px;
+	width: 380px;
 	height: 500px;
 	border-radius: 20px;
 	box-shadow: 2px 0 10px rgba(0, 0, 0, .3);
@@ -111,14 +111,14 @@ h1 {
 
 p {
 	font-family: 'PT Serif', sans-serif;
-	font-size: .7em;
+	font-size: 1em;
 	letter-spacing: 2px;
-	color: #5b7582;
+	color: var(--minor-color);
 	text-align: center;
 }
 
 span {
-	color: #A2D2FF;
+	color: var(--major-color);
 }
 
 .logo {
@@ -144,7 +144,7 @@ button {
 
 button:hover {
 	background: white;
-	color: #A2D2FF;
+	color: var(--major-color-heavier);
 	letter-spacing: 6px;
 	transition: letter-spacing .3s ease-out;
 }
@@ -163,7 +163,7 @@ button:hover {
 
 .subButton:hover {
 	background: white;
-	color: #A2D2FF;
+	color: var(--major-color-heavier);
 	letter-spacing: 6px;
 	transition: letter-spacing .3s ease-out;
 }
@@ -171,7 +171,7 @@ button:hover {
 .button {
 	margin-top: 3%;
 	background: white;
-	color: #A2D2FF;
+	color: var(--major-color-heavier);
 	border: 2px solid #A2D2FF;
 }
 
@@ -195,7 +195,7 @@ form {
 }
 
 .submitButton {
-	background: #FFC8DD;
+	background: var(--major-color-light);
 	color: #ffffff;
 	margin-top: 40px;
 	font-size: 15px;
@@ -205,11 +205,11 @@ form {
 
 .submitButton:hover {
 	color: #ffffff;
-	background: #FFC8DD;
+	background: var(--major-color-light);
 }
 
 .accountInput {
-	background: #FFC8DD;
+	background: var(--major-color-heavier);
 	width: 65%;
 	color: white;
 	border-bottom: 3px solid rgb(255, 255, 255);
@@ -222,7 +222,7 @@ form {
 
 .accountInput:focus {
 	color: white;
-	border-bottom: 2px solid #FF70A5;
+	border-bottom: 2px solid var(--major-color);
 }
 
 label {
@@ -243,10 +243,9 @@ label {
         top: 10%;
     }
     .box {
-        width: 60%;
+        width: 55%;
         height: auto; 
         top: 15%; 
-        /* transform: translateX(-50%); */
 		margin-left: 0px;
     }
 
