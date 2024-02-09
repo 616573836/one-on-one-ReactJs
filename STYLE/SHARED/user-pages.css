@@ -1,7 +1,7 @@
 @import "general.css";
 
 body{
-    margin-top:40px;
+    margin-top:0;
 }
 
 /* Navigation Bar */
@@ -112,6 +112,12 @@ body{
     color: #333333;
     background-color: transparent;
     border-color: rgba(0, 0, 0, 0.07);
+}
+
+.panel-body {
+	padding: 0;
+	padding-right: 10px;
+	padding-bottom: 10px;
 }
 
 form label {

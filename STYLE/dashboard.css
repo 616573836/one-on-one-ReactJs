@@ -1,0 +1,94 @@
+@import "SHARED/general.css";
+
+.button-delete{
+    width: 70px;
+    height: 35px;
+    position: relative;
+    cursor: pointer;
+    background: transparent;
+    border: var(--border-width-bold) solid var(--minor-color);
+    border-radius: var(--border-radius);
+    outline: none;
+    transition: 1s ease-in-out;
+}
+
+.button-delete svg{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    fill: none;
+    stroke: var(--border-color);
+    stroke-dasharray: 150 480;
+    stroke-dashoffset: 150;
+    transition: 1s ease-in-out;
+}
+
+.button-delete span{
+    color: var(--minor-color);
+    font-size: var(--normal-font-size);
+    font-weight: var(--font-regular);
+}
+
+.button-delete:hover{
+    transition: 1s ease-in-out;
+    background: var(--minor-color);
+    border: var(--border-width) solid var(--border-color);
+}
+
+.button-delete:hover svg{
+    stroke-dashoffset: -480;
+}
+
+.button-delete:hover span{
+    color: var(--text-color-light);
+}
+
+.button-submit{
+    width: 70px;
+    height: 35px;
+    position: relative;
+    cursor: pointer;
+    background: var(--major-color);
+    border: var(--major-color) solid var(--major-color);
+    border-radius: var(--border-radius);
+    outline: none;
+    transition: 1s ease-in-out;
+    color: aliceblue;
+}
+
+.button-submit svg{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    fill: none;
+    stroke: var(--major-color);
+    stroke-dasharray: 150 480;
+    stroke-dashoffset: 150;
+    transition: 1s ease-in-out;
+}
+
+.button-submit span{
+    color: aliceblue;
+    font-size: var(--normal-font-size);
+    font-weight: var(--font-regular);
+}
+
+.button-submit:hover{
+    transition: 1s ease-in-out;
+    background: aliceblue;
+    border:  var(--border-width) solid var(--major-color);
+}
+
+.button-submit:hover svg{
+    stroke-dashoffset: -480;
+}
+
+.button-submit:hover span{
+    color: var(--major-color);
+}
+
+.panel-body-bar {
+	padding: 15px;
+}
