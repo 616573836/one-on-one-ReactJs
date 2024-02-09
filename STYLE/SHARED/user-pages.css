@@ -2,8 +2,38 @@
 
 /* Navigation Bar */
 header{
-	background-color: var(--minor-color);
+	width: 100%;
+	height: var(--header-height);
+
+	display: flex;
+	flex-direction: row;
+	justify-content: left;
+	align-items: center;
+
+	background-color: var(--minor-color-second);
 	color: var(--text-color-light);
+
+	padding: 0 var(--mb-1);
+	margin-bottom: var(--mb-1);
+}
+
+.header-content{
+	height: calc(var(--header-height) - var(--mb-0-5));
+}
+
+.header-profile{
+	display: flex;
+	flex-direction: row;
+	justify-content: right;
+	align-items: center;
+}
+
+.header-profile img{
+	width: calc(var(--header-height) - var(--mb-0-5));
+	overflow: hidden;
+	border-radius: 50%;
+	object-fit: cover;
+	margin-left: var(--mb-0-75);
 }
 
 /* Main */

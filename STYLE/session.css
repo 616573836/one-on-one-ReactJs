@@ -1,5 +1,15 @@
 @import "SHARED/general.css";
 
+/* Header */
+header .button-norm-light{
+    font-weight: var(--font-bold);
+    font-size: var(--h2-font-size);
+}
+
+header .button-norm-light:hover{
+    color: var(--minor-color-second);
+}
+
 /* Member Panel */
 .member-panel{
     width: 10%;
@@ -94,18 +104,29 @@
     align-items: center;
 }
 
+.event-details select {
+    color: var(--text-color-light);
+}
+
 .event-details input {
-    padding: 5px;
-    background: transparent;
     border-bottom: var(--border-width) solid var(--text-color-light);
 }
 
-.event-details input::placeholder {
+.event-details textarea {
+    border: var(--border-width) solid var(--text-color-light);
+}
+
+.event-details input::placeholder,
+.event-details textarea::placeholder {
     color: var(--input-color-light);
 }
 
 .event-details input:focus{
     border-bottom: var(--border-width-bold) solid var(--major-color-heaveier);
+}
+
+.event-details textarea:focus{
+    border: var(--border-width-bold) solid var(--major-color-heaveier);
 }
 
 .event-details select {
