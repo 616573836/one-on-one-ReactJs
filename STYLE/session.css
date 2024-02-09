@@ -15,6 +15,13 @@ header button a{
     height: 100%;
 }
 
+/* Calendar Info Container */
+.calendar-info-container{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
 /* Member Panel */
 .member-panel{
     width: 10%;
@@ -73,12 +80,23 @@ header button a{
     margin-left: var(--mb-0-5);
 }
 
-/* Calendar Grid */
-.calendar{
-    margin: var(--mb-1);
+/* Main Panel */
+.main-panel{
+    display: flex;
+    width: 90%;
 }
 
-.calendar h1{
+/* Calendar Grid */
+.calendar-panel{
+    width: 70%;
+}
+
+.calendar-grid{
+    margin: var(--mb-1);
+
+}
+
+.calendar-grid h1{
     font-size: var(--big-font-size);
     font-weight: var(--font-bold);
 }
@@ -313,7 +331,7 @@ header button a{
 .event-info:hover{
     background-color: var(--major-color-second);
     transform: scale(1.01);
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    box-shadow: 1.5px 1.5px 3px rgba(0, 0, 0, 0.3);
     transition: all .3s ease;
 }
 
@@ -361,15 +379,20 @@ header button a{
 
 /* Responsive Design */
 @media screen and(max-width: 576px){
-
+    /* member panel, calendar 和 edit panel column摆放 */
+    /* member panel 横向陈列 */
 }
 
 
 @media screen and(max-width: 767px){
-
+    /* calendar 和 edit panel column摆放 */
 }
 
 
 @media screen and(max-width: 991px){
-
+    /* member panel 收缩，button字体缩小0 */
+    /* edit panel： header button收缩，字体收缩 */
+    .main-panel{
+        flex-direction: column;
+    }
 }
