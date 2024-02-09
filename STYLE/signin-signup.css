@@ -1,6 +1,6 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400|Lora);
+/* @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400|Lora);
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@1,300;1,500&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap'); */
 @import "SHARED/general.css";
 
 * {
@@ -77,7 +77,7 @@ h2 {
 }
 
 h1 {
-	font-family: 'Ubuntu', sans-serif;
+	font-family: 'PT Serif', sans-serif;
 	text-align: center;
 	margin-top: 95px;
 	text-transform: uppercase;
@@ -87,7 +87,7 @@ h1 {
 }
 
 .title {
-	font-family: 'Lobster', cursive;
+	font-family: 'PT Serif', cursive;
 	background-image: linear-gradient(to right top, #CDB4DB, #FFC8DD, #FFAFCC 15%, #BDE0FE, #A2D2FF);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
@@ -108,8 +108,9 @@ h1 {
 	font-size: 10px;
 }
 
+
 p {
-	font-family: 'Ubuntu', sans-serif;
+	font-family: 'PT Serif', sans-serif;
 	font-size: .7em;
 	letter-spacing: 2px;
 	color: #5b7582;
@@ -131,7 +132,7 @@ span {
 
 button {
 	padding: 9px;
-	font-family: 'Ubuntu', sans-serif;
+	font-family: 'PT Serif', sans-serif;
 	text-transform: uppercase;
 	letter-spacing: 3px;
 	font-size: 11px;
@@ -150,7 +151,7 @@ button:hover {
 
 .subButton {
 	padding: 9px;
-	font-family: 'Ubuntu', sans-serif;
+	font-family: 'PT Serif', sans-serif;
 	text-transform: uppercase;
 	letter-spacing: 3px;
 	font-size: 11px;
@@ -225,12 +226,16 @@ form {
 }
 
 label {
-	font-family: 'Ubuntu', sans-serif;
+	font-family: 'PT Serif', sans-serif;
 	color: #ffffff;
 	font-size: 0.8em;
 	letter-spacing: 1px;
 }
 
+footer {
+    background-color: white;
+    color: black; /* Optionally, set text color to black */
+}
 /*.checkbox {*/
 /*	display: inline;*/
 /*	white-space: nowrap;*/

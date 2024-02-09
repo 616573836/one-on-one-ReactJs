@@ -232,3 +232,16 @@ header .button-norm-light:hover{
     background-color: var(--major-color-second);
     transform: translateX(-50%);
 }
+
+.calendar div{
+    color: var(--text-color);
+    font-size: var(--normal-font-size);
+}
+
+.calendar .today {
+    background-color: var(--highlight-today-color);
+}
+
+.calendar-occupied {
+    background-color: var(--major-color);
+}

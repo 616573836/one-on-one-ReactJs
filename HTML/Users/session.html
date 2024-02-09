@@ -40,124 +40,189 @@
                     <i class="fas fa-times-circle text-orange-500 ml-auto"></i>
                 </button>
 
-                <button class="button-norm-light"> 
-                    <img src="../../RESOURCES/IMAGES/WechatIMG433.jpeg" alt="Severus">
-                    Severus
-                    <i class="fas fa-check-circle text-white-500 ml-auto"></i>
-                </button>
+            <button class="button-norm-light">
+                <img src="../../RESOURCES/IMAGES/WechatIMG433.jpeg" alt="Severus">
+                Severus
+                <i class="fas fa-check-circle text-white-500 ml-auto"></i>
+            </button>
 
-                <button class="button-norm-light">
-                    <img src="../../RESOURCES/IMAGES/WechatIMG430.jpeg" alt="Torres">
-                    Torres
-                    <i class="fas fa-times-circle text-orange-500 ml-auto"></i>
-                </button>
+            <button class="button-norm-light">
+                <img src="../../RESOURCES/IMAGES/WechatIMG430.jpeg" alt="Torres">
+                Torres
+                <i class="fas fa-times-circle text-orange-500 ml-auto"></i>
+            </button>
 
-                <button class="button-norm-light">
-                    <img src="../../RESOURCES/IMAGES/IMG_3917.jpg" alt="Xingrun">
-                    Xingrun
-                    <i class="fas fa-check-circle text-white-500 ml-auto"></i>
-                </button>
+            <button class="button-norm-light">
+                <img src="../../RESOURCES/IMAGES/IMG_3917.jpg" alt="Xingrun">
+                Xingrun
+                <i class="fas fa-check-circle text-white-500 ml-auto"></i>
+            </button>
 
-                <button class="button-norm-light">
-                    <img src="../../RESOURCES/IMAGES/WechatIMG4291.png" alt="Charlie">
-                    Chuyue
-                    <i class="fas fa-times-circle text-orange-500 ml-auto"></i>
-                </button>
-                <button class="button-norm-light">+</button>
-            </div>
+            <button class="button-norm-light">
+                <img src="../../RESOURCES/IMAGES/WechatIMG4291.png" alt="Charlie">
+                Chuyue
+                <i class="fas fa-times-circle text-orange-500 ml-auto"></i>
+            </button>
+            <button class="button-norm-light">+</button>
+        </div>
 
-            <!-- Main Content: Calendar -->
-            <div class="flex-1 p-4">
-                <div class="flex justify-between items-center mb-4">
-                    <div class="text-2xl">February 2024</div>
-                </div>
-            </div>
-
-            <!-- Calendar Grid -->
+        <!-- Calendar Grid -->
+        <div>
             <div>
-                <div>
-                    <div class="fc-header-toolbar">
-                        <div class="fc-toolbar-chunk">
-                            <div class="fc-button-group">
-                                <button aria-pressed="false" class="fc-prev-button fc-button fc-button-primary" title="Previous week"
-                                        type="button">
-                                    <span class="fc-icon fc-icon-chevron-left" role="img"></span>
-                                </button>
-                                <button aria-pressed="false" class="fc-next-button fc-button fc-button-primary" title="Next week"
-                                        type="button">
-                                    <span class="fc-icon fc-icon-chevron-right" role="img"></span>
-                                </button>
-                            </div>
-                            <button aria-pressed="false" class="fc-today-button fc-button fc-button-primary" disabled="" title="This week"
-                                    type="button">today
+                <div class="fc-header-toolbar">
+                    <div class="fc-toolbar-chunk">
+                        <div class="fc-button-group">
+                            <button aria-pressed="false" class="fc-prev-button fc-button fc-button-primary"
+                                    title="Previous week"
+                                    type="button">
+                                <span class="fc-icon fc-icon-chevron-left" role="img"></span>
+                            </button>
+                            <button aria-pressed="false" class="fc-next-button fc-button fc-button-primary"
+                                    title="Next week"
+                                    type="button">
+                                <span class="fc-icon fc-icon-chevron-right" role="img"></span>
                             </button>
                         </div>
-                        <div class="fc-toolbar-chunk"><h2>Feb 4 – 10, 2024</h2></div>
-                        <div class="fc-toolbar-chunk">
-                            <div>
-                                <button class="button-norm" aria-pressed="false" title="month view" type="button">month</button>
-                                <button class="button-norm" aria-pressed="true" title="week view" type="button">week</button>
-                                <button class="button-norm" aria-pressed="false" title="day view" type="button">day</button>
-                                <button class="button-norm" aria-pressed="false" title="list view" type="button">list</button>
-                            </div>
+                        <button aria-pressed="false" class="fc-today-button fc-button fc-button-primary" disabled=""
+                                title="This week"
+                                type="button">today
+                        </button>
+                    </div>
+                    <div class="fc-toolbar-chunk">
+                        <div>
+                            <button class="button-norm" aria-pressed="false" title="month view" type="button">month
+                            </button>
+                            <button class="button-norm" aria-pressed="true" title="week view" type="button">week
+                            </button>
+                            <button class="button-norm" aria-pressed="false" title="day view" type="button">day</button>
+                            <button class="button-norm" aria-pressed="false" title="list view" type="button">list
+                            </button>
                         </div>
                     </div>
-                    <div class="overflow-y-auto" style="height: 755px;">
-                        <!-- Calendar Container -->
-                        <div class="grid grid-cols-8 p-4">
+                </div>
+                <div class="overflow-y-auto calendar" style="height: 755px;">
+                    <!-- Calendar Container -->
+                    <div class="grid grid-cols-8 p-4">
 
-                            <!-- Sidebar for hours 12 AM to 12 PM -->
-                            <div class="col-span-1 flex flex-col">
-                                <!-- Empty cell for the corner -->
-                                <div class="h-8 border-1 border-gray-400"></div>
-                                <!-- Repeat for each hour -->
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">12 AM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">1 AM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">2 AM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">3 AM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">4 AM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">5 AM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">6 AM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">7 AM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">8 AM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">9 AM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">10 AM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">11 AM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">12 PM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">1 PM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">2 PM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">3 PM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">4 PM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">5 PM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">6 PM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">7 PM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">8 PM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">9 PM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">10 PM</div>
-                                <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">11 PM</div>
+                        <!-- Sidebar for hours 12 AM to 12 PM -->
+                        <div class="col-span-1 flex flex-col">
+                            <div class="h-8 border-l border-r border-t border-gray-400 flex items-center justify-center">
+                                Feb 4 - 10
                             </div>
+                            <div class="h-8 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                2024
+                            </div>
+                            <!-- Repeat for each hour -->
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                12 AM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                1 AM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                2 AM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                3 AM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                4 AM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                5 AM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                6 AM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                7 AM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                8 AM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                9 AM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                10 AM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                11 AM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                12 PM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                1 PM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                2 PM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                3 PM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                4 PM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                5 PM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                6 PM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                7 PM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                8 PM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                9 PM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                10 PM
+                            </div>
+                            <div class="h-16 border-b border-l border-r border-gray-400 flex items-center justify-center">
+                                11 PM
+                            </div>
+                        </div>
 
-                            <!-- Calendar Days and Time Slots -->
-                            <div class="col-span-7">
-                                <!-- Days Row -->
-                                <div class="grid grid-cols-7 divide-x divide-gray-400">
-                                    <div class="h-8 border-b border-t border-gray-400 flex items-center justify-center">Sun</div>
-                                    <div class="h-8 border-b border-t border-gray-400 flex items-center justify-center">Mon</div>
-                                    <div class="h-8 border-b border-t border-gray-400 flex items-center justify-center">Tue</div>
-                                    <div class="h-8 border-b border-t border-gray-400 flex items-center justify-center">Wed</div>
-                                    <div class="h-8 border-b border-t border-gray-400 flex items-center justify-center">Thu</div>
-                                    <div class="h-8 border-b border-t border-gray-400 flex items-center justify-center">Fri</div>
-                                    <div class="h-8 border-b border-t border-gray-400 flex items-center justify-center">Sat</div>
+                        <!-- Calendar Days and Time Slots -->
+                        <div class="col-span-7">
+                            <!-- Days Row -->
+                            <div class="grid grid-cols-7 divide-x divide-gray-400">
+                                <div class="h-16 border-b border-t border-gray-400 flex items-center justify-center today">
+                                    Sun
                                 </div>
-                                <!-- Time Slots Grid -->
-                                <div class="grid grid-cols-7 divide-x divide-gray-400">
+                                <div class="h-16 border-b border-t border-gray-400 flex items-center justify-center">
+                                    Mon
+                                </div>
+                                <div class="h-16 border-b border-t border-gray-400 flex items-center justify-center">
+                                    Tue
+                                </div>
+                                <div class="h-16 border-b border-t border-gray-400 flex items-center justify-center">
+                                    Wed
+                                </div>
+                                <div class="h-16 border-b border-t border-gray-400 flex items-center justify-center">
+                                    Thu
+                                </div>
+                                <div class="h-16 border-b border-t border-gray-400 flex items-center justify-center">
+                                    Fri
+                                </div>
+                                <div class="h-16 border-b border-t border-gray-400 flex items-center justify-center">
+                                    Sat
+                                </div>
+                            </div>
+                            <!-- Time Slots Grid -->
+                            <div class="grid grid-cols-7 divide-x divide-gray-400">
                                 <!-- Repeat for each hour in each day column -->
                                 <!-- Each column represents a day, each div within a column represents a time slot -->
-                                <div class="flex flex-col">
+                                <div class="flex flex-col today">
                                     <!-- Repeat for each time slot in the day -->
                                     <div class="h-8 border-b border-gray-400"></div>
-                                    <div class="h-8 border-b border-gray-400 bg-blue-100">12:30am - 1:30am</div>
-                                    <div class="h-8 border-b border-gray-400 bg-blue-100">Event</div>
+                                    <div class="h-16 border-b border-gray-400 calendar-occupied truncate">Event event
+                                        event event event
+                                    </div>
                                     <div class="h-8 border-b border-gray-400"></div>
                                     <div class="h-8 border-b border-gray-400"></div>
                                     <div class="h-8 border-b border-gray-400"></div>
@@ -209,8 +274,8 @@
                                 <div class="flex flex-col">
                                     <!-- Repeat for each time slot in the day -->
                                     <div class="h-8 border-b border-gray-400"></div>
-                                    <div class="h-8 border-b border-gray-400 bg-blue-100">12:30am - 1:30am</div>
-                                    <div class="h-8 border-b border-gray-400 bg-blue-100">Event</div>
+                                    <div class="h-8 border-b border-gray-400"></div>
+                                    <div class="h-8 border-b border-gray-400"></div>
                                     <div class="h-8 border-b border-gray-400"></div>
                                     <div class="h-8 border-b border-gray-400"></div>
                                     <div class="h-8 border-b border-gray-400"></div>
@@ -261,8 +326,8 @@
                                 <div class="flex flex-col">
                                     <!-- Repeat for each time slot in the day -->
                                     <div class="h-8 border-b border-gray-400"></div>
-                                    <div class="h-8 border-b border-gray-400 bg-blue-100">12:30am - 1:30am</div>
-                                    <div class="h-8 border-b border-gray-400 bg-blue-100">Event</div>
+                                    <div class="h-8 border-b border-gray-400"></div>
+                                    <div class="h-8 border-b border-gray-400"></div>
                                     <div class="h-8 border-b border-gray-400"></div>
                                     <div class="h-8 border-b border-gray-400"></div>
                                     <div class="h-8 border-b border-gray-400"></div>
@@ -313,8 +378,8 @@
                                 <div class="flex flex-col">
                                     <!-- Repeat for each time slot in the day -->
                                     <div class="h-8 border-b border-gray-400"></div>
-                                    <div class="h-8 border-b border-gray-400 bg-blue-100">12:30am - 1:30am</div>
-                                    <div class="h-8 border-b border-gray-400 bg-blue-100">Event</div>
+                                    <div class="h-8 border-b border-gray-400"></div>
+                                    <div class="h-8 border-b border-gray-400"></div>
                                     <div class="h-8 border-b border-gray-400"></div>
                                     <div class="h-8 border-b border-gray-400"></div>
                                     <div class="h-8 border-b border-gray-400"></div>
@@ -365,8 +430,8 @@
                                 <div class="flex flex-col">
                                     <!-- Repeat for each time slot in the day -->
                                     <div class="h-8 border-b border-gray-400"></div>
-                                    <div class="h-8 border-b border-gray-400 bg-blue-100">12:30am - 1:30am</div>
-                                    <div class="h-8 border-b border-gray-400 bg-blue-100">Event</div>
+                                    <div class="h-8 border-b border-gray-400"></div>
+                                    <div class="h-8 border-b border-gray-400"></div>
                                     <div class="h-8 border-b border-gray-400"></div>
                                     <div class="h-8 border-b border-gray-400"></div>
                                     <div class="h-8 border-b border-gray-400"></div>
@@ -417,8 +482,8 @@
                                 <div class="flex flex-col">
                                     <!-- Repeat for each time slot in the day -->
                                     <div class="h-8 border-b border-gray-400"></div>
-                                    <div class="h-8 border-b border-gray-400 bg-blue-100">12:30am - 1:30am</div>
-                                    <div class="h-8 border-b border-gray-400 bg-blue-100">Event</div>
+                                    <div class="h-8 border-b border-gray-400"></div>
+                                    <div class="h-8 border-b border-gray-400"></div>
                                     <div class="h-8 border-b border-gray-400"></div>
                                     <div class="h-8 border-b border-gray-400"></div>
                                     <div class="h-8 border-b border-gray-400"></div>
@@ -527,8 +592,8 @@
             <div class="flex mt-4">
                 <button class="button-sig">
                     <svg width="180px" height="60px" viewBox="0 0 180 60" class="border">
-                        <polyline points="179,1 179,59 1,59 1,1 179,1" class="bg-line" />
-                        <polyline points="179,1 179,59 1,59 1,1 179,1" class="hl-line" />
+                        <polyline points="179,1 179,59 1,59 1,1 179,1" class="bg-line"/>
+                        <polyline points="179,1 179,59 1,59 1,1 179,1" class="hl-line"/>
                     </svg>
                     <span>Submit</span>
                 </button>
@@ -616,56 +681,56 @@
             </div>
         </div>
 
-        <!-- Calendar Timeline -->
-        <div class="timeline-container">
-            <h1>Timeline</h1>
-            <div class="timeline">
-                <div class="event">
-                    <div class="avatar"></div>
-                    <div class="circle"></div>
-                    <div class="event-details">
-                        <div class="user-info">
-                            <span class="username">Torres Yu</span>
-                            <span class="time">2 hours ago</span>
-                        </div>
-                        <div class="event-block">
-                            Remind Charlie Zhang
-                        </div>
+    <!-- Calendar Timeline -->
+    <div class="timeline-container">
+        <h1>Timeline</h1>
+        <div class="timeline">
+            <div class="event">
+                <div class="avatar"></div>
+                <div class="circle"></div>
+                <div class="event-details">
+                    <div class="user-info">
+                        <span class="username">Torres Yu</span>
+                        <span class="time">2 hours ago</span>
+                    </div>
+                    <div class="event-block">
+                        Remind Charlie Zhang
                     </div>
                 </div>
-                <div class="event">
-                    <div class="avatar"></div>
-                    <div class="circle"></div>
-                    <div class="event-details">
-                        <div class="user-info">
-                            <span class="username">Serverus Chen</span>
-                            <span class="time">1 hour 30 min ago</span>
-                        </div>
-                        <div class="event-block">
-                            Join the calendar
-                        </div>
+            </div>
+            <div class="event">
+                <div class="avatar"></div>
+                <div class="circle"></div>
+                <div class="event-details">
+                    <div class="user-info">
+                        <span class="username">Serverus Chen</span>
+                        <span class="time">1 hour 30 min ago</span>
+                    </div>
+                    <div class="event-block">
+                        Join the calendar
                     </div>
                 </div>
-                <div class="event">
-                    <div class="avatar"></div>
-                    <div class="circle"></div>
-                    <div class="event-details">
-                        <div class="user-info">
-                            <span class="username">Xingrun Jiao</span>
-                            <span class="time">1 hour ago</span>
-                        </div>
-                        <div class="event-block">
-                            Join the calendar
-                        </div>
+            </div>
+            <div class="event">
+                <div class="avatar"></div>
+                <div class="circle"></div>
+                <div class="event-details">
+                    <div class="user-info">
+                        <span class="username">Xingrun Jiao</span>
+                        <span class="time">1 hour ago</span>
+                    </div>
+                    <div class="event-block">
+                        Join the calendar
                     </div>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+</main>
 
-    <!-- Footer -->
-    <footer>
+<!-- Footer -->
+<footer>
 
-    </footer>
+</footer>
 </body>
 </html>
