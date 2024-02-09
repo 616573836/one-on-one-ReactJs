@@ -1,8 +1,8 @@
 @import "SHARED/general.css";
 
 .u-section-1 {
-    background-image: url("../RESOURCES/IMAGES/fgfgfg5t.jpg");
-    background-position: 50% 50%;
+    background-image: url("../RESOURCES/IMAGES/fgfgfg5t.gif");
+    background-position: 33.19% 50%;
     min-height: 727px;
 }
 
@@ -150,8 +150,8 @@
 
 .u-section-1 .u-image-1 {
     min-height: 727px;
-    background-image: url("../RESOURCES/IMAGES/ad-min.jpg");
-    background-position: 33.19% 50%;
+    background-image: url("../RESOURCES/IMAGES/ad-min.gif");
+    background-position: right center;
 }
 
 .u-section-1 .u-container-layout-6 {
@@ -743,7 +743,7 @@
 
 .u-section-4 .u-text-3 {
     line-height: 2.2;
-    font-family: 'PT Serif';
+    font-family: var(--body-font);
     font-style: italic;
     margin: 32px 0 0;
 }
@@ -789,7 +789,7 @@
 
 .u-section-4 .u-text-5 {
     line-height: 2.2;
-    font-family: 'PT Serif';
+    font-family: var(--body-font);
     font-style: italic;
     margin: 32px 0 0;
 }
@@ -836,7 +836,7 @@
 
 .u-section-4 .u-text-7 {
     line-height: 2.2;
-    font-family: 'PT Serif';
+    font-family: var(--body-font);
     font-style: italic;
     margin: 32px 0 0;
 }
@@ -844,7 +844,7 @@
 .u-section-4 .u-text-8 {
     font-size: 1rem;
     letter-spacing: 0;
-    font-family: 'PT Serif';
+    font-family: var(--body-font);
     font-style: italic;
     text-align: left;
     margin: 32px auto 60px;
@@ -852,7 +852,7 @@
 
 .u-section-4 .u-btn-1 {
     border-style: solid;
-    font-family: 'PT Serif';
+    font-family: var(--body-font);
     font-style: italic;
     padding: 0;
 }

@@ -41,14 +41,14 @@ header{
 
 /* Footer */
 footer{
-	height: var(--header-height);
+	height: calc(var(--header-height) * 2);
 	background-color: var(--container-color-dark);
 	color: var(--text-color-light);
 	text-align: center;
 	padding: var(--mb-1);
-	bottom: 0;
+	position: absolute;
+	bottom: calc(var(--header-height) * -2 - var(--mb-2));
 	width: 100%;
-	box-sizing: border-box;
 }
 
 /* Main */
