@@ -148,10 +148,7 @@ footer{
 }
 
 .panel-body {
-	padding: 0;
-	padding-top: 10px;
-	padding-right: 10px;
-	padding-bottom: 10px;
+	padding: 10px 10px 10px 0;
 }
 
 form label {
@@ -192,10 +189,10 @@ form label {
 }
 
 .logout_section {
-	color: aliceblue;
+	color: var(--text-color-light);
 }
 
 .logout_section:hover {
-	color: var(--minor-color-second);
+	color: var(--container-color-dark);
 }
 

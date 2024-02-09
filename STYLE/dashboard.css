@@ -91,7 +91,7 @@
 
 .button-calendar {
     border-radius: 4px;
-    background-color: #5ca1e1;
+    background-color: var(--minor-color);
     border: none;
     color: #fff;
     text-align: center;
@@ -131,7 +131,7 @@
 
 .button-calendar-joined {
     border-radius: 4px;
-    background-color: #5ca1e1;
+    background-color: var(--major-color);
     border: none;
     color: #fff;
     text-align: center;
@@ -175,11 +175,10 @@
 
 .timeline {
     list-style-type: none;
-    margin: 0;
     padding: 0;
     position: relative;
     width: 1000px;
-    margin-right: 800px;
+    margin: 0 800px 0 0;
 }
 
 .timeline:before {
@@ -188,7 +187,7 @@
     top: 5px;
     bottom: 5px;
     width: 5px;
-    background: #2d353c;
+    background: var(--major-color);
     left: 20%;
     margin-left: -2.5px
 }
@@ -221,7 +220,7 @@
 .timeline .timeline-time .time {
     line-height: 24px;
     font-size: 20px;
-    color: #242a30
+    color: var(--major-color);
 }
 
 .timeline .timeline-icon {
@@ -242,7 +241,7 @@
     line-height: 10px;
     color: #fff;
     font-size: 14px;
-    border: 5px solid #2d353c;
+    border: 5px solid var(--major-color);
     transition: border-color .2s linear
 }
 
@@ -297,7 +296,7 @@
 
 .timeline-header .username,
 .timeline-header .username a {
-    color: #2d353c
+    color: var(--major-color)
 }
 
 .timeline img {
