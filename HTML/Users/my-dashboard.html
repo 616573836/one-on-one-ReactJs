@@ -8,17 +8,24 @@
     <link href="https://netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="../../STYLE/SHARED/general.css" media="screen" rel="stylesheet">
     <link href="../../STYLE/SHARED/user-pages.css" media="screen" rel="stylesheet" >
+    <link href="../../STYLE/dashboard.css" media="screen" rel="stylesheet" >
+    
 <body>
-    <header>
-        <a href="../Visitors/index.html">
-            <img class="header-content" src="../../RESOURCES/IMAGES/default-logo.png" alt="Logo" >
-        </a>
-        <div style="flex: 1 0 0;"></div>
-        <div class="header-profile">
-            <span>Khai Truong</span>
-            <img class="header-content" src="../../RESOURCES/IMAGES/professor.jpeg" alt="user" href="#"/>
-        </div>
-    </header>
+	<header>
+		<a href="../Visitors/index.html">
+			<img class="header-content" src="../../RESOURCES/IMAGES/default-logo.png" alt="Logo" >
+		</a>
+		<div style="flex: 1 0 0;"></div>
+		<ul class="nav navbar-nav navbar-right">
+			<li>
+				<a role="button" href="../Visitors/signin-signup.html"><i class="glyphicon glyphicon-user"></i> Logout</a>
+			</li>
+		</ul>
+		<div class="header-profile">
+			<span>Khai Truong</span>
+			<img class="header-content" src="../../RESOURCES/IMAGES/professor.jpeg" alt="user" href="#"/>
+		</div>
+	</header>
 
     <main class="container">
         <div class="row">
@@ -43,23 +50,23 @@
                         <hr>
                         <div class="panel panel-default">
                             <div class="panel-heading"><h4>Processing Status</h4></div>
-                            <div class="panel-body">
+                            <div class="panel-body-bar">
                                 <small>Completed</small>
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100" style="width: 72%">
-                                        <span class="sr-only">72% Complete</span>
+                                        <p>72%</p>
                                     </div>
                                 </div>
                                 <small>Scheduled</small>
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                        <span class="sr-only">40% Complete</span>
+                                    <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 18%">
+                                        <p">18%</p>
                                     </div>
                                 </div>
                                 <small>To be decided</small>
                                 <div class="progress">
                                     <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 10%">
-                                        <span class="sr-only">10% Complete</span>
+                                        <p">10%</p>
                                     </div>
                                 </div>
                             </div>
@@ -75,11 +82,11 @@
                         </p>
                         <hr>
                         <div class="btn-group btn-group-justified">
-                            <a href="#" class="btn btn-info col-sm-3">
+                            <a href="session.html" class="btn btn-info col-sm-3">
                                 <i class="glyphicon glyphicon-plus"></i><br>
                                 Create
                             </a>
-                            <a href="#" class="btn btn-info col-sm-3">
+                            <a href="session.html" class="btn btn-info col-sm-3">
                                 <i class="glyphicon glyphicon-minus"></i><br>
                                 Remove
                             </a>

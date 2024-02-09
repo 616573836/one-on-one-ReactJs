@@ -7,6 +7,7 @@
 	<link href="https://netdna.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 	<link href="../../STYLE/SHARED/general.css" media="screen" rel="stylesheet">
 	<link href="../../STYLE/SHARED/user-pages.css" media="screen" rel="stylesheet" >
+	<link href="../../STYLE/dashboard.css" media="screen" rel="stylesheet" >
 	
 </head>
 <body>
@@ -15,6 +16,11 @@
 			<img class="header-content" src="../../RESOURCES/IMAGES/default-logo.png" alt="Logo" >
 		</a>
 		<div style="flex: 1 0 0;"></div>
+		<ul class="nav navbar-nav navbar-right">
+			<li>
+				<a role="button" href="../Visitors/signin-signup.html"><i class="glyphicon glyphicon-user"></i> Logout</a>
+			</li>
+		</ul>
 		<div class="header-profile">
 			<span>Khai Truong</span>
 			<img class="header-content" src="../../RESOURCES/IMAGES/professor.jpeg" alt="user" href="#"/>
@@ -41,8 +47,7 @@
 						<div class="panel-body text-center">
 							<img src="../../RESOURCES/IMAGES/default_avatar.jpg" class="img-circle profile-avatar" alt="User avatar">
 							<div class="col text-center">
-								<input type="file" name="file" id="file" class="btn_class" />
-								<label for="file">Upload new image</label>
+								<button class="button-norm" aria-pressed="false" title="upload" type="button">upload image</button>
 							</div>
 						</div>
 					</div>
@@ -98,8 +103,22 @@
 							</div>
 							<div class="form-group">
 								<div class="col-sm-10 col-sm-offset-2">
-									<button type="submit" class="btn btn-primary">Submit</button>
-									<button type="reset" class="btn btn-default">Cancel</button>
+									<button class="button-submit">
+										<svg width="70px" height="35px" viewBox="0 0 70 35" class="border">
+											<polyline points="70,0 70,35 0,35 0,0 70,0" class="bg-line" />
+											<polyline points="69,1 69,34 1,34 1,1 69,1" class="hl-line" />
+										</svg>
+										<span>Submit</span>
+									</button>
+									<button class="button-delete">
+										
+											<svg width="70px" height="35px" viewBox="0 0 70 35" class="border">
+												<polyline points="70,0 70,35 0,35 0,0 70,0" class="bg-line" />
+												<polyline points="69,1 69,34 1,34 1,1 69,1" class="hl-line" />
+											</svg>
+											<a href="../Users/my-dashboard.html">
+											<span>Delete</span></a>
+									</button>
 								</div>
 							</div>
 						</div>

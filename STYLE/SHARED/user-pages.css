@@ -1,5 +1,7 @@
 @import "general.css";
-
+body{
+    margin-top:0;
+}
 /* Navigation Bar */
 header{
 	width: 100%;
@@ -26,6 +28,7 @@ header{
 	flex-direction: row;
 	justify-content: right;
 	align-items: center;
+	margin-left: var(--mb-2);
 }
 
 .header-profile img{
@@ -137,6 +140,13 @@ header{
     color: #333333;
     background-color: transparent;
     border-color: rgba(0, 0, 0, 0.07);
+}
+
+.panel-body {
+	padding: 0;
+	padding-top: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
 }
 
 form label {
