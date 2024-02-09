@@ -503,7 +503,7 @@ span.fr-img-caption.fr-view.fr-dii.fr-fir {
 
 /*! normalize.css v4.1.1 | MIT License | github.com/necolas/normalize.css */
 html {
-    font-family: sans-serif;
+    font-family: 'PT Serif' sans-serif;
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%;
 }
@@ -569,6 +569,7 @@ strong {
 }
 
 dfn {
+    font-family: 'PT Serif';
     font-style: italic;
 }
 
@@ -22675,71 +22676,71 @@ p {
 }
 
 .u-font-arial.u-custom-font {
-    font-family: Arial, sans-serif !important;
+    font-family: 'PT Serif', sans-serif !important;
 }
 
 .u-font-courier-new.u-custom-font {
-    font-family: 'Courier New', monospace !important;
+    font-family: 'PT Serif', monospace !important;
 }
 
 .u-font-georgia.u-custom-font {
-    font-family: Georgia, serif !important;
+    font-family: 'PT Serif', serif !important;
 }
 
 .u-font-roboto.u-custom-font {
-    font-family: Roboto, sans-serif !important;
+    font-family: 'PT Serif', sans-serif !important;
 }
 
 .u-font-open-sans.u-custom-font {
-    font-family: 'Open Sans', sans-serif !important;
+    font-family: 'PT Serif', sans-serif !important;
 }
 
 .u-font-lato.u-custom-font {
-    font-family: Lato, sans-serif !important;
+    font-family: 'PT Serif', sans-serif !important;
 }
 
 .u-font-montserrat.u-custom-font {
-    font-family: Montserrat, sans-serif !important;
+    font-family: 'PT Serif', sans-serif !important;
 }
 
 .u-font-roboto-condensed.u-custom-font {
-    font-family: 'Roboto Condensed', sans-serif !important;
+    font-family: 'PT Serif', sans-serif !important;
 }
 
 .u-font-oswald.u-custom-font {
-    font-family: Oswald, sans-serif !important;
+    font-family: 'PT Serif', sans-serif !important;
 }
 
 .u-font-raleway.u-custom-font {
-    font-family: Raleway, sans-serif !important;
+    font-family: 'PT Serif', sans-serif !important;
 }
 
 .u-font-pt-sans.u-custom-font {
-    font-family: 'PT Sans', sans-serif !important;
+    font-family: 'PT Serif', sans-serif !important;
 }
 
 .u-font-ubuntu.u-custom-font {
-    font-family: Ubuntu, sans-serif !important;
+    font-family: 'PT Serif', sans-serif !important;
 }
 
 .u-font-titillium-web.u-custom-font {
-    font-family: 'Titillium Web', sans-serif !important;
+    font-family: 'PT Serif', sans-serif !important;
 }
 
 .u-font-merriweather.u-custom-font {
-    font-family: Merriweather, serif !important;
+    font-family: 'PT Serif', serif !important;
 }
 
 .u-font-roboto-slab.u-custom-font {
-    font-family: 'Roboto Slab', serif !important;
+    font-family: 'PT Serif', serif !important;
 }
 
 .u-font-playfair-display.u-custom-font {
-    font-family: 'Playfair Display', serif !important;
+    font-family: 'PT Serif', serif !important;
 }
 
 .u-font-lobster.u-custom-font {
-    font-family: Lobster, display !important;
+    font-family: 'PT Serif', display !important;
 }
 
 .u-rectangle {
@@ -27703,7 +27704,7 @@ section.u-dialog-block:not(.u-dialog-open) {
 
 .qs-datepicker-container {
     font-size: 1rem;
-    font-family: sans-serif;
+    font-family: 'PT Serif', sans-serif;
     color: #000;
     position: absolute;
     width: 15.625em;
@@ -31529,7 +31530,7 @@ a.u-button-style.u-border-20 {
 
 /*begin-variables font-family*/
 .u-body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'PT Serif', sans-serif;
 }
 
 h1,
@@ -31538,7 +31539,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: Raleway, sans-serif;
+    font-family: 'PT Serif', sans-serif;
 }
 
 /*end-variables font-family*/
@@ -31563,11 +31564,11 @@ h6 {
 /*end-variables color*/
 /*begin-variables font*/
 .u-custom-font.u-text-font {
-    font-family: 'Open Sans', sans-serif !important;
+    font-family: 'PT Serif', sans-serif !important;
 }
 
 .u-custom-font.u-heading-font {
-    font-family: Raleway, sans-serif !important;
+    font-family: 'PT Serif', sans-serif !important;
 }
 
 /*end-variables font*/
@@ -49711,6 +49712,7 @@ p:not(.u-text-variant) {
 }
 
 blockquote {
+    font-family: 'PT Serif';
     font-style: italic;
     padding-left: 20px;
     border-width: 4px;

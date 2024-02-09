@@ -1,8 +1,52 @@
 @import "SHARED/general.css";
 
+/* Header */
+header .button-norm-light{
+    font-weight: var(--font-bold);
+    font-size: var(--h2-font-size);
+}
+
+header .button-norm-light:hover{
+    color: var(--minor-color-second);
+}
+
+/* Member Panel */
 .member-panel{
+    width: 10%;
+    padding: var(--mb-0-5);
+    margin: var(--mb-0-25);
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
     background-color: var(--major-color);
     color: var(--text-color-light);
+}
+
+.member-panel h1{
+    color: inherit;
+    font-size: var(--h1-font-size);
+}
+
+.member-panel button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: var(--mb-1);
+    margin-top: var(--mb-1);
+    width: 95%;
+}
+
+.member-panel button img{
+    overflow: hidden;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    object-fit: cover;
+    margin-right: var(--mb-0-5);
 }
 
 /* Calendar Grid */
@@ -27,6 +71,10 @@
 
 /* Edit Panel */
 .edit-panel{
+    width: 25%;
+    padding: var(--mb-0-5);
+    margin: var(--mb-0-25);
+
     background-color: var(--major-color);
     color: var(--text-color-light);
 }
@@ -35,7 +83,11 @@
     color: var(--text-color-light);
 }
 
-.header {
+.edit-panel h1{
+    font-size: var(--h1-font-size);
+}
+
+.event-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -49,18 +101,42 @@
 
 .event-details .row {
     padding: 8px 0;
+    align-items: center;
+}
+
+.event-details select {
+    color: var(--text-color-light);
 }
 
 .event-details input {
-    padding: 5px;
-    background: transparent;
     border-bottom: var(--border-width) solid var(--text-color-light);
+}
+
+.event-details textarea {
+    border: var(--border-width) solid var(--text-color-light);
+}
+
+.event-details input::placeholder,
+.event-details textarea::placeholder {
+    color: var(--input-color-light);
+}
+
+.event-details input:focus{
+    border-bottom: var(--border-width-bold) solid var(--major-color-heaveier);
+}
+
+.event-details textarea:focus{
+    border: var(--border-width-bold) solid var(--major-color-heaveier);
 }
 
 .event-details select {
     padding: 5px;
     background: transparent;
     border-bottom: var(--border-width) solid var(--text-color-light);
+}
+
+.event-details button{
+    align-self: center;
 }
 
 .event-details .row h3 {
@@ -87,7 +163,11 @@
 
 /* Timeline */
 .timeline-container{
+    padding: var(--mb-0-75);
+}
 
+.timeline-container h1 {
+    font-size: var(--h1-font-size);
 }
 
 .timeline {
@@ -151,4 +231,17 @@
     height: 100%;
     background-color: var(--major-color-second);
     transform: translateX(-50%);
+}
+
+.calendar div{
+    color: var(--text-color);
+    font-size: var(--normal-font-size);
+}
+
+.calendar .today {
+    background-color: var(--highlight-today-color);
+}
+
+.calendar-occupied {
+    background-color: var(--major-color);
 }
