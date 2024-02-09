@@ -96,6 +96,12 @@ header .button-norm-light:hover{
     background-color: var(--major-color);
 }
 
+.calendar-footer{
+    display: flex;
+    margin: var(--mb-1);
+    justify-content: center;
+}
+
 /* Edit Panel */
 .edit-panel{
     width: 30%;
