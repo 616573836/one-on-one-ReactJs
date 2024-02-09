@@ -232,10 +232,49 @@ label {
 	letter-spacing: 1px;
 }
 
-footer {
-    background-color: white;
-    color: black; /* Optionally, set text color to black */
+@media (max-width: 768px) {
+    .container {
+        width: 90%; 
+        margin: 0 auto; 
+    }
+    .welcome {
+        width: 80%; 
+        height: auto; 
+        top: 10%;
+    }
+    .box {
+        width: 60%;
+        height: auto; 
+        top: 15%; 
+        /* transform: translateX(-50%); */
+		margin-left: 0px;
+    }
+
+	h1, .title {
+        font-size: 12px;
+    }
+
+    p, label, button, .accountInput,a, .submitButton {
+        font-size: 10px; 
+    }
 }
+
+/* @media (max-width: 480px) {
+    .container {
+        width: 100%; 
+    }
+    .welcome{
+        width: 100%; 
+        top: 5%; 
+        left: 0; 
+        transform: none; 
+    }
+    .box {
+        top: 120px; 
+		left: auto;
+    }
+} */
+
 /*.checkbox {*/
 /*	display: inline;*/
 /*	white-space: nowrap;*/
