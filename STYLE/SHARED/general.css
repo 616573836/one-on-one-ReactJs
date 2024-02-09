@@ -18,7 +18,7 @@
     --minor-color-second: hsl(var(--minor-hue), 90%, 64.5%);
     --minor-color-light:hsl(var(--minor-hue), 55%, 85.5%);
 
-    --body-color: hsl(var(--major-hue), 0%, 92.16%);
+    --body-color: hsl(var(--rest-hue), 0%, 92.16%);
     --container-color: hsl(var(--rest-hue), 0%, 75.29%);
     --container-color-second: hsl(var(--rest-hue), 0%, 50%);
 
