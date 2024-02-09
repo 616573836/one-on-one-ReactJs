@@ -15,6 +15,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
+<<<<<<< HEAD
 	<header>
 		<a href="../Visitors/index.html">
 			<img class="header-content" src="../../RESOURCES/IMAGES/default-logo.png" alt="Logo" >
@@ -30,40 +31,53 @@
 			<img class="header-content" src="../../RESOURCES/IMAGES/professor.jpeg" alt="user" href="#"/>
 		</div>
 	</header>
+=======
+<!-- Header -->
+<header>
+    <button class="header-content button-norm-light">
+        <a href="my-sessions.html"><</a>
+    </button>
+    <div style="flex: 1 0 0;"></div>
+    <div class="header-profile">
+        <span>Khai Truong</span>
+        <img alt="user" href="#" src="../../RESOURCES/IMAGES/professor.jpeg"/>
+    </div>
+</header>
+>>>>>>> 182c0f7a069964ba34d400bbf461ee86e513c1f2
 
-    <!-- Main -->
-    <main>
-        <!-- Calendar Information -->
-        <div class="flex">
-            <!-- Left Side: Members Panel -->
-            <div class="member-panel">
-                <h1>Session 1</h1>
-
-                <button class="button-norm-light">
-                    Intersection
-                    <i class="fas fa-times-circle text-orange-500 ml-auto"></i>
-                </button>
+<!-- Main -->
+<main>
+    <!-- Calendar Information -->
+    <div class="flex">
+        <!-- Left Side: Members Panel -->
+        <div class="member-panel">
+            <h1>Session 1</h1>
 
             <button class="button-norm-light">
-                <img src="../../RESOURCES/IMAGES/WechatIMG433.jpeg" alt="Severus">
+                Intersection
+                <i class="fas fa-times-circle text-orange-500 ml-auto"></i>
+            </button>
+
+            <button class="button-norm-light">
+                <img alt="Severus" src="../../RESOURCES/IMAGES/WechatIMG433.jpeg">
                 Severus
                 <i class="fas fa-check-circle text-white-500 ml-auto"></i>
             </button>
 
             <button class="button-norm-light">
-                <img src="../../RESOURCES/IMAGES/WechatIMG430.jpeg" alt="Torres">
+                <img alt="Torres" src="../../RESOURCES/IMAGES/WechatIMG430.jpeg">
                 Torres
                 <i class="fas fa-times-circle text-orange-500 ml-auto"></i>
             </button>
 
             <button class="button-norm-light">
-                <img src="../../RESOURCES/IMAGES/IMG_3917.jpg" alt="Xingrun">
+                <img alt="Xingrun" src="../../RESOURCES/IMAGES/IMG_3917.jpg">
                 Xingrun
                 <i class="fas fa-check-circle text-white-500 ml-auto"></i>
             </button>
 
             <button class="button-norm-light">
-                <img src="../../RESOURCES/IMAGES/WechatIMG4291.png" alt="Charlie">
+                <img alt="Charlie" src="../../RESOURCES/IMAGES/WechatIMG4291.png">
                 Chuyue
                 <i class="fas fa-times-circle text-orange-500 ml-auto"></i>
             </button>
@@ -94,12 +108,12 @@
                     </div>
                     <div class="fc-toolbar-chunk">
                         <div>
-                            <button class="button-norm" aria-pressed="false" title="month view" type="button">month
+                            <button aria-pressed="false" class="button-norm" title="month view" type="button">month
                             </button>
-                            <button class="button-norm" aria-pressed="true" title="week view" type="button">week
+                            <button aria-pressed="true" class="button-norm" title="week view" type="button">week
                             </button>
-                            <button class="button-norm" aria-pressed="false" title="day view" type="button">day</button>
-                            <button class="button-norm" aria-pressed="false" title="list view" type="button">list
+                            <button aria-pressed="false" class="button-norm" title="day view" type="button">day</button>
+                            <button aria-pressed="false" class="button-norm" title="list view" type="button">list
                             </button>
                         </div>
                     </div>
@@ -595,138 +609,193 @@
             <!-- Submit Button -->
             <div class="flex mt-4">
                 <button class="button-sig">
-                    <svg width="180px" height="60px" viewBox="0 0 180 60" class="border">
-                        <polyline points="179,1 179,59 1,59 1,1 179,1" class="bg-line"/>
-                        <polyline points="179,1 179,59 1,59 1,1 179,1" class="hl-line"/>
+                    <svg class="border" height="60px" viewBox="0 0 180 60" width="180px">
+                        <polyline class="bg-line" points="179,1 179,59 1,59 1,1 179,1"/>
+                        <polyline class="hl-line" points="179,1 179,59 1,59 1,1 179,1"/>
                     </svg>
                     <span>Submit</span>
                 </button>
             </div>
         </div>
 
-            <!-- Right Side: Edit Panel -->
-            <div class="edit-panel">
-                <div class="event-header">
-                    <button class="button-norm-light">Cancel</button>
-                    <h1>Edit</h1>
-                    <button class="button-norm-light">Save</button>
-                </div>
-                <div class="event-details">
-                    <label class="row">
-                        <input type="text" placeholder="Name">
+        <!-- Right Side: Edit Panel -->
+        <div class="edit-panel">
+            <div class="event-header">
+                <button class="button-norm-light">Cancel</button>
+                <h1>Edit</h1>
+                <button class="button-norm-light">Save</button>
+            </div>
+            <div class="event-details">
+                <label class="row">
+                    <input placeholder="Name" type="text">
+                </label>
+                <label class="row">
+                    <textarea placeholder="Notes" type="text"></textarea>
+                </label>
+            </div>
+            <div class="event-details">
+                <div class="row">
+                    <div class="col-6"><h3>Availability</h3></div>
+                    <label class="col-6">
+                        <span style="color: var(--minor-color);">●</span>
+                        <select>
+                            <option value="Busy">Busy</option>
+                            <option value="Busy">A little Free</option>
+                            <option value="Busy">Somehow Free</option>
+                            <option value="Busy">Really Free</option>
+                        </select>
                     </label>
-                    <label class="row">
-                        <textarea type="text" placeholder="Notes"></textarea>
+                </div>
+                <div class="row">
+                    <div class="col-6"><h3>All-day</h3></div>
+                    <label class="col-6"><input type="checkbox"/></label>
+                </div>
+                <div class="row">
+                    <div class="col-6"><h3>Starts</h3></div>
+                    <label class="col-6">
+                        <input placeholder="Feb 7, 2024 9:00 AM" type="text">
                     </label>
                 </div>
-                <div class="event-details">
-                    <div class="row">
-                        <div class="col-6"><h3>Availability</h3></div>
-                        <label class="col-6">
-                            <span style="color: var(--minor-color);">●</span>
-                            <select>
-                                <option value="Busy">Busy</option>
-                                <option value="Busy">A little Free</option>
-                                <option value="Busy">Somehow Free</option>
-                                <option value="Busy">Really Free</option>
-                            </select>
-                        </label>
-                    </div>
-                    <div class="row">
-                        <div class="col-6"><h3>All-day</h3></div>
-                        <label class="col-6"><input type="checkbox"/></label>
-                    </div>
-                    <div class="row">
-                        <div class="col-6"><h3>Starts</h3></div>
-                        <label class="col-6">
-                            <input type="text" placeholder="Feb 7, 2024 9:00 AM">
-                        </label>
-                    </div>
-                    <div class="row">
-                        <div class="col-6"><h3>Ends</h3></div>
-                        <label class="col-6">
-                            <input type="text" placeholder="Feb 7, 2024 12:00 PM">
-                        </label>
-                    </div>
-                    <div class="row">
-                        <div class="col-6"><h3>Repeats</h3></div>
-                        <label class="col-6">
-                            <select>
-                                <option value="None">None</option>
-                                <option value="Every Day">Every Day</option>
-                                <option value="Every Week">Every Week</option>
-                                <option value="Every Month">Every Month</option>
-                                <option value="Every Year">Every Year</option>
-                            </select>
-                        </label>
-                    </div>
-                    <div class="row">
-                        <div class="col-3"><h3>Ends At</h3></div>
-                        <label class="col-3">
-                            <select>
-                                <option value="None">Never</option>
-                                <option value="Every Week">At Date</option>
-                            </select>
-                        </label>
-                        <label class="col-6">
-                            <input type="text" placeholder="04/22/2024">
-                        </label>
-                    </div>
+                <div class="row">
+                    <div class="col-6"><h3>Ends</h3></div>
+                    <label class="col-6">
+                        <input placeholder="Feb 7, 2024 12:00 PM" type="text">
+                    </label>
                 </div>
-                <div class="event-details">
-                    <button class="button-sig-light">
-                        <svg width="180px" height="60px" viewBox="0 0 180 60" class="border">
-                            <polyline points="180,0 180,60 0,60 0,0 180,0" class="bg-line" />
-                            <polyline points="179,1 179,59 1,59 1,1 179,1" class="hl-line" />
-                        </svg>
-                        <span>Delete</span>
-                    </button>
+                <div class="row">
+                    <div class="col-6"><h3>Repeats</h3></div>
+                    <label class="col-6">
+                        <select>
+                            <option value="None">None</option>
+                            <option value="Every Day">Every Day</option>
+                            <option value="Every Week">Every Week</option>
+                            <option value="Every Month">Every Month</option>
+                            <option value="Every Year">Every Year</option>
+                        </select>
+                    </label>
+                </div>
+                <div class="row">
+                    <div class="col-3"><h3>Ends At</h3></div>
+                    <label class="col-3">
+                        <select>
+                            <option value="None">Never</option>
+                            <option value="Every Week">At Date</option>
+                        </select>
+                    </label>
+                    <label class="col-6">
+                        <input placeholder="04/22/2024" type="text">
+                    </label>
                 </div>
             </div>
+            <div class="event-details">
+                <button class="button-sig-light">
+                    <svg class="border" height="60px" viewBox="0 0 180 60" width="180px">
+                        <polyline class="bg-line" points="180,0 180,60 0,60 0,0 180,0"/>
+                        <polyline class="hl-line" points="179,1 179,59 1,59 1,1 179,1"/>
+                    </svg>
+                    <span>Delete</span>
+                </button>
+            </div>
         </div>
+    </div>
 
     <!-- Calendar Timeline -->
     <div class="timeline-container">
         <h1>Timeline</h1>
         <div class="timeline">
-            <div class="event">
-                <div class="avatar"></div>
-                <div class="circle"></div>
-                <div class="event-details">
-                    <div class="user-info">
-                        <span class="username">Torres Yu</span>
-                        <span class="time">2 hours ago</span>
+            <div class="event-container">
+                <div class="event-avatar">
+                    <img src="../../RESOURCES/IMAGES/WechatIMG430.jpeg" alt="User">
+                </div>
+                <div>
+                    <span class="event-rounder"></span>
+                    <span class="event-line"></span>
+                </div>
+                <div>
+                    <div class="event-user-time">
+                        <h2>Torres Yu</h2>
+                        <div class="event-time">
+                            <i class="uil uil-calendar-alt"></i>1 hour ago
+                        </div>
                     </div>
-                    <div class="event-block">
-                        Remind Charlie Zhang
+                    <div class="event-info">
+                        <p class="event-title">Remind</p>
+                        <p class="event-content">Event Information1</p>
+                        <p class="event-content">Event Information2</p>
                     </div>
                 </div>
             </div>
-            <div class="event">
-                <div class="avatar"></div>
-                <div class="circle"></div>
-                <div class="event-details">
-                    <div class="user-info">
-                        <span class="username">Serverus Chen</span>
-                        <span class="time">1 hour 30 min ago</span>
+            <div class="event-container">
+                <div class="event-avatar">
+                    <img src="../../RESOURCES/IMAGES/WechatIMG4291.png" alt="User">
+                </div>
+                <div>
+                    <span class="event-rounder"></span>
+                    <span class="event-line"></span>
+                </div>
+                <div>
+                    <div class="event-user-time">
+                        <h2>Chuyue Zhang</h2>
+                        <div class="event-time">
+                            <i class="uil uil-calendar-alt"></i>45 min ago
+                        </div>
                     </div>
-                    <div class="event-block">
-                        Join the calendar
+                    <div class="event-info">
+                        <p class="event-title">Invite</p>
+                        <p class="event-content">Event Information1</p>
+                        <p class="event-content">Event Information2</p>
                     </div>
                 </div>
             </div>
-            <div class="event">
-                <div class="avatar"></div>
-                <div class="circle"></div>
-                <div class="event-details">
-                    <div class="user-info">
-                        <span class="username">Xingrun Jiao</span>
-                        <span class="time">1 hour ago</span>
+            <div class="event-container">
+                <div class="event-avatar">
+                    <img src="../../RESOURCES/IMAGES/WechatIMG433.jpeg" alt="User">
+                </div>
+                <div>
+                    <span class="event-rounder"></span>
+                    <span class="event-line"></span>
+                </div>
+                <div>
+                    <div class="event-user-time">
+                        <h2>Severus Chen</h2>
+                        <div class="event-time">
+                            <i class="uil uil-calendar-alt"></i>30 min ago
+                        </div>
                     </div>
-                    <div class="event-block">
-                        Join the calendar
+                    <div class="event-info">
+                        <p class="event-title">Submit</p>
+                        <p class="event-content">Event Information1</p>
+                        <p class="event-content">Event Information2</p>
                     </div>
                 </div>
+            </div>
+            <div class="event-container">
+                <div class="event-avatar">
+                    <img src="../../RESOURCES/IMAGES/IMG_3917.jpg" alt="User">
+                </div>
+                <div>
+                    <span class="event-rounder"></span>
+                    <span class="event-line"></span>
+                </div>
+                <div>
+                    <div class="event-user-time">
+                        <h2>Xingrun Jiao</h2>
+                        <div class="event-time">
+                            <i class="uil uil-calendar-alt"></i>20 min ago
+                        </div>
+                    </div>
+                    <div class="event-info">
+                        <p class="event-title">Submit</p>
+                        <p class="event-content">Event Information1</p>
+                        <p class="event-content">Event Information2</p>
+                    </div>
+                </div>
+            </div>
+            <!-- The last rounder -->
+            <div class="event-container">
+                <div></div>
+                <div><span class="event-rounder"></span></div>
+                <div></div>
             </div>
         </div>
     </div>

@@ -16,9 +16,7 @@
 
     --minor-color: hsl(var(--minor-hue), 100%, 50%);
     --minor-color-second: hsl(var(--minor-hue), 90%, 64.5%);
-
-    /*TODO change color*/
-    --highlight-today-color:hsl(var(--minor-hue), 90%, 64.5%);
+    --minor-color-light:hsl(var(--minor-hue), 55%, 85.5%);
 
     --body-color: hsl(var(--major-hue), 0%, 92.16%);
     --container-color: hsl(var(--rest-hue), 0%, 75.29%);
@@ -76,7 +74,7 @@
     /* Border */
     --border-width: 1px;
     --border-width-bold: 3px;
-    --border-radius: 4px;
+    --border-radius: var(--mb-0-25);
 }
 
 /* Variable Changes in Small Devices */

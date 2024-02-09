@@ -39,6 +39,11 @@ header{
 	margin-left: var(--mb-0-75);
 }
 
+/* Footer */
+footer{
+	height: var(--header-height);
+}
+
 /* Main */
 .mid_height{
 	margin-top: 250px;
