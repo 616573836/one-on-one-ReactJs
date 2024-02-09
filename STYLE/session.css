@@ -235,19 +235,19 @@ header .button-norm-light:hover{
 
 .event-rounder{
     display: inline-block;
-    width: 13px;
-    height: 13px;
-    background-color: var(--major-color);
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
+    border: 5px solid var(--major-color);
     transform: translate(0, 10px);
 }
 
 .event-line{
     display: block;
-    width: 1px;
-    height: 100%;
+    width: 5px;
+    height: 90%;
     background-color: var(--major-color);
-    transform: translate(6px, -6px);
+    transform: translate(7px, 3px);
 }
 
 .event-user-time{
