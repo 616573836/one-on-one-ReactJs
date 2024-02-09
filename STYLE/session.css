@@ -37,6 +37,10 @@ header .button-norm-light:hover{
 
     margin-bottom: var(--mb-1);
     margin-top: var(--mb-1);
+
+    font-size: var(--normal-font-size);
+    text-align: center;
+
     width: 95%;
 }
 
@@ -44,9 +48,14 @@ header .button-norm-light:hover{
     overflow: hidden;
     border-radius: 50%;
     width: 20px;
+    min-width: 20px;
     height: 20px;
     object-fit: cover;
     margin-right: var(--mb-0-5);
+}
+
+.member-panel button i{
+    margin-left: var(--mb-0-5);
 }
 
 /* Calendar Grid */
@@ -233,6 +242,7 @@ header .button-norm-light:hover{
 
 .event-avatar img {
     width: 40px;
+    min-width: 40px;
     height: 40px;
     border-radius: 50%;
     overflow: hidden;
@@ -304,4 +314,19 @@ header .button-norm-light:hover{
 
 .event-content{
     font-size: var(--font-regular);
+}
+
+/* Responsive Design */
+@media screen and(max-width: 576px){
+
+}
+
+
+@media screen and(max-width: 767px){
+
+}
+
+
+@media screen and(max-width: 991px){
+
 }
