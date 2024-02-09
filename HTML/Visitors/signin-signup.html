@@ -3,8 +3,10 @@
 <head>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta charset="utf-8">
+    <meta content="#a37fdf" name="theme-color">
     <meta content="Sign in / Sign up" property="og:title">
     <meta content="website" property="og:type">
+    <meta data-intl-tel-input-cdn-path="intlTelInput/">
 
     <title>Sign in / Sign up</title>
 
@@ -64,14 +66,15 @@
                                     <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
                                         <li class="u-nav-item"><a class="u-button-style u-nav-link" href="signin-signup.html">Sign in / Sign Up</a>
                                         </li>
-                                        <li class="u-nav-item"><a class="u-button-style u-nav-link"
-                                            href="index.html">Home</a>
-                  </li>
-                  <li class="u-nav-item"><a class="u-button-style u-nav-link" href="about-us.html">Why
-                      1 on 1?</a>
-                  </li>
-                  <li class="u-nav-item"><a class="u-button-style u-nav-link" href="contact-us.html">Contact Us</a>
-                  </li>
+                                        <li class="u-nav-item">
+                                            <a class="u-button-style u-nav-link" href="index.html">Home</a>
+                                        </li>
+                                        <li class="u-nav-item"><a class="u-button-style u-nav-link" href="about-us.html">Why
+                                            1 on 1?</a>
+                                        </li>
+                                        <li class="u-nav-item"><a class="u-button-style u-nav-link" href="contact-us.html">Contact
+                                            Us</a>
+                                        </li>
                                     </ul>
                                 </div>
                             </div>
@@ -147,11 +150,11 @@
                             <!--Sign up begins here.-->
                             <div class="signup hidden">
                                 <h1>Sign up</h1>
-                                <form autocapitalize="off" action="MindVoiceRegister.php" method="post">
-                                    <input class="accountInput" type="text" placeholder="Email" name="uname">
-                                    <input class="accountInput" type="text" placeholder="Username" name="uname">
-                                    <input class="accountInput" type="password" placeholder="Password" name="pwd">
-                                    <input class="accountInput" type="password" placeholder="Confirm Password" name="rpwd">
+                                <form autocapitalize="off" action="../Users/my-dashboard.html" method="post">
+                                    <input class="accountInput" type="text" placeholder="Email" name="uname" required>
+                                    <input class="accountInput" type="text" placeholder="Username" name="uname" required>
+                                    <input class="accountInput" type="password" placeholder="Password" name="pwd" required>
+                                    <input class="accountInput" type="password" placeholder="Confirm Password" name="rpwd" required>
                                     <br>
                                     <div class="checkbox">
                                         <input id="show-password" type="checkbox">
@@ -200,7 +203,7 @@
     </section>
     <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="sec-6d3f">
         <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
-            <p class="u-small-text u-text u-text-variant u-text-1">Copyright by jiaoxin2 </p>
+            <p class="u-small-text u-text u-text-variant u-text-1" style="color: white; font-size: 1rem; letter-spacing: 0px;">Copyright by jiaoxin2 </p>
         </div>
     </footer>
 

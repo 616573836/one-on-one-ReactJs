@@ -743,6 +743,7 @@
 
 .u-section-4 .u-text-3 {
     line-height: 2.2;
+    font-family: 'PT Serif';
     font-style: italic;
     margin: 32px 0 0;
 }
@@ -788,6 +789,7 @@
 
 .u-section-4 .u-text-5 {
     line-height: 2.2;
+    font-family: 'PT Serif';
     font-style: italic;
     margin: 32px 0 0;
 }
@@ -834,6 +836,7 @@
 
 .u-section-4 .u-text-7 {
     line-height: 2.2;
+    font-family: 'PT Serif';
     font-style: italic;
     margin: 32px 0 0;
 }
@@ -841,6 +844,7 @@
 .u-section-4 .u-text-8 {
     font-size: 1rem;
     letter-spacing: 0;
+    font-family: 'PT Serif';
     font-style: italic;
     text-align: left;
     margin: 32px auto 60px;
@@ -848,6 +852,7 @@
 
 .u-section-4 .u-btn-1 {
     border-style: solid;
+    font-family: 'PT Serif';
     font-style: italic;
     padding: 0;
 }
