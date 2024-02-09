@@ -45,6 +45,7 @@
     --h4-font-size: 1rem;
     --normal-font-size: .9rem;
     --medium-font-size: .75rem;
+    --small-font-size: .5rem;
 
     --header-height: 3rem;
 
@@ -78,7 +79,7 @@
 }
 
 /* Variable Changes in Small Devices */
-@media screen and(max-width: 350px){
+@media screen and(max-width: 576px){
 
 }
 
@@ -92,7 +93,7 @@
         --h3-font-size: 1.25rem;
         --h4-font-size: 1.125rem;
         --normal-font-size: 1rem;
-        --small-font-size: .875rem;
+        --medium-font-size: .875rem;
     }
 }
 
@@ -109,11 +110,13 @@ html{
 }
 
 body{
-    margin: 0 0 var(--header-height) 0;
+    margin: 0;
     font-family: var(--body-font);
     font-size: var(--normal-font-size);
     background-color: var(--body-color);
     color: var(--text-color);
+    position: relative;
+    min-height: 100vh;
 }
 
 h1{
