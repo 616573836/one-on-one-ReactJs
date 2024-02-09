@@ -92,10 +92,7 @@ h1 {
 
 .title {
 	font-family: 'PT Serif', cursive;
-	background-image: linear-gradient(to right top, var(--minor-color),
-													var(--minor-color-second),
-													var(--major-color-second),
-													var(--major-color));
+	background-image: linear-gradient(to right top, #f9d807, #e8e80e, #f7c707 15%, #338ddb, #4e9fec);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	font-size: 3em;
