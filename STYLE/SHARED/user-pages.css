@@ -224,9 +224,11 @@ form label {
 
 .logout_section {
 	color: var(--text-color-light);
+	transition: .3s ease-in-out;
 }
 
 .logout_section:hover {
 	color: var(--container-color-dark);
+	transition: .3s ease-in-out;
 }
 
