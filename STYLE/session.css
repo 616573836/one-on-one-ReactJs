@@ -33,7 +33,7 @@ header button a{
     flex-direction: column;
     align-items: flex-start;
 
-    background-color: var(--major-color);
+    background-color: var(--container-color-dark);
     color: var(--text-color-light);
 }
 
@@ -41,6 +41,8 @@ header button a{
     color: inherit;
     text-align: center;
     font-size: var(--h1-font-size);
+    background-color: var(--minor-color);
+    padding: var(--mb-0-25);
 }
 
 .member-panel button {
@@ -57,6 +59,10 @@ header button a{
     text-align: center;
 
     width: 95%;
+}
+
+.member-panel button:hover{
+    color: var(--text-color);
 }
 
 .member-panel button a {
@@ -136,7 +142,7 @@ header button a{
 }
 
 .calendar-occupied {
-    background-color: var(--major-color);
+    background-color: var(--major-color-second);
 }
 
 .calendar-footer{
@@ -151,7 +157,7 @@ header button a{
     padding: var(--mb-0-5);
     margin: var(--mb-0-25);
 
-    background-color: var(--major-color);
+    background-color: var(--container-color-dark);
     color: var(--text-color-light);
 }
 
@@ -168,6 +174,7 @@ header button a{
     justify-content: space-between;
     align-items: center;
     padding: 16px;
+    background-color: var(--major-color);
 }
 
 .event-details {
@@ -224,6 +231,13 @@ header button a{
     color: var(--input-color-light);
 }
 
+.event-details select:focus,
+.event-details input:focus,
+.event-details textarea:focus{
+    background-color: var(--body-color);
+    color: var(--text-color);
+}
+
 .event-details input:focus{
     border-bottom: var(--border-width-bold) solid var(--major-color-heaveier);
 }
@@ -249,8 +263,10 @@ header button a{
 
 .timeline-container h1 {
     font-size: var(--h1-font-size);
+    color: var(--text-color-light);
     margin-bottom: var(--mb-1);
-    margin-left: var(--mb-0-5);
+    background-color: var(--container-color-dark);
+    padding: var(--mb-0-5);
 }
 
 .timeline-container h2 {
@@ -281,6 +297,13 @@ header button a{
     border-radius: 50%;
     overflow: hidden;
     object-fit: cover;
+    transition: all .3s ease;
+}
+
+.event-avatar img:hover {
+    transform: scale(1.01);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    transition: all .3s ease;
 }
 
 .event-rounder{
@@ -332,7 +355,7 @@ header button a{
 .event-info:hover{
     background-color: var(--major-color-second);
     transform: scale(1.01);
-    box-shadow: 1.5px 1.5px 3px rgba(0, 0, 0, 0.3);
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
     transition: all .3s ease;
 }
 
@@ -394,7 +417,7 @@ header button a{
     }
 }
 
-@media screen and (max-width: 767px){
+@media screen and (max-width: 841px){
     /* calendar 和 edit panel column摆放 */
     .main-panel{
         flex-direction: column;
@@ -409,7 +432,7 @@ header button a{
     }
 }
 
-@media screen and (max-width: 991px){
+@media screen and (max-width: 1201px){
     /* member panel 收缩，button字体缩小0 */
     /* edit panel： header button收缩，字体收缩 */
 }
