@@ -458,11 +458,11 @@
     background: #fff;
     border-top: 1px solid #e2e7ec;
     padding-top: 15px;
-    text-decoration: none
+    text-decoration: none;
 }
 
 .timeline-footer a {
-    color: #575d63
+    color: #575d63;
 }
 
 .timeline-footer a:hover {
