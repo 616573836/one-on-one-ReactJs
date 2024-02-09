@@ -470,6 +470,15 @@
     text-decoration: none
 }
 
+.thumb-down{
+    margin-left: 18px;
+}
+
+a.thumb-down:hover{
+    margin-left: 18px;
+    color: #ff5b57;
+}
+
 .timeline-likes {
     color: #6d767f;
     font-weight: 600;
