@@ -51,6 +51,33 @@ footer{
 	width: 100%;
 }
 
+/* Side Bar */
+.side-bar ul li a{
+	color: var(--major-color);
+	transition: .3s ease;
+}
+
+.side-bar ul li{
+	margin-bottom: var(--mb-0-5);
+	border: var(--border-width) solid var(--major-color);
+	border-radius: var(--border-radius);
+	transition: .3s ease-in-out;
+}
+
+.side-bar ul li:hover{
+	transform: scale(1.05);
+	border: var(--border-width) solid var(--major-color);
+	background-color: var(--major-color);
+	box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+	transition: .3s ease-in-out;
+}
+
+.side-bar ul li:hover a{
+	color: var(--text-color-light);
+	background: transparent;
+	transition: .3s ease;
+}
+
 /* Main */
 .mid_height{
 	margin-top: 250px;
