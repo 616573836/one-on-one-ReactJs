@@ -3,6 +3,7 @@ import React from 'react';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignUp from "./components/sign_up";
 import Login from "./components/login";
+import MeetingList from "./components/meetings";
 
 // Other imports...
 
@@ -12,7 +13,7 @@ function App() {
         <Routes>
         <Route path="signup/" element={<SignUp />} />
         <Route path="login/" element={<Login />} />
-
+        <Route path="meetings/" element={<MeetingList />} />
 
           {/* Other routes */}
         </Routes>
