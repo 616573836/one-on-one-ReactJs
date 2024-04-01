@@ -42,7 +42,7 @@ const SignUpComponent = () => {
           required
         />
         <input
-          type="text"
+          type="email"
           placeholder="Email"
           name="email"
           onChange={handleChange}
@@ -51,7 +51,7 @@ const SignUpComponent = () => {
         />
         
         <input
-          type="text"
+          type="password"
           placeholder="Password"
           name="password"
           onChange={handleChange}

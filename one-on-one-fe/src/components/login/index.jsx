@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const SignInComponent = () => {
+    const navigate = useNavigate();
   const [formData, setFormData] = useState({
     username: '',
     password: '',
@@ -16,6 +18,7 @@ const SignInComponent = () => {
     try {
       const response = await axios.post('http://localhost:8000/api/token/', formData);
       console.log(response.data);
+      navigate('/profile');
       // Redirect or show success message
     } catch (error) {
       console.error(error.response.data);
@@ -28,7 +31,7 @@ const SignInComponent = () => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          placeholder="Email / Username"
+          placeholder="Username"
           name="username"
           onChange={handleChange}
           value={formData.username}
