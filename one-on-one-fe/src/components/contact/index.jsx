@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 const ContactListComponent = () => {
     const [contactsData, setContactsData] = useState([]); 
     const [userId, setUserId] = useState('');
+    const [editingContactId, setEditingContactId] = useState(null);
+    const [editingAlias, setEditingAlias] = useState('');
+
     const navigate = useNavigate();
   
     useEffect(() => {
@@ -77,30 +80,53 @@ const ContactListComponent = () => {
         }
     };
 
+    const updateContactAlias = async (contactId, newAlias) => {
+        try {
+            const response = await fetch(`http://127.0.0.1:8000/api/accounts/contacts/${contactId}/`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                },
+                body: JSON.stringify({ alias: newAlias }),
+            });
+    
+            if (response.ok) {
+                // Update the alias in the local state without waiting for a response
+                setContactsData(prevState => prevState.map(contact => 
+                  contact.id === contactId ? { ...contact, alias: newAlias } : contact
+                ));
+                setEditingContactId(null); // Close the popup
+            } else {
+                console.error("Failed to update contact");
+            }
+        } catch (error) {
+            console.error("There was an error updating the contact:", error);
+        }
+    };
+    
+
     const loggedInUserId = localStorage.getItem("userid");
     console.log(loggedInUserId);
   
     return (
-      <div>
-        <h2>Contact list</h2>
-        <h2>Add Contact</h2>
         <div>
-            <input
-                type="text"
-                value={userId}
-                onChange={(e) => setUserId(e.target.value)}
-                placeholder="Enter User ID"
-            />
-            <button onClick={addContact}>Add Contact</button>
-        </div>
-        {contactsData.map((contact, index) => (
-            <div key={index} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
-                <span>User ID: {contact.userId} - Username: {contact.alias}</span>
-                <button onClick={() => deleteContact(contact.id)}>Delete Contact</button>
+          {contactsData.map((contact) => (
+            <div key={contact.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
+              <span>User ID: {contact.userId} - Username: {contact.alias}</span>
+              <button onClick={() => setEditingContactId(contact.id)}>Edit Contact</button>
+              <button onClick={() => deleteContact(contact.id)}>Delete Contact</button>
             </div>
-        ))}
-      </div>
-    );
+          ))}
+          {editingContactId && 
+            <EditContactPopup
+              initialAlias={contactsData.find(contact => contact.id === editingContactId)?.alias || ''}
+              onSave={(newAlias) => updateContactAlias(editingContactId, newAlias)}
+              onCancel={() => setEditingContactId(null)}
+            />
+          }
+        </div>
+      );
 };
   
 export default ContactListComponent;
@@ -122,3 +148,18 @@ function mapContactData(contact, currentUserId) {
         };
     }
 }
+
+function EditContactPopup({ onSave, onCancel, initialAlias }) {
+    const [alias, setAlias] = useState(initialAlias);
+  
+    return (
+      <div style={{ position: 'fixed', top: '20%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: '20px', zIndex: 1000, border: '1px solid black' }}>
+        <div>
+          <input type="text" value={alias} onChange={(e) => setAlias(e.target.value)} placeholder="New alias" />
+        </div>
+        <button onClick={() => onSave(alias)}>Confirm</button>
+        <button onClick={onCancel}>Cancel</button>
+      </div>
+    );
+  }
+  
