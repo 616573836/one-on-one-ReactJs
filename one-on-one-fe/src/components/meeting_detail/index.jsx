@@ -7,29 +7,80 @@ const MeetingDetail = () => {
     let { meetingId } = useParams();
     const navigate = useNavigate();
     let [meeting, setMeeting] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [showUpdateForm, setShowUpdateForm] = useState(false);
+    const [updatedName, setUpdatedName] = useState('');
+    const [updatedDescription, setUpdatedDescription] = useState('');
 
     useEffect(() => {
-        let fetchMeetingDetails = async () => {
-            try {
-                let response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/`, {
-                    method: 'GET',
-                    headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-                    }
-                });
-                let data = await response.json();
-                setMeeting(data);
-            } catch (error) {
-                console.error("Failed to fetch meeting details:", error);
-            }
-        };
-
         fetchMeetingDetails();
     }, [meetingId]);
 
+    const fetchMeetingDetails = async () => {
+        setLoading(true);
+        try {
+            let response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
+            let data = await response.json();
+            setMeeting(data);
+            setUpdatedName(data.name);
+            setUpdatedDescription(data.description);
+        } catch (error) {
+            console.error("Failed to fetch meeting details:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const deleteMeeting = async () => {
+        if (window.confirm("Are you sure you want to delete this meeting?")) {
+            try {
+                await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                    }
+                });
+                navigate("/meetings"); // Navigate back after deletion
+            } catch (error) {
+                console.error("Failed to delete meeting:", error);
+            }
+        }
+    };
+
+    const handleUpdate = async (e) => {
+        e.preventDefault(); // Prevent default form submission behavior
+        try {
+            await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                },
+                body: JSON.stringify({
+                    name: updatedName,
+                    description: updatedDescription,
+                }),
+            });
+            setShowUpdateForm(false); 
+            fetchMeetingDetails();
+        } catch (error) {
+            console.error("Failed to update meeting:", error);
+        }
+    };
+
+    if (loading) {
+    return <div>Loading...</div>;
+    }
+
     if (!meeting) {
-        return <div>Requested meeting does not exist or unauthorized</div>;
+    return <div>No meeting found.</div>;
     }
 
     function formatTimestamp(timestamp) {
@@ -53,6 +104,37 @@ const MeetingDetail = () => {
             <button style={styles.backButton} onClick={() => navigate("/meetings")}>
                 Back
             </button>
+            <button style={styles.button} onClick={() => deleteMeeting()}>
+                Delete
+            </button>
+            <button style={styles.button} onClick={() => setShowUpdateForm(true)}>
+                Update
+            </button>
+            {showUpdateForm && (
+                <form onSubmit={handleUpdate} style={styles.form}>
+                <div>
+                    <label>Name:</label>
+                    <input
+                        type="text"
+                        value={updatedName}
+                        onChange={(e) => setUpdatedName(e.target.value)}
+                        style={styles.input}
+                    />
+                </div>
+                <div>
+                    <label>Description:</label>
+                    <input
+                        type="text"
+                        value={updatedDescription}
+                        onChange={(e) => setUpdatedDescription(e.target.value)}
+                        style={styles.input}
+                    />
+                </div>
+                <button type="submit" style={styles.button}>
+                    Submit Update
+                </button>
+                </form>
+            )}
         </div>
     );
 };
@@ -77,6 +159,41 @@ const styles = {
         color: 'white',
         borderRadius: '5px',
     },
+    button: {
+        display: 'block',
+        marginTop: '10px',
+        marginRight: '5px',
+        marginBottom: '5px',
+        padding: '10px 20px',
+        fontSize: '16px',
+        cursor: 'pointer',
+        backgroundColor: '#007bff',
+        color: 'white',
+        border: 'none',
+        borderRadius: '4px',
+    },
+    form: {
+        marginTop: '20px',
+        padding: '20px',
+        border: '1px solid #ccc',
+        borderRadius: '5px',
+        backgroundColor: '#f9f9f9',
+    },
+    input: {
+        display: 'block',
+        width: '100%',
+        padding: '10px',
+        marginTop: '5px',
+        marginBottom: '15px',
+        border: '1px solid #ccc',
+        borderRadius: '4px',
+    },
+    label: {
+        marginTop: '10px',
+        marginBottom: '5px',
+        display: 'block',
+        fontSize: '18px',
+    }
 };
 
 export default MeetingDetail;
