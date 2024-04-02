@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-const AUTH_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMDI3MTQ2LCJpYXQiOjE3MTIwMjUzNDYsImp0aSI6IjFlNDdmMzY0Mjk2NDQwNTNiMjFkZTgzMzI4N2Y1MTU3IiwidXNlcl9pZCI6MX0.n9pma4CsAcS02Jj--A6IotfPIIYFGBjQr5vl68xvPFA'
+const AUTH_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMDI5MTIxLCJpYXQiOjE3MTIwMjczMjEsImp0aSI6IjlkMDA0ZWEzZWZhZjRiYjliNmQyMDdiMGViMmU3MjM3IiwidXNlcl9pZCI6MX0.EvCCrSS-r0_znqJC23FMdxxpXRsP4M03PLoSZX7MlMQ'
 
 const MeetingList = () => {
     let [meetings, setMeetings] = useState([]);

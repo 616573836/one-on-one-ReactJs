@@ -6,7 +6,6 @@ db.sqlite3
 /one-on-one-backend/meetings/migrations/*
 /one-on-one-backend/accounts/migrations/*
 
-/one-on-one-fe/node_modules
 /one-on-one-fe/.pnp
 .pnp.js
 
