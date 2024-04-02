@@ -14,6 +14,7 @@ const ProfileViewComponent = () => {
     })
     .then(response => {
       setProfileData(response.data);
+      localStorage.setItem("userid", profileData.id);
     })
     .catch(error => console.error('Error fetching profile data:', error));
   }, []);
@@ -23,9 +24,11 @@ const ProfileViewComponent = () => {
       <h2>Profile</h2>
       <div>Username: {profileData.username}</div>
       <div>Email: {profileData.email}</div>
+      <div>User ID: {profileData.id}</div>
       {/* Display other profile information here */}
       <button onClick={() => navigate('/profile/edit')}>Edit My Profile</button>
       <button onClick={() => navigate('/meetings')}>Meetings</button>
+      <button onClick={() => navigate('/contact')}>Contacts</button>
     </div>
   );
 };
