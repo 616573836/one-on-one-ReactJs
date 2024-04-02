@@ -25,6 +25,7 @@ const ProfileViewComponent = () => {
       <div>Email: {profileData.email}</div>
       {/* Display other profile information here */}
       <button onClick={() => navigate('/profile/edit')}>Edit My Profile</button>
+      <button onClick={() => navigate('/meetings')}>Meetings</button>
     </div>
   );
 };

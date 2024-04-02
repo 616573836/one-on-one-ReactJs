@@ -15,7 +15,7 @@ const MeetingDetail = () => {
                     method: 'GET',
                     headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': 'Bearer ' + AUTH_TOKEN
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
                     }
                 });
                 let data = await response.json();
