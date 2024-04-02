@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-const AUTH_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMDIyNzA1LCJpYXQiOjE3MTIwMjA5MDUsImp0aSI6IjVhYjBkZGM3MDI2YjQwYWM5YTk4YjRkOTQ1YWEzY2MyIiwidXNlcl9pZCI6MX0.0ZPhy_RAidEiILjBXG47Yyl37IJT5E870LenOuJk32c'
+const AUTH_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMDI0NzIzLCJpYXQiOjE3MTIwMjI5MjMsImp0aSI6IjFhM2MzYTk0ZmU5NDQ5YTg5OGIyZjRkMzE3ZWU0NDBlIiwidXNlcl9pZCI6MX0.x0EeKXQ6-DciH3YbpgKyS1C8JMPFgaRjEfSeGPFggVw'
 
 const MeetingList = () => {
     let [meetings, setMeetings] = useState([]);
@@ -74,16 +74,19 @@ const MeetingList = () => {
                 />
                 <button type="submit" style={styles.button}>Create Meeting</button>
             </form>
+            <div style={styles.container}>
             <div style={styles.meetingList}>
                 {meetings.map((meeting, index) => (
                     <div key={index} style={styles.meetingItem}>
                         <h2>{meeting.name}</h2>
                         <p>Description: {meeting.description}</p>
-                        <p>Created: {formatTimestamp(meeting.created_time)}</p>
+                        <p>Created: {meeting.created_time}</p>
                         <p>Current State: {meeting.state}</p>
+                        <a href={`http://127.0.0.1:8000/api/meetings/${meeting.id}`} style={styles.detailButton}>Detail</a>
                     </div>
                 ))}
             </div>
+        </div>
         </div>
     );
 };
@@ -119,6 +122,15 @@ const styles = {
         paddingBottom: '10px',
         marginBottom: '10px',
     },
+    detailButton: {
+        display: 'inline-block',
+        padding: '5px 10px',
+        marginTop: '10px',
+        textDecoration: 'none',
+        backgroundColor: '#007bff',
+        color: 'white',
+        borderRadius: '5px',
+    }
 };
 
 export default MeetingList;
