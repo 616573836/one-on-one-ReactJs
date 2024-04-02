@@ -19,8 +19,9 @@ const ContactListComponent = () => {
             }
         });
         let data = await response.json();
-        console.log(data);
-        setContactsData(data); 
+        const mappedData = data.map(contact => mapContactData(contact, loggedInUserId));
+    
+        setContactsData(mappedData);
     };
 
     const addContact = async () => {
@@ -42,8 +43,9 @@ const ContactListComponent = () => {
 
             if (response.ok) {
                 let newContact = await response.json();
-                setContactsData([...contactsData, newContact]); // Add the new contact to the list
-                setUserId(''); // Reset the input field
+                const mappedNewContact = mapContactData(newContact, loggedInUserId);
+                setContactsData(prevState => [...prevState, mappedNewContact]);
+                setUserId('');
             } else {
                 // Handle server-side validation errors, if any
                 alert("Failed to add contact");
@@ -67,14 +69,16 @@ const ContactListComponent = () => {
 
             if (response.ok) {
                 // Filter out the deleted contact from the contactsData array
-                setContactsData(contactsData.filter(contact => contact.id !== id));
-            } else {
+                setContactsData(prevState => prevState.filter(contact => contact.id !== id));            } else {
                 console.error("Failed to delete contact");
             }
         } catch (error) {
             console.error("There was an error deleting the contact:", error);
         }
     };
+
+    const loggedInUserId = localStorage.getItem("userid");
+    console.log(loggedInUserId);
   
     return (
       <div>
@@ -90,13 +94,31 @@ const ContactListComponent = () => {
             <button onClick={addContact}>Add Contact</button>
         </div>
         {contactsData.map((contact, index) => (
-          <div key={index} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
-            <span>User ID: {contact.user2} - Username: {contact.alias}</span>
-            <button onClick={() => deleteContact(contact.id)}>Delete Contact</button>
-          </div>
+            <div key={index} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
+                <span>User ID: {contact.userId} - Username: {contact.alias}</span>
+                <button onClick={() => deleteContact(contact.id)}>Delete Contact</button>
+            </div>
         ))}
       </div>
     );
 };
   
 export default ContactListComponent;
+
+function mapContactData(contact, currentUserId) {
+    currentUserId = String(currentUserId);
+
+    if (String(contact.user1) === currentUserId) {
+        return {
+            id: contact.id,
+            userId: contact.user2,
+            alias: contact.alias2 || 'No alias',
+        };
+    } else {
+        return {
+            id: contact.id,
+            userId: contact.user1,
+            alias: contact.alias1 || 'No alias',
+        };
+    }
+}

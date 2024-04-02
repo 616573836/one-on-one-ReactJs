@@ -14,7 +14,7 @@ const ProfileViewComponent = () => {
     })
     .then(response => {
       setProfileData(response.data);
-      localStorage.setItem("userid", profileData.id);
+      localStorage.setItem("userid", response.data.id);
     })
     .catch(error => console.error('Error fetching profile data:', error));
   }, []);
