@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-
+import '../sign_up/general.css'
+import '../sign_up/signup.css'
+import '../sign_up/visitor-pages.css'
+import '../sign_up/user-pages.css'
 
 const SignUpComponent = () => {
     const navigate = useNavigate();
@@ -63,6 +66,7 @@ const SignUpComponent = () => {
         <button type="submit">Sign Up</button>
       </form>
     </div>
+    
   );
 };
 

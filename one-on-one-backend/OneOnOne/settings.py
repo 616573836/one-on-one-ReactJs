@@ -100,7 +100,7 @@ REST_FRAMEWORK = {
 
 # SIMPLE_JWT setting
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),  # Update this line
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),  # Update this line
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),  # Or any other value you've set
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
