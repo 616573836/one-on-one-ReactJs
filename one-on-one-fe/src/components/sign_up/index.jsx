@@ -20,6 +20,7 @@ const SignUpComponent = () => {
     // Implement validation and error handling here
     try {
       const response = await axios.post('http://localhost:8000/api/accounts/register/', formData);
+      
       console.log(response.data);
       navigate('/login');
 

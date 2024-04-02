@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
+
 const SignInComponent = () => {
     const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -17,6 +18,7 @@ const SignInComponent = () => {
     e.preventDefault();
     try {
       const response = await axios.post('http://localhost:8000/api/token/', formData);
+      localStorage.setItem('accessToken', response.data.access);
       console.log(response.data);
       navigate('/profile');
       // Redirect or show success message
@@ -25,6 +27,7 @@ const SignInComponent = () => {
       // Show error message
     }
   };
+  
 
   return (
     <div>
