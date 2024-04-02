@@ -8,7 +8,6 @@ import ProfileEdit from "./components/edit_profile"
 import MeetingList from "./components/meetings";
 
 
-
 // Other imports...
 
 function App() {
