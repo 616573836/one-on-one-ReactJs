@@ -14,12 +14,17 @@ class MeetingViewSet(viewsets.ModelViewSet):
     queryset = Meeting.objects.all()
     serializer_class = meeting_serializer.MeetingSerializer
 
-    # @action(detail=False, url_path='', url_name='meeting-list', methods=['GET'])
     def list(self, request, *args, **kwargs):
         self.check_permissions(request)
-        return super().list(request, *args, **kwargs)
 
-    # @action(detail=False, url_path='', url_name='meeting-list', methods=['POST'])
+        current_user = request.user
+        member_instances = Member.objects.filter(user=current_user)
+        meetings = [member.meeting for member in member_instances]
+        for meeting in meetings:
+            print(meeting.name)
+        serializer = self.get_serializer(meetings, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
     def create(self, request, *args, **kwargs):
         self.check_permissions(request)
         serializer = self.get_serializer(data=request.data)
@@ -55,7 +60,7 @@ class MeetingViewSet(viewsets.ModelViewSet):
 
     def get_permissions(self):
         if self.action == 'list':
-            permission_classes = [IsAdminUser]
+            permission_classes = [IsAuthenticated]
         elif self.action == 'create':
             permission_classes = [IsAuthenticated]
         elif self.action == 'retrieve' or self.action == 'update' or self.action == 'destroy':

@@ -19,7 +19,7 @@ const MeetingList = () => {
             }
         });
         let data = await response.json();
-        setMeetings(data.results);
+        setMeetings(data);
     };
 
     let createMeeting = async (e) => {
