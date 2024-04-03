@@ -134,7 +134,7 @@ const ContactListComponent = () => {
         <table style={{ width: '100%', textAlign: 'center' }}>
             <thead>
                 <tr>
-                    <th>Username</th>
+                    <th>Alias</th>
                     <th>Created</th>
                     <th>Email</th>
                     <th>Actions</th>
