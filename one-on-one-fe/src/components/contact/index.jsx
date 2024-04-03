@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 const ContactListComponent = () => {
     const [contactsData, setContactsData] = useState([]); 
-    const [userId, setUserId] = useState('');
+    const [addContPop, setAddContPop] = useState(false);
     const [viewingContact, setViewingContact] = useState(null);
     const [filterParam, setFilterParam] = useState(''); 
 
@@ -30,7 +30,7 @@ const ContactListComponent = () => {
         setContactsData(mappedData);
     };
 
-    const addContact = async () => {
+    const addContact = async (userId) => {
         // Prevent function from running if userId is empty
         if (!userId) {
             alert("Please enter a user ID.");
@@ -51,7 +51,6 @@ const ContactListComponent = () => {
                 let newContact = await response.json();
                 const mappedNewContact = mapContactData(newContact, loggedInUserId);
                 setContactsData(prevState => [...prevState, mappedNewContact]);
-                setUserId('');
             } else {
                 // Handle server-side validation errors, if any
                 alert("Failed to add contact");
@@ -121,7 +120,7 @@ const ContactListComponent = () => {
     console.log(loggedInUserId);
   
     return (
-        <div><h2>Contact List</h2><div>
+        <div><div><h2>Contact List</h2></div>
         <div>
             <input
                 type="text"
@@ -132,28 +131,42 @@ const ContactListComponent = () => {
             />
             <button onClick={handleSearch}>Search</button>
         </div>
-        <input
-        type="text"
-        value={userId}
-        onChange={(e) => setUserId(e.target.value)}
-        placeholder="Enter User ID to add"
-        />
-          <button onClick={addContact}>Add Contact</button>
-        </div>
-          {contactsData.map((contact) => (
-            <div key={contact.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
-              <span>{contact.alias}</span>
-              <button onClick={() => setViewingContact(contact)}>View Contact Details</button>
-              <button onClick={() => deleteContact(contact.id)}>Delete Contact</button>
-            </div>
-          ))}
-          {viewingContact && 
-            <ViewContactPopup
-              contact={viewingContact}
-              onSave={updateContactAlias}
-              onClose={handleClosePopup}
+        <table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Actions</th> {/* Additional column for actions like viewing and deleting contacts */}
+                </tr>
+            </thead>
+            <tbody>
+                {contactsData.map((contact) => (
+                    <tr key={contact.id}>
+                        <td>{contact.alias}</td> {/* Assuming alias is used as username */}
+                        {/* Assuming you determine which email to show based on whether the contact is user1 or user2 */}
+                        <td>{contact.email}</td>
+                        <td>
+                            <button onClick={() => setViewingContact(contact)}>View Contact Details</button>
+                            <button onClick={() => deleteContact(contact.id)}>Delete Contact</button>
+                        </td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+        <div><button onClick={() => setAddContPop(true)}>Create & Invite new Contact</button></div>
+        {addContPop && 
+            <AddContactPopup
+                onConfirm={addContact}
+                onClose={() => setAddContPop(false)}
             />
-          }
+        }
+        {viewingContact && 
+        <ViewContactPopup
+            contact={viewingContact}
+            onSave={updateContactAlias}
+            onClose={handleClosePopup}
+        />
+        }
         </div>
       );
 };
@@ -180,6 +193,27 @@ function mapContactData(contact, currentUserId) {
             email: contact.email1
         };
     }
+}
+
+function AddContactPopup({ onConfirm, onClose }) {
+    const [userId, setUserId] = useState('');
+
+    return (
+        <div style={{ position: 'fixed', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: '20px', zIndex: 1000, border: '1px solid black' }}>
+            <div>
+                <input
+                    type="text"
+                    value={userId}
+                    onChange={(e) => setUserId(e.target.value)}
+                    placeholder="Enter User ID to add"
+                />
+            </div>
+            <div style={{ marginTop: '10px' }}>
+                <button onClick={() => {onConfirm(userId)}} style={{ marginRight: '5px' }}>Add Contact</button>
+                <button onClick={onClose}>Close</button>
+            </div>
+        </div>
+    );
 }
 
 function ViewContactPopup({ contact, onSave, onClose }) {
