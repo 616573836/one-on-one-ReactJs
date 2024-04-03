@@ -8,6 +8,7 @@ from ..models.contact import Contact, get_contact
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
 from django.db.models import Q
+from datetime import datetime
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
@@ -44,6 +45,7 @@ def contact_list_view(request):
 
             if get_contact(user1, user2):
                 return Response({"error": "Contact already exists."}, status=status.HTTP_400_BAD_REQUEST)
+            today_str = datetime.now().strftime('%Y/%m/%d')
             data.update({
                 'user1': user1.id,
                 'username1': user1.username,
@@ -51,7 +53,8 @@ def contact_list_view(request):
                 'alias1': user1.username,
                 'alias2': user2.username,
                 'email1': user1.email,
-                'email2': user2.email
+                'email2': user2.email,
+                'created': today_str
             })
             serializer = ContactSerializer(data=data)
             if serializer.is_valid():

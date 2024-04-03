@@ -120,30 +120,34 @@ const ContactListComponent = () => {
     console.log(loggedInUserId);
   
     return (
-        <div><div><h2>Contact List</h2></div>
         <div>
-            <input
-                type="text"
-                placeholder="Search by alias or username"
-                value={filterParam}
-                onChange={(e) => setFilterParam(e.target.value)}
-                style={{ marginRight: '10px' }}
-            />
-            <button onClick={handleSearch}>Search</button>
+        <div><h1>Contact List</h1></div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+            <div style={{ width: '50%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <input
+                    type="text"
+                    placeholder="Search by alias or username"
+                    value={filterParam}
+                    onChange={(e) => setFilterParam(e.target.value)}
+                    style={{ flexGrow: 1, marginRight: '10px', border: '1px solid #ccc', padding: '8px' }}
+                />
+                <button onClick={handleSearch} style={{ padding: '8px 16px' }}>Search</button>
+            </div>
         </div>
-        <table>
+        <table style={{ width: '100%', textAlign: 'center' }}>
             <thead>
                 <tr>
-                    <th>Username</th>
+                    <th>Alias</th>
+                    <th>Created</th>
                     <th>Email</th>
-                    <th>Actions</th> {/* Additional column for actions like viewing and deleting contacts */}
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {contactsData.map((contact) => (
                     <tr key={contact.id}>
-                        <td>{contact.alias}</td> {/* Assuming alias is used as username */}
-                        {/* Assuming you determine which email to show based on whether the contact is user1 or user2 */}
+                        <td>{contact.alias}</td>
+                        <td>{contact.created}</td>
                         <td>{contact.email}</td>
                         <td>
                             <button onClick={() => setViewingContact(contact)}>View Contact Details</button>
@@ -182,7 +186,8 @@ function mapContactData(contact, currentUserId) {
             userId: contact.user2,
             username: contact.username2,
             alias: contact.alias2 || 'No alias',
-            email: contact.email2
+            email: contact.email2,
+            created: contact.created
         };
     } else {
         return {
@@ -209,7 +214,10 @@ function AddContactPopup({ onConfirm, onClose }) {
                 />
             </div>
             <div style={{ marginTop: '10px' }}>
-                <button onClick={() => {onConfirm(userId)}} style={{ marginRight: '5px' }}>Add Contact</button>
+                <button onClick={() => {
+                    onConfirm(userId);
+                    onClose();
+                    }} style={{ marginRight: '5px' }}>Add Contact</button>
                 <button onClick={onClose}>Close</button>
             </div>
         </div>
