@@ -112,29 +112,32 @@ const MeetingDetail = () => {
             </button>
             {showUpdateForm && (
                 <form onSubmit={handleUpdate} style={styles.form}>
-                <div>
-                    <label>Name:</label>
-                    <input
-                        type="text"
-                        value={updatedName}
-                        onChange={(e) => setUpdatedName(e.target.value)}
-                        style={styles.input}
-                    />
-                </div>
-                <div>
-                    <label>Description:</label>
-                    <input
-                        type="text"
-                        value={updatedDescription}
-                        onChange={(e) => setUpdatedDescription(e.target.value)}
-                        style={styles.input}
-                    />
-                </div>
-                <button type="submit" style={styles.button}>
-                    Submit Update
-                </button>
+                    <div>
+                        <label>Name:</label>
+                        <input
+                            type="text"
+                            value={updatedName}
+                            onChange={(e) => setUpdatedName(e.target.value)}
+                            style={styles.input}
+                        />
+                    </div>
+                    <div>
+                        <label>Description:</label>
+                        <input
+                            type="text"
+                            value={updatedDescription}
+                            onChange={(e) => setUpdatedDescription(e.target.value)}
+                            style={styles.input}
+                        />
+                    </div>
+                    <button type="submit" style={styles.button}>
+                        Submit Update
+                    </button>
                 </form>
             )}
+            <button style={styles.calendarButton} onClick={() => navigate("/meetings")}>
+                My Calendar
+            </button>
         </div>
     );
 };
@@ -149,25 +152,43 @@ const styles = {
         boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
     },
     backButton: {
-        marginTop: '20px',
-        padding: '10px 20px',
-        fontSize: '16px',
-        cursor: 'pointer',
         display: 'inline-block',
-        textDecoration: 'none',
-        backgroundColor: '#007bff',
-        color: 'white',
-        borderRadius: '5px',
-    },
-    button: {
-        display: 'block',
         marginTop: '10px',
         marginRight: '5px',
+        marginLeft: '5px',
         marginBottom: '5px',
         padding: '10px 20px',
         fontSize: '16px',
         cursor: 'pointer',
+        color: 'white',
+        border: 'none',
+        borderRadius: '4px',
         backgroundColor: '#007bff',
+    },
+    calendarButton: {
+        display: 'inline-block',
+        marginTop: '10px',
+        marginRight: '5px',
+        marginLeft: '5px',
+        marginBottom: '5px',
+        padding: '10px 20px',
+        fontSize: '16px',
+        cursor: 'pointer',
+        color: 'white',
+        border: 'none',
+        borderRadius: '4px',
+        backgroundColor: '#9933ff',
+    },
+    button: {
+        display: 'inline-block',
+        marginTop: '10px',
+        marginRight: '5px',
+        marginLeft: '5px',
+        marginBottom: '5px',
+        padding: '10px 20px',
+        fontSize: '16px',
+        cursor: 'pointer',
+        backgroundColor: '#f4511e',
         color: 'white',
         border: 'none',
         borderRadius: '4px',
