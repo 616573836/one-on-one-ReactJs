@@ -31,7 +31,6 @@ const ContactListComponent = () => {
     };
 
     const addContact = async (userId) => {
-        // Prevent function from running if userId is empty
         if (!userId) {
             alert("Please enter a user ID.");
             return;
@@ -44,7 +43,7 @@ const ContactListComponent = () => {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
                 },
-                body: JSON.stringify({ user2: userId }), // Send the userId as "user2"
+                body: JSON.stringify({ user2: userId }),
             });
 
             if (response.ok) {
@@ -52,8 +51,8 @@ const ContactListComponent = () => {
                 const mappedNewContact = mapContactData(newContact, loggedInUserId);
                 setContactsData(prevState => [...prevState, mappedNewContact]);
             } else {
-                // Handle server-side validation errors, if any
-                alert("Failed to add contact");
+                let data = await response.json();
+                alert("Failed to add contact: " + data.error);
                 console.error("Failed to add contact");
             }
         } catch (error) {
@@ -73,7 +72,6 @@ const ContactListComponent = () => {
             });
 
             if (response.ok) {
-                // Filter out the deleted contact from the contactsData array
                 setContactsData(prevState => prevState.filter(contact => contact.id !== id));            } else {
                 console.error("Failed to delete contact");
             }
@@ -94,7 +92,6 @@ const ContactListComponent = () => {
             });
     
             if (response.ok) {
-                // Update the alias in the local state without waiting for a response
                 setContactsData(prevState => prevState.map(contact => 
                   contact.id === contactId ? { ...contact, alias: newAlias } : contact
                 ));
@@ -108,11 +105,11 @@ const ContactListComponent = () => {
     };
 
     const handleClosePopup = () => {
-        setViewingContact(null); // Close the popup
+        setViewingContact(null);
       };
 
       const handleSearch = () => {
-        getContacts(filterParam); // Fetch with filter
+        getContacts(filterParam);
     };
     
 
@@ -228,15 +225,17 @@ function ViewContactPopup({ contact, onSave, onClose }) {
   const [alias, setAlias] = useState(contact.alias);
 
   return (
-    <div style={{ position: 'fixed', top: '20%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: '20px', zIndex: 1000, border: '1px solid black' }}>
+    <div style={{ position: 'fixed', top: '30%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: '20px', zIndex: 1000, border: '1px solid black' }}>
       <div>Username: {contact.username}</div>
       <div>User ID: {contact.userId}</div>
       <div>Email: {contact.email}</div>
       <div>
-        Alias: <input type="text" value={alias} onChange={(e) => setAlias(e.target.value)} />
+        Alias: <input type="text" value={alias} onChange={(e) => setAlias(e.target.value)} style={{ flexGrow: 1, marginRight: '10px', border: '1px solid #ccc', padding: '8px' }}/>
       </div>
-      <button onClick={() => onSave(contact.id, alias)}>Update Contact</button>
-      <button onClick={onClose}>Close</button>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%' }}>
+            <button onClick={onClose} style={{ marginRight: '10px' }}>Close</button>
+            <button onClick={() => onSave(contact.id, alias)} style={{ marginLeft: '10px' }}>Update Alias</button>
+        </div>
     </div>
   );
 }
