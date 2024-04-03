@@ -131,7 +131,7 @@ const ContactListComponent = () => {
             />
             <button onClick={handleSearch}>Search</button>
         </div>
-        <table>
+        <table style={{ width: '100%', textAlign: 'center' }}>
             <thead>
                 <tr>
                     <th>Username</th>
