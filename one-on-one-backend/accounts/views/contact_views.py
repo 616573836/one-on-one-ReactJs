@@ -19,7 +19,6 @@ def contact_list_view(request):
             return Response(serializer.data)
         case 'POST':
             data = request.data.copy()
-            data.update({'user1': request.user.id})
 
             user1 = request.user
             user2_id = data.get('user2')
@@ -34,7 +33,11 @@ def contact_list_view(request):
 
             if get_contact(user1, user2):
                 return Response({"error": "Contact already exists."}, status=status.HTTP_400_BAD_REQUEST)
-
+            data.update({
+                'user1': user1.id,
+                'username1': user1.username,
+                'username2': user2.username
+            })
             serializer = ContactSerializer(data=data)
             if serializer.is_valid():
                 serializer.save()

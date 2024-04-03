@@ -5,7 +5,7 @@ class ContactSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Contact
-        fields = ['id', 'user1', 'user2', 'alias1', 'alias2']
+        fields = ['id', 'user1', 'user2', 'username1', 'username2', 'alias1', 'alias2']
 
 
 class ContactInfoSerializer(serializers.ModelSerializer):
@@ -28,9 +28,13 @@ class ContactInfoSerializer(serializers.ModelSerializer):
         else:
             return obj.alias1
 
+    def get_username(self, obj):
+        if self.request_user == obj.user1:
+            return obj.username
+
     class Meta:
         model = Contact
-        fields = ['id', 'user_id', 'alias']
+        fields = ['id', 'user_id', 'alias', 'username']
 
 class ContactUpdateSerializer(serializers.ModelSerializer):
     class Meta:
