@@ -10,6 +10,8 @@ class Contact(models.Model):
     alias2 = models.CharField(max_length=20, blank=True)
     username1 = models.CharField(max_length=20, blank=True)
     username2 = models.CharField(max_length=20, blank=True)
+    email1 = models.CharField(max_length=50, blank=True)
+    email2 = models.CharField(max_length=50, blank=True)
 
 
 def get_contact(user1, user2):

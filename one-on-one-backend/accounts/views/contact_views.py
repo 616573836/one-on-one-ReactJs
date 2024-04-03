@@ -36,7 +36,11 @@ def contact_list_view(request):
             data.update({
                 'user1': user1.id,
                 'username1': user1.username,
-                'username2': user2.username
+                'username2': user2.username,
+                'alias1': user1.username,
+                'alias2': user2.username,
+                'email1': user1.email,
+                'email2': user2.email
             })
             serializer = ContactSerializer(data=data)
             if serializer.is_valid():
