@@ -8,7 +8,7 @@ class ContactSerializer(serializers.ModelSerializer):
         fields = ['id', 'user1', 'user2',
                   'username1', 'username2',
                   'alias1', 'alias2',
-                  'email1', 'email2'
+                  'email1', 'email2', 'created'
                   ]
 
 

@@ -135,15 +135,16 @@ const ContactListComponent = () => {
             <thead>
                 <tr>
                     <th>Username</th>
+                    <th>Created</th>
                     <th>Email</th>
-                    <th>Actions</th> {/* Additional column for actions like viewing and deleting contacts */}
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
                 {contactsData.map((contact) => (
                     <tr key={contact.id}>
-                        <td>{contact.alias}</td> {/* Assuming alias is used as username */}
-                        {/* Assuming you determine which email to show based on whether the contact is user1 or user2 */}
+                        <td>{contact.alias}</td>
+                        <td>{contact.created}</td>
                         <td>{contact.email}</td>
                         <td>
                             <button onClick={() => setViewingContact(contact)}>View Contact Details</button>
@@ -182,7 +183,8 @@ function mapContactData(contact, currentUserId) {
             userId: contact.user2,
             username: contact.username2,
             alias: contact.alias2 || 'No alias',
-            email: contact.email2
+            email: contact.email2,
+            created: contact.created
         };
     } else {
         return {
@@ -209,7 +211,10 @@ function AddContactPopup({ onConfirm, onClose }) {
                 />
             </div>
             <div style={{ marginTop: '10px' }}>
-                <button onClick={() => {onConfirm(userId)}} style={{ marginRight: '5px' }}>Add Contact</button>
+                <button onClick={() => {
+                    onConfirm(userId);
+                    onClose();
+                    }} style={{ marginRight: '5px' }}>Add Contact</button>
                 <button onClick={onClose}>Close</button>
             </div>
         </div>
