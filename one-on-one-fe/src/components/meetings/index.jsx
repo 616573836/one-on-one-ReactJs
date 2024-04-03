@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-const AUTH_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMDI5MTIxLCJpYXQiOjE3MTIwMjczMjEsImp0aSI6IjlkMDA0ZWEzZWZhZjRiYjliNmQyMDdiMGViMmU3MjM3IiwidXNlcl9pZCI6MX0.EvCCrSS-r0_znqJC23FMdxxpXRsP4M03PLoSZX7MlMQ'
 
 const MeetingList = () => {
     let [meetings, setMeetings] = useState([]);
@@ -83,6 +82,7 @@ const MeetingList = () => {
                         <p>Created: {formatTimestamp(meeting.created_time)}</p>
                         <p>Current State: {meeting.state}</p>
                         <a href={`/meetings/${meeting.id}/`} style={styles.detailButton}>Detail</a>
+                        <a href={`/meetings/${meeting.id}/members`} style={styles.detailButton}>Members</a>
                     </div>
                 ))}
             </div>

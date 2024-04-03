@@ -9,6 +9,8 @@ import Contact from "./components/contact"
 import MeetingList from "./components/meetings";
 import MeetingDetail from './components/meeting_detail';
 import ProfileD from "./components/contact";
+import Members from './components/members'
+import Member from './components/member'
 
 // Other imports...
 
@@ -24,6 +26,8 @@ function App() {
         <Route path="meetings/" element={<MeetingList />} />
         <Route path="meetings/:meetingId/" element={<MeetingDetail />} />
         <Route path="contact/" element={<ProfileD />} />
+        <Route path="meetings/:meetingId/members" element={<Members />} />
+        <Route path="meetings/:meetingId/members/:userID" element={<Member />} />
           {/* Other routes */}
         </Routes>
     </BrowserRouter>
