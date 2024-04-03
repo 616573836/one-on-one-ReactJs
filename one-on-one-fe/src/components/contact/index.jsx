@@ -120,16 +120,19 @@ const ContactListComponent = () => {
     console.log(loggedInUserId);
   
     return (
-        <div><div><h2>Contact List</h2></div>
         <div>
-            <input
-                type="text"
-                placeholder="Search by alias or username"
-                value={filterParam}
-                onChange={(e) => setFilterParam(e.target.value)}
-                style={{ marginRight: '10px' }}
-            />
-            <button onClick={handleSearch}>Search</button>
+        <div><h1>Contact List</h1></div>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+            <div style={{ width: '50%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <input
+                    type="text"
+                    placeholder="Search by alias or username"
+                    value={filterParam}
+                    onChange={(e) => setFilterParam(e.target.value)}
+                    style={{ flexGrow: 1, marginRight: '10px', border: '1px solid #ccc', padding: '8px' }}
+                />
+                <button onClick={handleSearch} style={{ padding: '8px 16px' }}>Search</button>
+            </div>
         </div>
         <table style={{ width: '100%', textAlign: 'center' }}>
             <thead>
