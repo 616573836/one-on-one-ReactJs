@@ -11,7 +11,7 @@ db.sqlite3
 
 one-on-one-fe/node_modules/
 /one-on-one-fe/node_modules/
-/one-on-one-fe/node_modules/*
+one-on-one-fe/node_modules/*
 
 # testing
 /one-on-one-fe/coverage
