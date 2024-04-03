@@ -15,7 +15,24 @@ def contact_list_view(request):
         case 'GET':
             user = request.user
             contacts = Contact.objects.filter(models.Q(user1=user) | models.Q(user2=user))
-            serializer = ContactSerializer(contacts, many=True)
+
+            filter_param = request.GET.get('filter', '')
+            if filter_param:
+                filtered = []
+                for contact in contacts:
+                    is_user2 = user.id == contact.user1
+                    if is_user2:
+                        if (contact.alias2.lower() == filter_param.lower()
+                                or contact.username2.lower() == filter_param.lower()):
+                            filtered.append(contact)
+                    else:
+                        if (contact.alias1.lower() == filter_param.lower()
+                                or contact.username1.lower() == filter_param.lower()):
+                            filtered.append(contact)
+
+                serializer = ContactSerializer(filtered, many=True)
+            else:
+                serializer = ContactSerializer(contacts, many=True)
             return Response(serializer.data)
         case 'POST':
             data = request.data.copy()
