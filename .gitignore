@@ -9,7 +9,7 @@ db.sqlite3
 /one-on-one-fe/.pnp
 .pnp.js
 
-/one-on-one-fe/node_modules
+one-on-one-fe/node_modules/
 /one-on-one-fe/node_modules/
 /one-on-one-fe/node_modules/*
 
