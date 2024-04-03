@@ -123,8 +123,8 @@ const ContactListComponent = () => {
         </div>
           {contactsData.map((contact) => (
             <div key={contact.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
-              <span>User ID: {contact.userId} - Username: {contact.username} - Alias: {contact.alias}</span>
-              <button onClick={() => setViewingContact(contact)}>View Contact</button>
+              <span>{contact.alias}</span>
+              <button onClick={() => setViewingContact(contact)}>View Contact Details</button>
               <button onClick={() => deleteContact(contact.id)}>Delete Contact</button>
             </div>
           ))}
@@ -150,6 +150,7 @@ function mapContactData(contact, currentUserId) {
             userId: contact.user2,
             username: contact.username2,
             alias: contact.alias2 || 'No alias',
+            email: contact.email2
         };
     } else {
         return {
@@ -157,6 +158,7 @@ function mapContactData(contact, currentUserId) {
             userId: contact.user1,
             username: contact.username1,
             alias: contact.alias1 || 'No alias',
+            email: contact.email1
         };
     }
 }
@@ -166,8 +168,9 @@ function ViewContactPopup({ contact, onSave, onClose }) {
 
   return (
     <div style={{ position: 'fixed', top: '20%', left: '50%', transform: 'translate(-50%, -50%)', backgroundColor: 'white', padding: '20px', zIndex: 1000, border: '1px solid black' }}>
-      <div>Contact ID: {contact.id}</div>
+      <div>Username: {contact.username}</div>
       <div>User ID: {contact.userId}</div>
+      <div>Email: {contact.email}</div>
       <div>
         Alias: <input type="text" value={alias} onChange={(e) => setAlias(e.target.value)} />
       </div>
