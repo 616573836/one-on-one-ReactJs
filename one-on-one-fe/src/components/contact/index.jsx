@@ -112,20 +112,18 @@ const ContactListComponent = () => {
     console.log(loggedInUserId);
   
     return (
-        <div>
-                  <h2>Contact List</h2>
-        <div>
-          <input
-            type="text"
-            value={userId}
-            onChange={(e) => setUserId(e.target.value)}
-            placeholder="Enter User ID to add"
-          />
+        <div><h2>Contact List</h2><div>
+        <input
+        type="text"
+        value={userId}
+        onChange={(e) => setUserId(e.target.value)}
+        placeholder="Enter User ID to add"
+        />
           <button onClick={addContact}>Add Contact</button>
         </div>
           {contactsData.map((contact) => (
             <div key={contact.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
-              <span>User ID: {contact.userId} - Username: {contact.alias}</span>
+              <span>User ID: {contact.userId} - Username: {contact.username} - Alias: {contact.alias}</span>
               <button onClick={() => setViewingContact(contact)}>View Contact</button>
               <button onClick={() => deleteContact(contact.id)}>Delete Contact</button>
             </div>
@@ -150,12 +148,14 @@ function mapContactData(contact, currentUserId) {
         return {
             id: contact.id,
             userId: contact.user2,
+            username: contact.username2,
             alias: contact.alias2 || 'No alias',
         };
     } else {
         return {
             id: contact.id,
             userId: contact.user1,
+            username: contact.username1,
             alias: contact.alias1 || 'No alias',
         };
     }
