@@ -5,14 +5,19 @@ const ContactListComponent = () => {
     const [contactsData, setContactsData] = useState([]); 
     const [userId, setUserId] = useState('');
     const [viewingContact, setViewingContact] = useState(null);
+    const [filterParam, setFilterParam] = useState(''); 
 
   
     useEffect(() => {
         getContacts();
     }, []);
 
-    let getContacts = async () => {
-        let response = await fetch('http://127.0.0.1:8000/api/accounts/contacts/', {
+    let getContacts = async (filter = '') => {
+        let url = 'http://127.0.0.1:8000/api/accounts/contacts/';
+        if (filter) {
+            url += `?filter=${encodeURIComponent(filter)}`;
+        }
+        let response = await fetch(url, {
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
@@ -106,6 +111,10 @@ const ContactListComponent = () => {
     const handleClosePopup = () => {
         setViewingContact(null); // Close the popup
       };
+
+      const handleSearch = () => {
+        getContacts(filterParam); // Fetch with filter
+    };
     
 
     const loggedInUserId = localStorage.getItem("userid");
@@ -113,6 +122,16 @@ const ContactListComponent = () => {
   
     return (
         <div><h2>Contact List</h2><div>
+        <div>
+            <input
+                type="text"
+                placeholder="Search by alias or username"
+                value={filterParam}
+                onChange={(e) => setFilterParam(e.target.value)}
+                style={{ marginRight: '10px' }}
+            />
+            <button onClick={handleSearch}>Search</button>
+        </div>
         <input
         type="text"
         value={userId}

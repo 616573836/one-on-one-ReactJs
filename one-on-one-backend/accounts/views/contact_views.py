@@ -7,6 +7,7 @@ from django.db import models
 from ..models.contact import Contact, get_contact
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
@@ -14,25 +15,18 @@ def contact_list_view(request):
     match request.method:
         case 'GET':
             user = request.user
-            contacts = Contact.objects.filter(models.Q(user1=user) | models.Q(user2=user))
+            contacts_query = Contact.objects.filter(Q(user1=user) | Q(user2=user))
+            filter_param = request.GET.get('filter', '').lower()
 
-            filter_param = request.GET.get('filter', '')
             if filter_param:
-                filtered = []
-                for contact in contacts:
-                    is_user2 = user.id == contact.user1
-                    if is_user2:
-                        if (contact.alias2.lower() == filter_param.lower()
-                                or contact.username2.lower() == filter_param.lower()):
-                            filtered.append(contact)
-                    else:
-                        if (contact.alias1.lower() == filter_param.lower()
-                                or contact.username1.lower() == filter_param.lower()):
-                            filtered.append(contact)
+                contacts_query = contacts_query.filter(
+                    Q(alias1__icontains=filter_param, user2=user) |
+                    Q(alias2__icontains=filter_param, user1=user) |
+                    Q(user1__username__icontains=filter_param, user2=user) |
+                    Q(user2__username__icontains=filter_param, user1=user)
+                )
 
-                serializer = ContactSerializer(filtered, many=True)
-            else:
-                serializer = ContactSerializer(contacts, many=True)
+            serializer = ContactSerializer(contacts_query, many=True)
             return Response(serializer.data)
         case 'POST':
             data = request.data.copy()
