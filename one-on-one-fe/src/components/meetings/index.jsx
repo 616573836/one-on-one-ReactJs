@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom';
+
 
 const MeetingList = () => {
+    const navigate = useNavigate();
     let [meetings, setMeetings] = useState([]);
     let [meetingName, setMeetingName] = useState('');
     let [meetingDescription, setMeetingDescription] = useState('');
@@ -83,6 +86,9 @@ const MeetingList = () => {
                         <p>Current State: {meeting.state}</p>
                         <a href={`/meetings/${meeting.id}/`} style={styles.detailButton}>Detail</a>
                         <a href={`/meetings/${meeting.id}/members`} style={styles.detailButton}>Members</a>
+                        <button style={styles.detailButton} onClick={() => navigate(`/meetings/${meeting.id}/`)}>
+                            Detail 
+                        </button>
                     </div>
                 ))}
             </div>
@@ -123,14 +129,22 @@ const styles = {
         marginBottom: '10px',
     },
     detailButton: {
-        display: 'inline-block',
-        padding: '5px 10px',
-        marginTop: '10px',
+        padding: '10px 20px',
         textDecoration: 'none',
-        backgroundColor: '#007bff',
+        transition: 'all 0.5s',
+        textAlign: 'center',
+        display: 'inline-block',
+        marginTop: '10px',
+        marginRight: '5px',
+        marginLeft: '5px',
+        marginBottom: '5px',
+        fontSize: '16px',
+        cursor: 'pointer',
         color: 'white',
-        borderRadius: '5px',
-    }
+        border: 'none',
+        borderRadius: '4px',
+        backgroundColor: '#007bff',
+    },
 };
 
 export default MeetingList;

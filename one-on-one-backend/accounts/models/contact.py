@@ -8,6 +8,11 @@ class Contact(models.Model):
     user2 = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user2')
     alias1 = models.CharField(max_length=20, blank=True)
     alias2 = models.CharField(max_length=20, blank=True)
+    username1 = models.CharField(max_length=20, blank=True)
+    username2 = models.CharField(max_length=20, blank=True)
+    email1 = models.CharField(max_length=50, blank=True)
+    email2 = models.CharField(max_length=50, blank=True)
+    created = models.CharField(max_length=10, blank=True)
 
 
 def get_contact(user1, user2):

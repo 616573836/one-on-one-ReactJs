@@ -7,6 +7,8 @@ from django.db import models
 from ..models.contact import Contact, get_contact
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404
+from django.db.models import Q
+from datetime import datetime
 
 @api_view(['GET', 'POST'])
 @permission_classes([IsAuthenticated])
@@ -14,12 +16,21 @@ def contact_list_view(request):
     match request.method:
         case 'GET':
             user = request.user
-            contacts = Contact.objects.filter(models.Q(user1=user) | models.Q(user2=user))
-            serializer = ContactSerializer(contacts, many=True)
+            contacts_query = Contact.objects.filter(Q(user1=user) | Q(user2=user))
+            filter_param = request.GET.get('filter', '').lower()
+
+            if filter_param:
+                contacts_query = contacts_query.filter(
+                    Q(alias1__icontains=filter_param, user2=user) |
+                    Q(alias2__icontains=filter_param, user1=user) |
+                    Q(user1__username__icontains=filter_param, user2=user) |
+                    Q(user2__username__icontains=filter_param, user1=user)
+                )
+
+            serializer = ContactSerializer(contacts_query, many=True)
             return Response(serializer.data)
         case 'POST':
             data = request.data.copy()
-            data.update({'user1': request.user.id})
 
             user1 = request.user
             user2_id = data.get('user2')
@@ -34,7 +45,17 @@ def contact_list_view(request):
 
             if get_contact(user1, user2):
                 return Response({"error": "Contact already exists."}, status=status.HTTP_400_BAD_REQUEST)
-
+            today_str = datetime.now().strftime('%Y/%m/%d')
+            data.update({
+                'user1': user1.id,
+                'username1': user1.username,
+                'username2': user2.username,
+                'alias1': user1.username,
+                'alias2': user2.username,
+                'email1': user1.email,
+                'email2': user2.email,
+                'created': today_str
+            })
             serializer = ContactSerializer(data=data)
             if serializer.is_valid():
                 serializer.save()
