@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-const AUTH_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMDI5MTIxLCJpYXQiOjE3MTIwMjczMjEsImp0aSI6IjlkMDA0ZWEzZWZhZjRiYjliNmQyMDdiMGViMmU3MjM3IiwidXNlcl9pZCI6MX0.EvCCrSS-r0_znqJC23FMdxxpXRsP4M03PLoSZX7MlMQ'
-
 const MeetingDetail = () => {
     let { meetingId } = useParams();
     const navigate = useNavigate();
@@ -135,9 +133,6 @@ const MeetingDetail = () => {
                     </button>
                 </form>
             )}
-            <button style={styles.calendarButton} onClick={() => navigate("/meetings")}>
-                My Calendar
-            </button>
         </div>
     );
 };
