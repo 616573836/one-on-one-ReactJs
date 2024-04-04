@@ -59,6 +59,24 @@ const MemberDetail = () => {
             console.error("Failed to update meeting:", error);
         }
     };
+
+    const deleteMember = async () => {
+        if (window.confirm("Are you sure you want to delete this meeting?")) {
+            try {
+                await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/members/${memberID}/`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                    }
+                });
+                navigate("/meetings"); // Navigate back after deletion
+            } catch (error) {
+                console.error("Failed to delete meeting:", error);
+            }
+        }
+    };
+
     
     if (!member) {
         return <div>no member</div>;
@@ -76,7 +94,9 @@ const MemberDetail = () => {
             <button style={styles.button} onClick={() => setShowUpdateForm(true)}>
                 Update
             </button>
-
+            <button style={styles.button} onClick={() => deleteMember()}>
+                Delete
+            </button>
             {showUpdateForm && (
                 <form onSubmit={handleUpdate} style={styles.form}>
                     <div>

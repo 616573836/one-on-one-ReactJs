@@ -88,18 +88,32 @@ def member_view(request, meeting_id, user_id):
             member = Member.objects.get(user=user_id, meeting=meeting_id)
         except:
             return Response({"error": "Member does not exist."}, status=status.HTTP_404_NOT_FOUND)
+        
+        if request.user == member.user:
+            member.delete()
+            if not Member.objects.filter(meeting=meeting).exists():
+                meeting.delete()
+                return Response({"message": "Member and meeting deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
+            return Response({"message": "Delete success"}, status=status.HTTP_204_NO_CONTENT)
 
-        if not Member.objects.filter(
-            Q(role__iexact='host'), 
-            meeting=meeting_id, 
-            user=request.user
-        ).exists():
-            return Response(data={"detail": "You are not the host of the meeting."}, status=status.HTTP_403_FORBIDDEN)
+
+        if not Member.objects.filter(meeting=meeting_id, user=request.user, role__iexact='host').exists():
+            return Response({"detail": "You are not allowed to perform this action."}, status=status.HTTP_403_FORBIDDEN)
+        
         try:
             member.delete()
+            if not Member.objects.filter(meeting=meeting).exists():
+                meeting.delete()
+                return Response({"message": "Member and meeting deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
             return Response({"Delete success"}, status=status.HTTP_204_NO_CONTENT)
         except Member.DoesNotExist:
             return Response({"error": "Member is not in meeting."}, status=status.HTTP_404_NOT_FOUND)
+
+
+
+
+
+
 
     elif request.method == 'POST':
         user = request.user
