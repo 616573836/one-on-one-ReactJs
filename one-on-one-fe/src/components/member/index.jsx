@@ -8,34 +8,29 @@ const MemberDetail = () => {
     let [member, setMember] = useState(null);
     const [loading, setLoading] = useState(false);
 
-
     useEffect(() => {
-        
-        (async () => {
-            try {
-                
-                let response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/members/${memberID}`, {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-                    }
-                });
-                
-                let data = await response.json();
-                setMember(data);
-                
-            } catch (error) {
-                console.error("Failed to fetch members details:", error);
-            }
-        })();
-        
-    }, [meetingId, memberID]);
-    return <div>gg</div>;
-    if (!member) {
-        return <div>http://127.0.0.1:8000/api/meetings/{meetingId}/members/{memberID}</div>;
-        
+        getMember();
+    }, [meetingId,memberID]);
+
+    const getMember = async () => {
+        setLoading(true);
+        try {
+            let response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/members/${memberID}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
+            let data = await response.json();
+            setMember(data);
+        } catch (error) {
+            console.error("Failed to fetch members details:", error);
+        } 
+        finally {
+            setLoading(false);
         }
+    };
         
 
     return (

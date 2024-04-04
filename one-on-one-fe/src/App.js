@@ -16,7 +16,7 @@ import EventList from "./components/events"
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter >
         <Routes>
         <Route path="signup/" element={<SignUp />} />
         <Route path="login/" element={<Login />} />
