@@ -34,12 +34,13 @@ class SubmitNode(Node):
 
 
 class PollNode(Node):
-    class PollState(models.TextChoices):
-        ONGOING = 'on-going', 'On-Going State'
-        FINISHED = 'finished', 'Finished State'
-        CANCELED = 'canceled', 'Canceled State'
+    PollState = [
+        ('on-going', 'On-Going State'),
+        ('finished', 'Finished State'),
+        ('canceled', 'Canceled State'),
+    ]
 
-    state = models.CharField(choices=PollState, max_length=50, default=PollState.ONGOING)
+    state = models.CharField(choices=PollState, max_length=50, default='on-going')
     users_voted = models.ManyToManyField(User, related_name='voted_polls', blank=True)
 
     def vote(self, user, selected_option):
