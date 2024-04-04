@@ -20,8 +20,6 @@ class MeetingViewSet(viewsets.ModelViewSet):
         current_user = request.user
         member_instances = Member.objects.filter(user=current_user)
         meetings = [member.meeting for member in member_instances]
-        for meeting in meetings:
-            print(meeting.name)
         serializer = self.get_serializer(meetings, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
