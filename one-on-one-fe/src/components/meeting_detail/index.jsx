@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
+
 const MeetingDetail = () => {
     let { meetingId } = useParams();
     const navigate = useNavigate();
     let [meeting, setMeeting] = useState(null);
+    const [members, setMembers] = useState(null);
     const [loading, setLoading] = useState(false);
     const [showUpdateForm, setShowUpdateForm] = useState(false);
     const [updatedName, setUpdatedName] = useState('');
@@ -13,6 +15,27 @@ const MeetingDetail = () => {
     useEffect(() => {
         fetchMeetingDetails();
     }, [meetingId]);
+
+    useEffect(() => {
+        getMembers();
+    }, [meetingId]);
+
+    const getMembers = async () => {
+        try {
+            let response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/members/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
+            let data = await response.json();
+            setMembers(data);
+        } catch (error) {
+            console.error("Failed to fetch members details:", error);
+        } 
+    };
+
 
     const fetchMeetingDetails = async () => {
         setLoading(true);
@@ -108,6 +131,8 @@ const MeetingDetail = () => {
             <button style={styles.button} onClick={() => setShowUpdateForm(true)}>
                 Update
             </button>
+            
+            
             {showUpdateForm && (
                 <form onSubmit={handleUpdate} style={styles.form}>
                     <div>
@@ -133,7 +158,21 @@ const MeetingDetail = () => {
                     </button>
                 </form>
             )}
+            <button style={styles.calendarButton} onClick={() => navigate("/meetings")}>
+                My Calendar
+            </button>
+             {members?.map((member, index) => (
+                    <div key={index} style={styles.meetingItem}>
+                        <p>User: {member.username}</p>
+                        <p>Role: {member.role}</p>
+                        <a href={`/meetings/${meetingId}/members/${member.user}/`} style={styles.detailButton}>Detail</a>
+
+                       
+                    </div>
+                ))}
+           
         </div>
+
     );
 };
 
@@ -209,6 +248,15 @@ const styles = {
         marginBottom: '5px',
         display: 'block',
         fontSize: '18px',
+    },
+    detailButton: {
+        display: 'inline-block',
+        padding: '5px 10px',
+        marginTop: '10px',
+        textDecoration: 'none',
+        backgroundColor: '#007bff',
+        color: 'white',
+        borderRadius: '5px',
     }
 };
 

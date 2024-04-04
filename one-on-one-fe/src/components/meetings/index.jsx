@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
-const AUTH_TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMDI5MTIxLCJpYXQiOjE3MTIwMjczMjEsImp0aSI6IjlkMDA0ZWEzZWZhZjRiYjliNmQyMDdiMGViMmU3MjM3IiwidXNlcl9pZCI6MX0.EvCCrSS-r0_znqJC23FMdxxpXRsP4M03PLoSZX7MlMQ'
+
 
 const MeetingList = () => {
     const navigate = useNavigate();
@@ -77,20 +77,20 @@ const MeetingList = () => {
                 <button type="submit" style={styles.button}>Create Meeting</button>
             </form>
             <div style={styles.container}>
-            <div style={styles.meetingList}>
-                {meetings?.map((meeting, index) => (
-                    <div key={index} style={styles.meetingItem}>
-                        <h2>{meeting.name}</h2>
-                        <p>Description: {meeting.description}</p>
-                        <p>Created: {formatTimestamp(meeting.created_time)}</p>
-                        <p>Current State: {meeting.state}</p>
-                        <button style={styles.detailButton} onClick={() => navigate(`/meetings/${meeting.id}/`)}>
-                            Detail 
-                        </button>
-                    </div>
-                ))}
+                <div style={styles.meetingList}>
+                    {meetings?.map((meeting, index) => (
+                        <div key={index} style={styles.meetingItem}>
+                            <h2>{meeting.name}</h2>
+                            <p>Description: {meeting.description}</p>
+                            <p>Created: {formatTimestamp(meeting.created_time)}</p>
+                            <p>Current State: {meeting.state}</p>
+                            <button style={styles.detailButton} onClick={() => navigate(`/meetings/${meeting.id}/`)}>
+                                Detail 
+                            </button>
+                        </div>
+                    ))}
+                </div>
             </div>
-        </div>
         </div>
     );
 };

@@ -9,12 +9,14 @@ import Contact from "./components/contact"
 import MeetingList from "./components/meetings";
 import MeetingDetail from './components/meeting_detail';
 import ProfileD from "./components/contact";
-
+import Members from './components/members'
+import Member from './components/member'
+import EventList from "./components/events"
 // Other imports...
 
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter >
         <Routes>
         <Route path="signup/" element={<SignUp />} />
         <Route path="login/" element={<Login />} />
@@ -24,6 +26,10 @@ function App() {
         <Route path="meetings/" element={<MeetingList />} />
         <Route path="meetings/:meetingId/" element={<MeetingDetail />} />
         <Route path="contact/" element={<ProfileD />} />
+        <Route path="meetings/:meetingId/members" element={<Members />} />
+        <Route path="meetings/:meetingId/members/:memberID" element={<Member />} />
+        <Route path="meetings/:meetingId/members/:memberId/calendar/events" element={<EventList />} />
+
           {/* Other routes */}
         </Routes>
     </BrowserRouter>
