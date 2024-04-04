@@ -7,12 +7,6 @@ from ..models.calendar import Calendar
 from ..serializer.calendar_serializer import CalendarSerializer
 from ..models.member import Member
 from ..models.member import Meeting
-from ..models.event import Event
-
-from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth.models import User
-from ..serializer.event_serializer import EventSerializer
-
 from ..models.node import SubmitNode
 
 
@@ -36,7 +30,6 @@ def check_all_members_have_calendar(meeting_id):
 @api_view(['GET'])
 @permission_classes([IsMember | IsAdminUser])
 def calendar_list_view(request, meeting_id):
-
     calendars = Calendar.objects.filter(meeting=meeting_id)
     if not is_member(request, calendars):
         return Response({"detail": "Is not a member."}, status=status.HTTP_403_FORBIDDEN)
@@ -53,7 +46,8 @@ def calendar_list_view(request, meeting_id):
 @permission_classes([IsMember | IsAdminUser])
 def calendar_view(request, meeting_id, user_id):
     if not Member.objects.filter(meeting=meeting_id, user=request.user).exists():
-        return Response(data={"detail": "You do not have permission to perform this action."}, status=status.HTTP_403_FORBIDDEN)
+        return Response(data={"detail": "You do not have permission to perform this action."},
+                        status=status.HTTP_403_FORBIDDEN)
 
     if request.method == 'GET':
 
@@ -89,27 +83,21 @@ def calendar_view(request, meeting_id, user_id):
         if not Member.objects.filter(meeting=meeting_id, user=request.user).exists():
             return Response(data={"detail": "You are not in the meeting."}, status=status.HTTP_403_FORBIDDEN)
 
-        
-        
         calendar = Calendar.objects.create(meeting_id=meeting_id, owner=user)
         serializer = CalendarSerializer(calendar)
 
-        if check_all_members_have_calendar(meeting_id) == True:
-           
-           calendar = Calendar.objects.create(meeting_id=meeting_id)
-           empty_calendars = Calendar.objects.filter(owner__isnull=True)
+        if check_all_members_have_calendar(meeting_id):
+            calendar = Calendar.objects.create(meeting_id=meeting_id)
+            empty_calendars = Calendar.objects.filter(owner__isnull=True)
 
-
-        for calendar in empty_calendars:
-            print(f"Calendar ID: {calendar.id}")
-
+            for calendar in empty_calendars:
+                print(f"Calendar ID: {calendar.id}")
 
         # Add a submit node
         SubmitNode.objects.create(meeting_id=meeting_id, sender=request.user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     # check if all the members have created calendar
-
 
     elif request.method == 'PUT':
 
