@@ -27,7 +27,7 @@ function App() {
         <Route path="meetings/:meetingId/" element={<MeetingDetail />} />
         <Route path="contact/" element={<ProfileD />} />
         <Route path="meetings/:meetingId/members" element={<Members />} />
-        <Route path="meetings/:meetingId/members/:userID" element={<Member />} />
+        <Route path="meetings/:meetingId/members/:memberID" element={<Member />} />
           {/* Other routes */}
         </Routes>
     </BrowserRouter>

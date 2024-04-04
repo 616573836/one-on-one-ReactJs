@@ -84,8 +84,6 @@ const MeetingList = () => {
                         <p>Description: {meeting.description}</p>
                         <p>Created: {formatTimestamp(meeting.created_time)}</p>
                         <p>Current State: {meeting.state}</p>
-                        <a href={`/meetings/${meeting.id}/`} style={styles.detailButton}>Detail</a>
-                        <a href={`/meetings/${meeting.id}/members`} style={styles.detailButton}>Members</a>
                         <button style={styles.detailButton} onClick={() => navigate(`/meetings/${meeting.id}/`)}>
                             Detail 
                         </button>

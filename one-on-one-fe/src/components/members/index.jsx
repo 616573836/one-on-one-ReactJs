@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 
-const Memebers = () => {
+const Members = () => {
     let { meetingId } = useParams();
     const navigate = useNavigate();
     let [members, setMembers] = useState(null);
@@ -35,11 +35,10 @@ const Memebers = () => {
                         <p>User: {member.username}</p>
                         <p>Role: {member.role}</p>
                         <a href={`/meetings/${meetingId}/members/${member.user}/`} style={styles.detailButton}>Detail</a>
-
-                       
                     </div>
                 ))}
             </div>
+        
     );
 };
 
@@ -85,4 +84,4 @@ const styles = {
     }
 };
 
-export default Memebers;
+export default Members;
