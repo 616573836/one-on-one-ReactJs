@@ -7,6 +7,9 @@ const MemberDetail = () => {
     const navigate = useNavigate();
     let [member, setMember] = useState(null);
     const [loading, setLoading] = useState(false);
+    const [showUpdateForm, setShowUpdateForm] = useState(false);
+    const [updatedRole, setUpdatedRole] = useState('');
+
 
     useEffect(() => {
         getMember();
@@ -24,6 +27,7 @@ const MemberDetail = () => {
             });
             let data = await response.json();
             setMember(data);
+            setUpdatedRole(data.role);
         } catch (error) {
             console.error("Failed to fetch members details:", error);
         } 
@@ -31,15 +35,67 @@ const MemberDetail = () => {
             setLoading(false);
         }
     };
+
+
+
+    const handleUpdate = async (e) => {
+        e.preventDefault(); // Prevent default form submission behavior
+        try {
+            await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/members/${memberID}/`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                },
+                body: JSON.stringify({
+                    role: updatedRole,   
+                }),
+            });
+            
+            setShowUpdateForm(false); 
+            getMember();
+        } catch (error) {
+            
+            console.error("Failed to update meeting:", error);
+        }
+    };
+    
+    if (!member) {
+        return <div>no member</div>;
+        
+    }
         
 
     return (
         <div style={styles.container}>
-            <h1>{member.user}</h1>
+            <h1>{member.username}</h1>
             <p>role: {member.role}</p>
-            <button style={styles.backButton} onClick={() => navigate("/meetings")}>
+            <button style={styles.backButton} onClick={() => navigate(`/meetings/${meetingId}/`)}>
                 Back
             </button>
+            <button style={styles.button} onClick={() => setShowUpdateForm(true)}>
+                Update
+            </button>
+
+            {showUpdateForm && (
+                <form onSubmit={handleUpdate} style={styles.form}>
+                    <div>
+                        <label>Role:</label>
+                        <select
+                            value={updatedRole}
+                            onChange={(e) => setUpdatedRole(e.target.value)}
+                            style={styles.input}
+                        >
+                            <option value="host">Host</option>
+                            <option value="member">Member</option>
+                        </select>
+                    </div>
+                    <button type="submit" style={styles.button}>
+                        Submit Update
+                    </button>
+                </form>
+            )}
+
             
         </div>
     );

@@ -2,7 +2,7 @@ from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
-
+from django.db.models import Q
 from ..models.meeting import Meeting
 from ..models.node import JoinNode
 from ..models.member import Member
@@ -57,17 +57,31 @@ def member_view(request, meeting_id, user_id):
         except Member.DoesNotExist:
             return Response({"error": "Member is not in meeting."}, status=status.HTTP_404_NOT_FOUND)
 
+
     elif request.method == 'PUT':
         try:
             member = Member.objects.get(user=user_id, meeting=meeting_id)
         except:
             return Response({"error": "Member does not exist."}, status=status.HTTP_404_NOT_FOUND)
-
-        serializer = MemberSerializer(member, data=request.data)
+        
+        if not Member.objects.filter(
+            Q(role__iexact='host'), 
+            meeting=meeting_id, 
+            user=request.user
+        ).exists():
+            return Response(data={"detail": "You are not the host of the meeting."}, status=status.HTTP_403_FORBIDDEN)
+        
+        if (member.user == request.user or member.role.lower() == 'host') and request.data.get('role', '').lower() != 'host':
+            return Response(data={"detail": "The host cannot change their own role to member."}, status=status.HTTP_400_BAD_REQUEST)
+        
+       
+        serializer = MemberSerializer(member, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
 
     elif request.method == 'DELETE':
         try:
@@ -75,7 +89,11 @@ def member_view(request, meeting_id, user_id):
         except:
             return Response({"error": "Member does not exist."}, status=status.HTTP_404_NOT_FOUND)
 
-        if not Member.objects.filter(meeting=meeting_id, user=request.user, role=['host', 'Host']).exists():
+        if not Member.objects.filter(
+            Q(role__iexact='host'), 
+            meeting=meeting_id, 
+            user=request.user
+        ).exists():
             return Response(data={"detail": "You are not the host of the meeting."}, status=status.HTTP_403_FORBIDDEN)
         try:
             member.delete()

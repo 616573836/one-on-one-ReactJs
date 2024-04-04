@@ -49,6 +49,7 @@ const SignInComponent = () => {
           required
         />
         <button type="submit">Sign In</button>
+        <button onClick={() => navigate('/signup')}>Sign up</button>
       </form>
     </div>
   );
