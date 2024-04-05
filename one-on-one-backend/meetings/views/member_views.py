@@ -9,8 +9,9 @@ from ..models.member import Member
 from ..permissions import IsMember, is_member
 from ..serializer.member_serializer import MemberSerializer
 from accounts.models.contact import Contact
-
+from django.utils.crypto import get_random_string
 from django.core.mail import send_mail
+from django.urls import reverse
 from OneOnOne.settings import EMAIL_HOST_USER
 
 
@@ -120,17 +121,15 @@ def member_view(request, meeting_id, user_id):
         contact_exists = Contact.objects.filter(
             (Q(user1=user) & Q(user2_id=user_id)) | (Q(user1_id=user_id) & Q(user2=user))
         ).first()
-
         if contact_exists:
             member = Member.objects.create(meeting_id=meeting_id, user_id=user_id)
             serializer = MemberSerializer(member)
-            
             # Determine the correct recipient based on the contact relationship
             recipient_user = contact_exists.user2 if contact_exists.user1 == user else contact_exists.user1
-
+            link = 'http://localhost:3000/meetings/'+ str(meeting_id) +'/members/' + str(recipient_user.id)
             send_mail(
                 'Invitation from One on One',
-                'Please reply this email.',
+                f'Please specify your availability by following this link: {link}',
                 EMAIL_HOST_USER,
                 [recipient_user.email],  # This is now dynamically set based on the contact relationship
                 fail_silently=False,
