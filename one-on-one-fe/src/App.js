@@ -27,6 +27,7 @@ function App() {
         <Route path="contact/" element={<ProfileD />} />
         <Route path="meetings/:meetingId/members/:memberID" element={<Member />} />
         <Route path="meetings/:meetingId/members/:memberId/calendar/events" element={<EventList />} />
+        
 
           {/* Other routes */}
         </Routes>

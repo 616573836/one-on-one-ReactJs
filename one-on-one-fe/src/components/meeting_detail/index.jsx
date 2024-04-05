@@ -11,6 +11,7 @@ const MeetingDetail = () => {
     const [showUpdateForm, setShowUpdateForm] = useState(false);
     const [updatedName, setUpdatedName] = useState('');
     const [updatedDescription, setUpdatedDescription] = useState('');
+    const [userID, setUserID] = useState('');
 
     useEffect(() => {
         fetchMeetingDetails();
@@ -68,7 +69,7 @@ const MeetingDetail = () => {
                         'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
                     }
                 });
-                navigate("/meetings"); // Navigate back after deletion
+                navigate(`/meetings`); // Navigate back after deletion
             } catch (error) {
                 console.error("Failed to delete meeting:", error);
             }
@@ -93,6 +94,30 @@ const MeetingDetail = () => {
             fetchMeetingDetails();
         } catch (error) {
             console.error("Failed to update meeting:", error);
+        }
+    };
+
+    let createMember = async (e) => {
+        e.preventDefault(); 
+        try {
+            let response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/members/${userID}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                },
+            });
+    
+            if (response.ok) {
+                let data = await response.json();
+                console.log(data);
+                // Handle successful creation, e.g., show success message, redirect, etc.
+            } else {
+                throw new Error('Failed to create member');
+            }
+        } catch (error) {
+            console.error(error);
+            // Handle error, e.g., show error message to the user
         }
     };
 
@@ -131,6 +156,18 @@ const MeetingDetail = () => {
             <button style={styles.button} onClick={() => setShowUpdateForm(true)}>
                 Update
             </button>
+            
+            <form onSubmit={createMember}>
+            <input
+                type="text"
+                value={userID}
+                onChange={(e) => setUserID(e.target.value)}
+                placeholder="Enter User ID"
+                required
+            />
+            <button type="submit">Create Member</button>
+        </form>
+            
             
             
             {showUpdateForm && (

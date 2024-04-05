@@ -10,6 +10,10 @@ from ..permissions import IsMember, is_member
 from ..serializer.member_serializer import MemberSerializer
 from accounts.models.contact import Contact
 
+from django.core.mail import send_mail
+from OneOnOne.settings import EMAIL_HOST_USER
+
+
 
 @api_view(['GET'])
 @permission_classes([IsMember | IsAdminUser])
@@ -110,17 +114,31 @@ def member_view(request, meeting_id, user_id):
             return Response({"error": "Member is not in meeting."}, status=status.HTTP_404_NOT_FOUND)
 
 
-
-
-
-
-
     elif request.method == 'POST':
         user = request.user
-        if Contact.objects.filter(user1=user, user2=user_id).exists() or Contact.objects.filter(user1=user_id, user2=user).exists():
+        
+        contact_exists = Contact.objects.filter(
+            (Q(user1=user) & Q(user2_id=user_id)) | (Q(user1_id=user_id) & Q(user2=user))
+        ).first()
+
+        if contact_exists:
             member = Member.objects.create(meeting_id=meeting_id, user_id=user_id)
             serializer = MemberSerializer(member)
-            # JoinNode.objects.create(receiver_id=user_id, meeting_id=meeting_id, sender=request.user)
+            
+            # Determine the correct recipient based on the contact relationship
+            recipient_user = contact_exists.user2 if contact_exists.user1 == user else contact_exists.user1
+
+            send_mail(
+                'Invitation from One on One',
+                'Please reply this email.',
+                EMAIL_HOST_USER,
+                [recipient_user.email],  # This is now dynamically set based on the contact relationship
+                fail_silently=False,
+            )
+
+            # Optionally create JoinNode
+            # JoinNode.objects.create(receiver_id=user_id, meeting_id=meeting_id, sender=user)
+            
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
             return Response({"error": "Member is not in contact with the requesting user."},

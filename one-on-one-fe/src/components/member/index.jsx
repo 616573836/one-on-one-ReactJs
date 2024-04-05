@@ -70,7 +70,7 @@ const MemberDetail = () => {
                         'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
                     }
                 });
-                navigate("/meetings"); // Navigate back after deletion
+                navigate(`/meetings`); // Navigate back after deletion
             } catch (error) {
                 console.error("Failed to delete meeting:", error);
             }
