@@ -1,25 +1,23 @@
-// EventList.js
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 
-function EventList({ match }) {
+function EventList() {
     const { meetingId, memberId } = useParams(); 
     const [events, setEvents] = useState([]);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { calendarId } = location.state || {};
     const [newEvent, setNewEvent] = useState({
         name: '',
         description: '',
-        availability: 'busy', // default
+        availability: 'Available',
         start_time: '',
         end_time: '',
-        calendar: 1,
+        calendar: calendarId,
     });
 
-    const axiosConfig = {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-        }
+    const redirectToDetailPage = (eventId) => {
+        navigate(`/meetings/${meetingId}/members/${memberId}/calendar/events/${eventId}`);
     };
 
     const fetchEvents = async () => {
@@ -39,10 +37,10 @@ function EventList({ match }) {
     };
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target; // Destructuring to get name and value from the event target
+        const { name, value } = e.target;
         setNewEvent(prevState => ({
-            ...prevState, // Spread to copy the existing state
-            [name]: value // Use computed property name to update the right property based on the input name
+            ...prevState, 
+            [name]: value
         }));
     };
 
@@ -85,12 +83,13 @@ function EventList({ match }) {
             <div>
                 {events?.map((event, index) => (
                     <div key={index}>
-                        <h5>Event No.{event.id}: {event.name}</h5>
+                        <h5>Event No.{index+1}: {event.name}</h5>
                         <p>{event.description}</p>
                         <p>Availability: {event.availability}</p>
                         <p>Start Time: {formatTimestamp(event.start_time)}</p>
                         <p>End Time: {formatTimestamp(event.end_time)}</p>
                         <p>Created Time: {formatTimestamp(event.created_time)}</p>
+                        <button onClick={() => redirectToDetailPage(event.id)}>Detail</button>
                     </div>
                 ))}
             </div>
@@ -105,7 +104,6 @@ function EventList({ match }) {
                 </select>
                 <input name="start_time" type="datetime-local" value={newEvent.start_time} onChange={handleInputChange} required />
                 <input name="end_time" type="datetime-local" value={newEvent.end_time} onChange={handleInputChange} required />
-                <input name="calendar" type="number" value={newEvent.calendar} onChange={handleInputChange} required />
                 <button type="submit">Add Event</button>
             </form>
         </div>

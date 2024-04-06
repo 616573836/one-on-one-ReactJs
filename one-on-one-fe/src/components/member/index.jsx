@@ -1,18 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { checkIfEventsExist } from '../calendar_detail'
 
 const MemberDetail = () => {
 
     let { meetingId, memberID } = useParams();
     const navigate = useNavigate();
     let [member, setMember] = useState(null);
+    const [eventExistence, setEventExistence] = useState(false);
     const [loading, setLoading] = useState(false);
     const [showUpdateForm, setShowUpdateForm] = useState(false);
     const [updatedRole, setUpdatedRole] = useState('');
 
     useEffect(() => {
         getMember();
+        submitCalendar();
     }, [meetingId,memberID]);
+
+    const submitCalendar = () => {
+        checkIfEventsExist(meetingId, memberID).then((exist) => {
+            setEventExistence(exist);
+        });
+    }
 
     const getMember = async () => {
         setLoading(true);
@@ -52,12 +61,9 @@ const MemberDetail = () => {
             setShowUpdateForm(false); 
             getMember();
         } catch (error) {
-            
             console.error("Failed to update meeting:", error);
         }
     };
-
-   
 
     const deleteMember = async () => {
         if (window.confirm("Are you sure you want to delete this meeting?")) {
@@ -76,17 +82,19 @@ const MemberDetail = () => {
         }
     };
 
-    
     if (!member) {
         return <div>no member</div>;
-        
     }
-        
 
     return (
         <div style={styles.container}>
             <h1>{member.username}</h1>
             <p>role: {member.role}</p>
+            {eventExistence ? <p>Submitted</p> : <p>Not submitted</p>}
+            <button style={styles.calendarButton} onClick={
+                () => navigate(`/meetings/${meetingId}/members/${memberID}/calendar/`)}>
+                Calendar
+            </button>
             <button style={styles.backButton} onClick={() => navigate(`/meetings/${meetingId}/`)}>
                 Back
             </button>
@@ -114,8 +122,6 @@ const MemberDetail = () => {
                     </button>
                 </form>
             )}
-
-            
         </div>
     );
 

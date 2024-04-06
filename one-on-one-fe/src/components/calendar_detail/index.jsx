@@ -1,28 +1,39 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
+// import { formatTimestamp } from '../meeting_detail';
+import {useParams, useNavigate} from "react-router-dom";
 
-const CalendarComponent = ({ meetingID, userID }) => {
+const Calendar = () => {
+    let { meetingID, userID } = useParams();
     const [calendarData, setCalendarData] = useState(null);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const fetchCalendarData = async () => {
-            try {
-                const response = await axios.get(`/api/meetings/${meetingID}/members/${userID}/calendar/`);
-                setCalendarData(response.data);
-
-                // Extract start and end dates from calendar data
-                setStartDate(new Date(response.data.start_date));
-                setEndDate(new Date(response.data.end_date));
-            } catch (error) {
-                console.error('Error fetching calendar data:', error);
-                setCalendarData(null);
-            }
-        };
-
         fetchCalendarData();
     }, [meetingID, userID]);
+
+    const fetchCalendarData = async () => {
+        try {
+            const response = await axios.get(`/api/meetings/${meetingID}/members/${userID}/calendar/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
+            setCalendarData(response.data);
+            if(response.data) console.warn("has data")
+            else console.warn("no data")
+            // Extract start and end dates from calendar data
+            setStartDate(new Date(response.data.start_date));
+            setEndDate(new Date(response.data.end_date));
+        } catch (error) {
+            console.error('Error fetching calendar data:', error);
+            setCalendarData(null);
+        }
+    };
 
     const renderCalendar = () => {
         if (!calendarData || !startDate || !endDate) {
@@ -69,24 +80,66 @@ const CalendarComponent = ({ meetingID, userID }) => {
         );
     };
 
-    const handleCreateCalendar = async () => {
-        // Implementation remains the same
-    };
-
     return (
         <div>
-            {calendarData ? (
-                renderCalendar()
-            ) : (
-                <div>
-                    The user has not created a calendar.
-                    {userID === calendarData.owner && (
-                        <button onClick={handleCreateCalendar}>Create Calendar</button>
-                    )}
-                </div>
-            )}
+            {calendarData ? (renderCalendar()) : (<div>The user has not created a calendar.</div>)}
+            <button style={styles.eventsButton} onClick={
+                () => navigate(`/meetings/${meetingID}/members/${userID}/calendar/events`,
+                { state: { calendarId: calendarData.id }})}>
+                Events
+            </button>
         </div>
     );
 };
 
-export default CalendarComponent;
+const styles = {
+    eventsButton: {
+        padding: '10px 20px',
+        textDecoration: 'none',
+        transition: 'all 0.5s',
+        textAlign: 'center',
+        display: 'inline-block',
+        marginTop: '10px',
+        marginRight: '5px',
+        marginLeft: '5px',
+        marginBottom: '5px',
+        fontSize: '16px',
+        cursor: 'pointer',
+        color: 'white',
+        border: 'none',
+        borderRadius: '4px',
+        backgroundColor: '#007bff',
+    },
+}
+
+export default Calendar;
+
+export async function checkIfEventsExist(meetingId, userId) {
+    try {
+        // Make a GET request to fetch the list of events for the specified calendar
+        const response = await axios.get(`/api/meetings/${meetingId}/members/${userId}/calendar/events/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        });
+
+        // Check if the response is successful (status code 200)
+        if (response.data) {
+            const eventData = await response.data;
+
+            // Check if the list of events is not empty
+            return eventData.length > 0;
+        } else {
+            // Handle the case where the request is not successful
+            console.error('Failed to fetch events:', response.statusText);
+            return false;
+        }
+    } catch (error) {
+        // Handle any errors that occur during the fetch operation
+        console.error('Error fetching events:', error.message);
+        return false;
+    }
+}
+

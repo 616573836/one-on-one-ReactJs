@@ -30,15 +30,17 @@ const Members = () => {
 
     return (
         <div style={styles.meetingList}>
-                {members?.map((member, index) => (
-                    <div key={index} style={styles.meetingItem}>
-                        <p>User: {member.username}</p>
-                        <p>Role: {member.role}</p>
-                        <a href={`/meetings/${meetingId}/members/${member.user}/`} style={styles.detailButton}>Detail</a>
-                    </div>
-                ))}
-            </div>
-        
+            {members?.map((member, index) => (
+                <div key={index} style={styles.meetingItem}>
+                    <p>User: {member.username}</p>
+                    <p>Role: {member.role}</p>
+                    <a href={`/meetings/${meetingId}/members/${member.user}/`} style={styles.detailButton}>Detail</a>
+                    <a style={styles.detailButton} href={`/meetings/${meetingId}/members/${member.user}/calendar/`}>
+                        Calendar
+                    </a>
+                </div>
+            ))}
+        </div>
     );
 };
 

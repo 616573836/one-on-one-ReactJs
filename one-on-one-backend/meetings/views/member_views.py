@@ -116,7 +116,6 @@ def member_view(request, meeting_id, user_id):
         except Member.DoesNotExist:
             return Response({"error": "Member is not in meeting."}, status=status.HTTP_404_NOT_FOUND)
 
-
     elif request.method == 'POST':
         user = request.user
         

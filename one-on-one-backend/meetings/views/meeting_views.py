@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 from ..models.meeting import Meeting
 from ..models.member import Member
+from ..models.calendar import Calendar
 from ..models.node import JoinNode
 from ..serializer import meeting_serializer
 from ..permissions import IsMember
@@ -29,6 +30,7 @@ class MeetingViewSet(viewsets.ModelViewSet):
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         Member.objects.create(meeting=serializer.instance, user=request.user, role='host')
+        Calendar.objects.create(meeting=serializer.instance, owner=request.user)
         # Create a join node on user itself
         JoinNode.objects.create(receiver=request.user, meeting=serializer.instance, sender=request.user)
         headers = self.get_success_headers(serializer.data)

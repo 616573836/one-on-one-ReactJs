@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-
+import { checkIfEventsExist } from '../calendar_detail'
 
 const MeetingDetail = () => {
+
     let { meetingId } = useParams();
     const navigate = useNavigate();
     let [meeting, setMeeting] = useState(null);
-    const [members, setMembers] = useState(null);
+    const [eventExistence, setEventExistence] = useState({});
+    const [members, setMembers] = useState([]);
     const [loading, setLoading] = useState(false);
     const [showUpdateForm, setShowUpdateForm] = useState(false);
     const [updatedName, setUpdatedName] = useState('');
@@ -15,11 +17,23 @@ const MeetingDetail = () => {
 
     useEffect(() => {
         fetchMeetingDetails();
+        getMembers();
     }, [meetingId]);
 
     useEffect(() => {
-        getMembers();
-    }, [meetingId]);
+        submitCalendar();
+    }, [meetingId, members])
+
+    const submitCalendar = () => {
+        members?.forEach((member) => {
+            checkIfEventsExist(meetingId, member.user).then((exist) => {
+                setEventExistence((prev) => ({
+                    ...prev,
+                    [member.user]: exist,
+                }));
+            });
+        });
+    }
 
     const getMembers = async () => {
         try {
@@ -122,11 +136,11 @@ const MeetingDetail = () => {
     };
 
     if (loading) {
-    return <div>Loading...</div>;
+        return <div>Loading...</div>;
     }
 
     if (!meeting) {
-    return <div>No meeting found.</div>;
+        return <div>No meeting found.</div>;
     }
 
     function formatTimestamp(timestamp) {
@@ -156,20 +170,6 @@ const MeetingDetail = () => {
             <button style={styles.button} onClick={() => setShowUpdateForm(true)}>
                 Update
             </button>
-            
-            <form onSubmit={createMember}>
-            <input
-                type="text"
-                value={userID}
-                onChange={(e) => setUserID(e.target.value)}
-                placeholder="Enter User ID"
-                required
-            />
-            <button type="submit">Create Member</button>
-        </form>
-            
-            
-            
             {showUpdateForm && (
                 <form onSubmit={handleUpdate} style={styles.form}>
                     <div>
@@ -195,21 +195,28 @@ const MeetingDetail = () => {
                     </button>
                 </form>
             )}
-            <button style={styles.calendarButton} onClick={() => navigate("/meetings")}>
-                My Calendar
-            </button>
              {members?.map((member, index) => (
-                    <div key={index} style={styles.meetingItem}>
-                        <p>User: {member.username}</p>
-                        <p>Role: {member.role}</p>
-                        <a href={`/meetings/${meetingId}/members/${member.user}/`} style={styles.detailButton}>Detail</a>
-
-                       
-                    </div>
-                ))}
-           
+                <div key={index} style={styles.meetingItem}>
+                    <p>User: {member.username}</p>
+                    <p>Role: {member.role}</p>
+                    {eventExistence[member.user] ? <p>Submitted</p> : <p>Not submitted</p>}
+                    <a href={`/meetings/${meetingId}/members/${member.user}/`}
+                       style={styles.detailButton}>Detail</a>
+                    <a href={`/meetings/${meetingId}/members/${member.user}/calendar/`}
+                       style={styles.calendarButton}>Calendar</a>
+                </div>
+            ))}
+            <form onSubmit={createMember}>
+                <input
+                    type="text"
+                    value={userID}
+                    onChange={(e) => setUserID(e.target.value)}
+                    placeholder="Enter User ID"
+                    required
+                />
+                <button type="submit">Create Member</button>
+            </form>
         </div>
-
     );
 };
 
