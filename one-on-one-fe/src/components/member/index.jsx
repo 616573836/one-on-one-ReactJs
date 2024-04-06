@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
 const MemberDetail = () => {
-    
+
     let { meetingId, memberID } = useParams();
     const navigate = useNavigate();
     let [member, setMember] = useState(null);
     const [loading, setLoading] = useState(false);
     const [showUpdateForm, setShowUpdateForm] = useState(false);
     const [updatedRole, setUpdatedRole] = useState('');
-
 
     useEffect(() => {
         getMember();
@@ -57,6 +56,8 @@ const MemberDetail = () => {
             console.error("Failed to update meeting:", error);
         }
     };
+
+   
 
     const deleteMember = async () => {
         if (window.confirm("Are you sure you want to delete this meeting?")) {
