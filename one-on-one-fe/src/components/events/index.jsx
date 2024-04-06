@@ -7,7 +7,6 @@ function EventList() {
     const navigate = useNavigate();
     const location = useLocation();
     const { calendarId } = location.state || {};
-    console.warn(calendarId);
     const [newEvent, setNewEvent] = useState({
         name: '',
         description: '',
