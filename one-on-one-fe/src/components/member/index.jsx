@@ -7,13 +7,22 @@ const MemberDetail = () => {
     let { meetingId, memberID } = useParams();
     const navigate = useNavigate();
     let [member, setMember] = useState(null);
+    const [eventExistence, setEventExistence] = useState(false);
     const [loading, setLoading] = useState(false);
     const [showUpdateForm, setShowUpdateForm] = useState(false);
     const [updatedRole, setUpdatedRole] = useState('');
 
     useEffect(() => {
         getMember();
+        submitCalendar();
     }, [meetingId,memberID]);
+
+    const submitCalendar = () => {
+        checkIfEventsExist(meetingId, memberID).then((exist) => {
+            setEventExistence(exist);
+            console.log("exist " + exist);
+        });
+    }
 
     const getMember = async () => {
         setLoading(true);
@@ -84,6 +93,7 @@ const MemberDetail = () => {
         <div style={styles.container}>
             <h1>{member.username}</h1>
             <p>role: {member.role}</p>
+            {eventExistence ? <p>Submitted</p> : <p>Not submitted</p>}
             <button style={styles.calendarButton} onClick={
                 () => navigate(`/meetings/${meetingId}/members/${memberID}/calendar/`)}>
                 Calendar
