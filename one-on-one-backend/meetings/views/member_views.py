@@ -5,7 +5,6 @@ from rest_framework.response import Response
 from django.db.models import Q
 from ..models.meeting import Meeting
 from ..models.node import JoinNode
-from ..models.calendar import Calendar
 from ..models.member import Member
 from ..models.pre_member import PendingMember
 from ..permissions import IsMember, is_member
@@ -141,8 +140,6 @@ def member_view(request, meeting_id, user_id):
                 [recipient_user.email],  # This is now dynamically set based on the contact relationship
                 fail_silently=False,
             )
-
-            Calendar.objects.create(meeting_id=meeting_id, owner_id=user_id)
 
             # Optionally create JoinNode
             # JoinNode.objects.create(receiver_id=user_id, meeting_id=meeting_id, sender=user)

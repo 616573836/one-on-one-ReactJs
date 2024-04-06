@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { checkIfEventsExist } from '../calendar_detail'
 
 const MeetingDetail = () => {
+
     let { meetingId } = useParams();
     const navigate = useNavigate();
     let [meeting, setMeeting] = useState(null);
@@ -24,14 +25,12 @@ const MeetingDetail = () => {
     }, [meetingId, members])
 
     const submitCalendar = () => {
-        console.warn("submit " + members.length);
         members?.forEach((member) => {
             checkIfEventsExist(meetingId, member.user).then((exist) => {
                 setEventExistence((prev) => ({
                     ...prev,
                     [member.user]: exist,
                 }));
-                console.log("exist " + exist);
             });
         });
     }
@@ -197,16 +196,16 @@ const MeetingDetail = () => {
                 </form>
             )}
              {members?.map((member, index) => (
-                    <div key={index} style={styles.meetingItem}>
-                        <p>User: {member.username}</p>
-                        <p>Role: {member.role}</p>
-                        {eventExistence[member.user] ? <p>Submitted</p> : <p>Not submitted</p>}
-                        <a href={`/meetings/${meetingId}/members/${member.user}/`} style={styles.detailButton}>Detail</a>
-                        <a href={`/meetings/${meetingId}/members/${member.user}/calendar/`} style={styles.calendarButton}>
-                            Calendar
-                        </a>
-                    </div>
-                ))}
+                <div key={index} style={styles.meetingItem}>
+                    <p>User: {member.username}</p>
+                    <p>Role: {member.role}</p>
+                    {eventExistence[member.user] ? <p>Submitted</p> : <p>Not submitted</p>}
+                    <a href={`/meetings/${meetingId}/members/${member.user}/`}
+                       style={styles.detailButton}>Detail</a>
+                    <a href={`/meetings/${meetingId}/members/${member.user}/calendar/`}
+                       style={styles.calendarButton}>Calendar</a>
+                </div>
+            ))}
             <form onSubmit={createMember}>
                 <input
                     type="text"

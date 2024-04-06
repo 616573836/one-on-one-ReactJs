@@ -24,7 +24,8 @@ const Calendar = () => {
                 }
             });
             setCalendarData(response.data);
-
+            if(response.data) console.warn("has data")
+            else console.warn("no data")
             // Extract start and end dates from calendar data
             setStartDate(new Date(response.data.start_date));
             setEndDate(new Date(response.data.end_date));
@@ -82,7 +83,9 @@ const Calendar = () => {
     return (
         <div>
             {calendarData ? (renderCalendar()) : (<div>The user has not created a calendar.</div>)}
-            <button style={styles.eventsButton} onClick={() => navigate(`/meetings/${meetingID}/members/${userID}/calendar/events`, { state: { calendarId: calendarData.id } })}>
+            <button style={styles.eventsButton} onClick={
+                () => navigate(`/meetings/${meetingID}/members/${userID}/calendar/events`,
+                { state: { calendarId: calendarData.id }})}>
                 Events
             </button>
         </div>

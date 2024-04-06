@@ -20,7 +20,6 @@ const MemberDetail = () => {
     const submitCalendar = () => {
         checkIfEventsExist(meetingId, memberID).then((exist) => {
             setEventExistence(exist);
-            console.log("exist " + exist);
         });
     }
 
@@ -65,8 +64,6 @@ const MemberDetail = () => {
             console.error("Failed to update meeting:", error);
         }
     };
-
-   
 
     const deleteMember = async () => {
         if (window.confirm("Are you sure you want to delete this meeting?")) {
