@@ -36,8 +36,6 @@ const MemberDetail = () => {
         }
     };
 
-
-
     const handleUpdate = async (e) => {
         e.preventDefault(); // Prevent default form submission behavior
         try {
@@ -77,17 +75,18 @@ const MemberDetail = () => {
         }
     };
 
-    
     if (!member) {
         return <div>no member</div>;
-        
     }
-        
 
     return (
         <div style={styles.container}>
             <h1>{member.username}</h1>
             <p>role: {member.role}</p>
+            <button style={styles.calendarButton} onClick={
+                () => navigate(`/meetings/${meetingId}/members/${memberID}/calendar/`)}>
+                Calendar
+            </button>
             <button style={styles.backButton} onClick={() => navigate(`/meetings/${meetingId}/`)}>
                 Back
             </button>

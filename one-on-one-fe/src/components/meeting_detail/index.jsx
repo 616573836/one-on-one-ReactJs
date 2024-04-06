@@ -15,9 +15,6 @@ const MeetingDetail = () => {
 
     useEffect(() => {
         fetchMeetingDetails();
-    }, [meetingId]);
-
-    useEffect(() => {
         getMembers();
     }, [meetingId]);
 
@@ -122,11 +119,11 @@ const MeetingDetail = () => {
     };
 
     if (loading) {
-    return <div>Loading...</div>;
+        return <div>Loading...</div>;
     }
 
     if (!meeting) {
-    return <div>No meeting found.</div>;
+        return <div>No meeting found.</div>;
     }
 
     function formatTimestamp(timestamp) {
@@ -167,9 +164,6 @@ const MeetingDetail = () => {
             />
             <button type="submit">Create Member</button>
         </form>
-            
-            
-            
             {showUpdateForm && (
                 <form onSubmit={handleUpdate} style={styles.form}>
                     <div>
@@ -195,21 +189,14 @@ const MeetingDetail = () => {
                     </button>
                 </form>
             )}
-            <button style={styles.calendarButton} onClick={() => navigate("/meetings")}>
-                My Calendar
-            </button>
              {members?.map((member, index) => (
                     <div key={index} style={styles.meetingItem}>
                         <p>User: {member.username}</p>
                         <p>Role: {member.role}</p>
                         <a href={`/meetings/${meetingId}/members/${member.user}/`} style={styles.detailButton}>Detail</a>
-
-                       
                     </div>
                 ))}
-           
         </div>
-
     );
 };
 

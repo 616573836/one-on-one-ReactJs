@@ -1,28 +1,37 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+// import { formatTimestamp } from '../meeting_detail';
+import {useParams} from "react-router-dom";
 
-const CalendarComponent = ({ meetingID, userID }) => {
+const Calendar = () => {
+    let { meetingID, userID } = useParams();
     const [calendarData, setCalendarData] = useState(null);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
 
     useEffect(() => {
-        const fetchCalendarData = async () => {
-            try {
-                const response = await axios.get(`/api/meetings/${meetingID}/members/${userID}/calendar/`);
-                setCalendarData(response.data);
-
-                // Extract start and end dates from calendar data
-                setStartDate(new Date(response.data.start_date));
-                setEndDate(new Date(response.data.end_date));
-            } catch (error) {
-                console.error('Error fetching calendar data:', error);
-                setCalendarData(null);
-            }
-        };
-
         fetchCalendarData();
     }, [meetingID, userID]);
+
+    const fetchCalendarData = async () => {
+        try {
+            const response = await axios.get(`http://127.0.0.1:8000/api/meetings/${meetingID}/members/${userID}/calendar/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
+            setCalendarData(response.data);
+
+            // Extract start and end dates from calendar data
+            setStartDate(new Date(response.data.start_date));
+            setEndDate(new Date(response.data.end_date));
+        } catch (error) {
+            console.error('Error fetching calendar data:', error);
+            setCalendarData(null);
+        }
+    };
 
     const renderCalendar = () => {
         if (!calendarData || !startDate || !endDate) {
@@ -69,24 +78,11 @@ const CalendarComponent = ({ meetingID, userID }) => {
         );
     };
 
-    const handleCreateCalendar = async () => {
-        // Implementation remains the same
-    };
-
     return (
         <div>
-            {calendarData ? (
-                renderCalendar()
-            ) : (
-                <div>
-                    The user has not created a calendar.
-                    {userID === calendarData.owner && (
-                        <button onClick={handleCreateCalendar}>Create Calendar</button>
-                    )}
-                </div>
-            )}
+            {calendarData ? (renderCalendar()) : (<div>The user has not created a calendar.</div>)}
         </div>
     );
 };
 
-export default CalendarComponent;
+export default Calendar;

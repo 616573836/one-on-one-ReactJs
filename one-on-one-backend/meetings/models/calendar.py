@@ -14,23 +14,19 @@ class Calendar(models.Model):
     modified_time = models.DateTimeField(auto_now=True)
     start_date = models.DateTimeField(default=datetime.now)
     end_date = models.DateTimeField()
-    description = models.CharField(max_length=120, null=True)
+    description = models.CharField(max_length=150, null=True)
 
     class Meta:
         ordering = ('id',)
         unique_together = ['meeting', 'owner']
 
     def __str__(self):
-        return self.owner.__str__() + "'s calendar"
+        return self.owner.__str__() + "'s calendar in " + self.meeting.__str__()
     
     def clean(self):
         # Check if the owner is associated with a member of the meeting
         if not self.meeting.member_set.filter(user=self.owner).exists():
-            raise ValidationError("The owner must be a member of the meeting.")
-        
-        # Check if the meeting belongs to the owner
-        if self.meeting.owner != self.owner:
-            raise ValidationError("The meeting does not belong to the owner.")
+            raise ValidationError("You must be a member of the meeting.")
 
     def save(self, *args, **kwargs):
         # If the start date is not provided, set it to the current date and time

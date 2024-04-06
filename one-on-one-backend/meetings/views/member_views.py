@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from django.db.models import Q
 from ..models.meeting import Meeting
 from ..models.node import JoinNode
+from ..models.calendar import Calendar
 from ..models.member import Member
 from ..permissions import IsMember, is_member
 from ..serializer.member_serializer import MemberSerializer
@@ -114,7 +115,6 @@ def member_view(request, meeting_id, user_id):
         except Member.DoesNotExist:
             return Response({"error": "Member is not in meeting."}, status=status.HTTP_404_NOT_FOUND)
 
-
     elif request.method == 'POST':
         user = request.user
         
@@ -134,6 +134,8 @@ def member_view(request, meeting_id, user_id):
                 [recipient_user.email],  # This is now dynamically set based on the contact relationship
                 fail_silently=False,
             )
+
+            Calendar.objects.create(meeting_id=meeting_id, owner_id=user_id)
 
             # Optionally create JoinNode
             # JoinNode.objects.create(receiver_id=user_id, meeting_id=meeting_id, sender=user)
