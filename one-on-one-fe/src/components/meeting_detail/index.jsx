@@ -153,17 +153,6 @@ const MeetingDetail = () => {
             <button style={styles.button} onClick={() => setShowUpdateForm(true)}>
                 Update
             </button>
-            
-            <form onSubmit={createMember}>
-            <input
-                type="text"
-                value={userID}
-                onChange={(e) => setUserID(e.target.value)}
-                placeholder="Enter User ID"
-                required
-            />
-            <button type="submit">Create Member</button>
-        </form>
             {showUpdateForm && (
                 <form onSubmit={handleUpdate} style={styles.form}>
                     <div>
@@ -196,6 +185,16 @@ const MeetingDetail = () => {
                         <a href={`/meetings/${meetingId}/members/${member.user}/`} style={styles.detailButton}>Detail</a>
                     </div>
                 ))}
+            <form onSubmit={createMember}>
+                <input
+                    type="text"
+                    value={userID}
+                    onChange={(e) => setUserID(e.target.value)}
+                    placeholder="Enter User ID"
+                    required
+                />
+                <button type="submit">Create Member</button>
+            </form>
         </div>
     );
 };

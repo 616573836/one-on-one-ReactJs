@@ -1,11 +1,10 @@
-// EventList.js
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 
-function EventList({ match }) {
+function EventList() {
     const { meetingId, memberId } = useParams(); 
     const [events, setEvents] = useState([]);
+    const navigate = useNavigate();
     const [newEvent, setNewEvent] = useState({
         name: '',
         description: '',
@@ -15,11 +14,8 @@ function EventList({ match }) {
         calendar: 1,
     });
 
-    const axiosConfig = {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-        }
+    const redirectToDetailPage = (eventId) => {
+        navigate(`/meetings/${meetingId}/members/${memberId}/calendar/events/${eventId}`);
     };
 
     const fetchEvents = async () => {
@@ -91,6 +87,7 @@ function EventList({ match }) {
                         <p>Start Time: {formatTimestamp(event.start_time)}</p>
                         <p>End Time: {formatTimestamp(event.end_time)}</p>
                         <p>Created Time: {formatTimestamp(event.created_time)}</p>
+                        <button onClick={() => redirectToDetailPage(event.id)}>Detail</button>
                     </div>
                 ))}
             </div>
