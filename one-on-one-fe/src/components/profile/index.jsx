@@ -8,6 +8,12 @@ const ProfileViewComponent = () => {
   const [profileData, setProfileData] = useState({});
   const navigate = useNavigate();
 
+
+  const logout = () => {
+      localStorage.removeItem('accessToken'); // Clear the access token
+      navigate('/login'); // Redirect to login page
+  };
+
   useEffect(() => {
     axios.get('/api/accounts/profile/', {
       headers: { 'Authorization': `Bearer ${localStorage.getItem('accessToken')}`}
@@ -29,6 +35,7 @@ const ProfileViewComponent = () => {
       <button onClick={() => navigate('/profile/edit')}>Edit My Profile</button>
       <button onClick={() => navigate('/meetings')}>Meetings</button>
       <button onClick={() => navigate('/contact')}>Contacts</button>
+      <button onClick={logout}>Logout</button>
     </div>
   );
 };
