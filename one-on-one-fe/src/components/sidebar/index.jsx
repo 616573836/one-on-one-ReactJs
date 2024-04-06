@@ -32,7 +32,7 @@ function Sidebar() {
             color: hoveredLink === linkName ? 'white' : 'black', // Change text color for better visibility
         }),
         logoutSection: {
-            marginTop: '750px',
+            marginTop: '770px',
         },
     };
 

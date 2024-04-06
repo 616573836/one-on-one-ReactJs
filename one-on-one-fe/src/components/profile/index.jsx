@@ -41,10 +41,6 @@ const ProfileViewComponent = () => {
         rel="stylesheet"
       />
       <link href="../../STYLE/signin-signup.css" media="screen" rel="stylesheet" />
-      <header
-        className="u-align-left u-clearfix u-header u-section-row-container"
-        id="sec-d402"
-      ></header>
       <button className="logout-button" onClick={logout}>Logout</button>
     
     
