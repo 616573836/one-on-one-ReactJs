@@ -10,7 +10,7 @@ function EventList() {
     const [newEvent, setNewEvent] = useState({
         name: '',
         description: '',
-        availability: 'Available',
+        availability: 'available',
         start_time: '',
         end_time: '',
         calendar: calendarId,
@@ -46,6 +46,7 @@ function EventList() {
 
     let handleSubmit = async (e) => {
         e.preventDefault(); 
+        console.warn(newEvent);
         let response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/members/${memberId}/calendar/events/`, {
             method: 'POST',
             headers: {
