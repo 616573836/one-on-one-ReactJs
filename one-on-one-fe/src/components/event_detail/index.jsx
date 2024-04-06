@@ -33,8 +33,8 @@ function EventDetail() {
                 const adjustedData = {
                     ...data,
                     start_time: data.start_time.slice(0, 16),
-                    end_time: data.end_time.slice(0, 16), 
-                };                
+                    end_time: data.end_time.slice(0, 16),
+                };
                 setEventDetail(adjustedData);
                 setLoading(false);
             } catch (error) {
@@ -46,7 +46,7 @@ function EventDetail() {
 
         fetchEventDetail();
     }, [meetingId, memberId, eventId]);
-    
+
     const handleChange = (e) => {
         setEventDetail({
             ...eventDetail,
@@ -72,7 +72,7 @@ function EventDetail() {
             start_time: new Date(eventDetail.start_time).toISOString().slice(0, 19) + 'Z',
             end_time: new Date(eventDetail.end_time).toISOString().slice(0, 19) + 'Z',
         };
-        
+
         try {
             const response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/members/${memberId}/calendar/events/${eventId}/`, {
                 method: 'PUT',
@@ -82,7 +82,7 @@ function EventDetail() {
                 },
                 body: JSON.stringify(submissionData)
             });
-            
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -99,13 +99,13 @@ function EventDetail() {
             setError(error);
         }
     };
-    
+
     const handleDelete = async () => {
         const isConfirmed = window.confirm("Are you sure to delete this event?");
         if (!isConfirmed) {
             return;
         }
-    
+
         try {
             const response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/members/${memberId}/calendar/events/${eventId}`, {
                 method: 'DELETE',
@@ -113,7 +113,7 @@ function EventDetail() {
                     'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                 },
             });
-    
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -123,7 +123,7 @@ function EventDetail() {
             setError(error);
         }
     };
-    
+
     function transformDateTime(dateTimeString) {
         const datePart = dateTimeString.substring(0, 10);
         const timePart = dateTimeString.substring(11, 16);
@@ -143,8 +143,8 @@ function EventDetail() {
             <hr></hr>
             <br></br>
             <form>
-                <input type="text" name="name" value={eventDetail.name} onChange={handleChange} />
-                <textarea name="description" value={eventDetail.description} onChange={handleChange}></textarea>
+                <input type="text" name="name" value={eventDetail.name} onChange={handleChange} style={styles.largeInput} />
+                <textarea name="description" value={eventDetail.description} onChange={handleChange} style={styles.largeTextarea} ></textarea>
                 <select name="availability" value={eventDetail.availability} onChange={handleChange}>
                     <option value="busy">Busy</option>
                     <option value="moderate">Moderate</option>
@@ -163,6 +163,23 @@ function EventDetail() {
 }
 
 const styles = {
+    largeInput: {
+        width: '100%',
+        maxWidth: '500px',
+        marginBottom: '15px',
+        border: '1px solid #ccc',
+        padding: '8px',
+        borderRadius: '4px',
+    },
+    largeTextarea: {
+        width: '100%',
+        maxWidth: '500px',
+        height: '150px',
+        marginBottom: '15px',
+        border: '1px solid #ccc',
+        padding: '8px',
+        borderRadius: '4px',
+    },
     container: {
         fontFamily: 'Arial, sans-serif',
         padding: '20px',

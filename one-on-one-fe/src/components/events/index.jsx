@@ -1,17 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 
 function EventList() {
-    const { meetingId, memberId } = useParams(); 
+    const { meetingId, memberId } = useParams();
     const [events, setEvents] = useState([]);
     const navigate = useNavigate();
+    const location = useLocation();
+    const { calendarId } = location.state || {};
+    console.warn(calendarId);
     const [newEvent, setNewEvent] = useState({
         name: '',
         description: '',
-        availability: 'busy', // default
+        availability: 'Available',
         start_time: '',
         end_time: '',
-        calendar: 1,
+        calendar: calendarId,
     });
 
     const redirectToDetailPage = (eventId) => {
@@ -21,12 +24,12 @@ function EventList() {
     const fetchEvents = async () => {
         try {
             const response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/members/${memberId}/calendar/events/`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-            }
-        });
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
             let data = await response.json();
             setEvents(data);
         } catch (error) {
@@ -35,20 +38,20 @@ function EventList() {
     };
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target; // Destructuring to get name and value from the event target
+        const { name, value } = e.target;
         setNewEvent(prevState => ({
-            ...prevState, // Spread to copy the existing state
-            [name]: value // Use computed property name to update the right property based on the input name
+            ...prevState,
+            [name]: value
         }));
     };
 
     let handleSubmit = async (e) => {
-        e.preventDefault(); 
+        e.preventDefault();
         let response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/members/${memberId}/calendar/events/`, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
             },
             body: JSON.stringify(newEvent)
         });
@@ -62,18 +65,18 @@ function EventList() {
     function formatTimestamp(timestamp) {
         const date = new Date(timestamp);
         const year = date.getFullYear();
-        const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
         const day = date.getDate().toString().padStart(2, '0');
         const hours = date.getHours().toString().padStart(2, '0');
         const minutes = date.getMinutes().toString().padStart(2, '0');
         const seconds = date.getSeconds().toString().padStart(2, '0');
-      
+
         return `${year}-${month}-${day}, ${hours}:${minutes}:${seconds}`;
     }
 
     useEffect(() => {
         fetchEvents();
-    }, []); 
+    }, []);
 
     return (
         <div>
@@ -81,7 +84,7 @@ function EventList() {
             <div>
                 {events?.map((event, index) => (
                     <div key={index}>
-                        <h5>Event No.{event.id}: {event.name}</h5>
+                        <h5>Event No.{index+1}: {event.name}</h5>
                         <p>{event.description}</p>
                         <p>Availability: {event.availability}</p>
                         <p>Start Time: {formatTimestamp(event.start_time)}</p>
@@ -102,7 +105,6 @@ function EventList() {
                 </select>
                 <input name="start_time" type="datetime-local" value={newEvent.start_time} onChange={handleInputChange} required />
                 <input name="end_time" type="datetime-local" value={newEvent.end_time} onChange={handleInputChange} required />
-                <input name="calendar" type="number" value={newEvent.calendar} onChange={handleInputChange} required />
                 <button type="submit">Add Event</button>
             </form>
         </div>
