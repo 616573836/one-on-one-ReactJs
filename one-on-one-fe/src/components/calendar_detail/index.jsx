@@ -1,13 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 // import { formatTimestamp } from '../meeting_detail';
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 
 const Calendar = () => {
     let { meetingID, userID } = useParams();
     const [calendarData, setCalendarData] = useState(null);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchCalendarData();
@@ -81,9 +82,32 @@ const Calendar = () => {
     return (
         <div>
             {calendarData ? (renderCalendar()) : (<div>The user has not created a calendar.</div>)}
+            <button style={styles.eventsButton} onClick={() => navigate(`/meetings/${meetingID}/members/${userID}/calendar/events`, { state: { calendarId: calendarData.id } })}>
+                Events
+            </button>
         </div>
     );
 };
+
+const styles = {
+    eventsButton: {
+        padding: '10px 20px',
+        textDecoration: 'none',
+        transition: 'all 0.5s',
+        textAlign: 'center',
+        display: 'inline-block',
+        marginTop: '10px',
+        marginRight: '5px',
+        marginLeft: '5px',
+        marginBottom: '5px',
+        fontSize: '16px',
+        cursor: 'pointer',
+        color: 'white',
+        border: 'none',
+        borderRadius: '4px',
+        backgroundColor: '#007bff',
+    },
+}
 
 export default Calendar;
 

@@ -143,8 +143,8 @@ function EventDetail() {
             <hr></hr>
             <br></br>
             <form>
-                <input type="text" name="name" value={eventDetail.name} onChange={handleChange} />
-                <textarea name="description" value={eventDetail.description} onChange={handleChange}></textarea>
+                <input type="text" name="name" value={eventDetail.name} onChange={handleChange} style={styles.largeInput} />
+                <textarea name="description" value={eventDetail.description} onChange={handleChange} style={styles.largeTextarea} ></textarea>
                 <select name="availability" value={eventDetail.availability} onChange={handleChange}>
                     <option value="busy">Busy</option>
                     <option value="moderate">Moderate</option>
@@ -163,6 +163,23 @@ function EventDetail() {
 }
 
 const styles = {
+    largeInput: {
+        width: '100%',
+        maxWidth: '500px',
+        marginBottom: '15px',
+        border: '1px solid #ccc', 
+        padding: '8px', 
+        borderRadius: '4px',
+    },
+    largeTextarea: {
+        width: '100%',
+        maxWidth: '500px',
+        height: '150px',
+        marginBottom: '15px',
+        border: '1px solid #ccc',
+        padding: '8px', 
+        borderRadius: '4px',
+    },
     container: {
         fontFamily: 'Arial, sans-serif',
         padding: '20px',
