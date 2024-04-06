@@ -1,0 +1,518 @@
+@import "SHARED/general.css";
+
+/* Header */
+header .button-norm-light{
+    font-weight: var(--font-bold);
+    font-size: var(--h2-font-size);
+}
+
+header .button-norm-light:hover{
+    color: var(--container-color-dark);
+}
+
+header button a{
+    width: 100%;
+    height: 100%;
+}
+
+/* Calendar Info Container */
+.calendar-info-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Member Panel */
+.member-panel{
+    width: 10%;
+    padding: var(--mb-0-5);
+    margin: var(--mb-0-25);
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    background-color: var(--container-color-dark);
+    color: var(--text-color-light);
+}
+
+.member-panel h1{
+    color: inherit;
+    text-align: center;
+    font-size: var(--h1-font-size);
+    background-color: var(--minor-color);
+    padding: var(--mb-0-25);
+}
+
+.member-panel button {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: var(--mb-1);
+    margin-top: var(--mb-1);
+
+    font-size: var(--normal-font-size);
+    text-align: center;
+
+    width: 95%;
+}
+
+.member-panel button:hover{
+    color: var(--text-color);
+}
+
+.member-panel button a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.member-panel button img{
+    overflow: hidden;
+    border-radius: 50%;
+    width: 20px;
+    min-width: 20px;
+    height: 20px;
+    object-fit: cover;
+    margin-right: var(--mb-0-5);
+}
+
+.member-panel button i{
+    margin-left: var(--mb-0-5);
+}
+
+/* Main Panel */
+.main-panel{
+    display: flex;
+    width: 90%;
+}
+
+/* Calendar Grid */
+.calendar-panel{
+    width: 70%;
+}
+
+.calendar-grid{
+    margin: var(--mb-1);
+
+}
+
+.calendar-grid h1{
+    font-size: var(--big-font-size);
+    font-weight: var(--font-bold);
+}
+
+.calendar-toolbar {
+    vertical-align: baseline;
+    box-sizing: border-box;
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: var(--mb-1) 0;
+}
+
+.calendar-toolbar button {
+    overflow: visible;
+    display: inline-block;
+    padding: var(--mb-0-5);
+    text-align: center;
+    vertical-align: middle;
+    opacity: 0.65;
+    margin: 0 var(--mb-0-5);
+}
+
+.calendar-toolbar-chunk{
+    display: flex;
+    flex-direction: row;
+}
+
+.calendar div{
+    color: var(--text-color);
+    font-size: var(--normal-font-size);
+}
+
+.calendar .today {
+    background-color: var(--minor-color-light);
+}
+
+.calendar-occupied {
+    background-color: var(--major-color-second);
+}
+
+.calendar-footer{
+    display: flex;
+    margin: var(--mb-1);
+    justify-content: center;
+}
+
+/* Edit Panel */
+.edit-panel{
+    width: 30%;
+    padding: var(--mb-0-5);
+    margin: var(--mb-0-25);
+
+    background-color: var(--container-color-dark);
+    color: var(--text-color-light);
+}
+
+.edit-panel h1,h2,h3{
+    color: var(--text-color-light);
+}
+
+.edit-panel h1{
+    font-size: var(--h1-font-size);
+}
+
+.event-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background-color: var(--major-color);
+}
+
+.event-details {
+    display: flex;
+    flex-direction: column;
+    margin-top: 35px;
+    padding: 16px;
+}
+
+.event-details .row {
+    padding: 8px 0;
+    align-items: center;
+}
+
+.event-details .row h3 {
+    font-size: 17px;
+    margin: 0;
+}
+
+.event-details .row p {
+    font-size: 17px;
+    margin: 0;
+}
+
+.event-details .row .col-6:first-child {
+    padding-right: 8px;
+}
+
+.event-details .row .col-6:last-child {
+    padding-left: 8px;
+}
+
+.event-details .row .col-6 p {
+    text-align: right;
+}
+
+.event-details select {
+    width: 100%;
+    color: var(--text-color-light);
+}
+
+.event-details input {
+    width: 100%;
+    padding: 5px 10px;
+    border-bottom: var(--border-width) solid var(--text-color-light);
+}
+
+.event-details textarea {
+    border: var(--border-width) solid var(--text-color-light);
+}
+
+.event-details input::placeholder,
+.event-details textarea::placeholder {
+    color: var(--input-color-light);
+}
+
+.event-details select:focus,
+.event-details input:focus,
+.event-details textarea:focus{
+    background-color: var(--body-color);
+    color: var(--text-color);
+}
+
+.event-details input:focus{
+    border-bottom: var(--border-width-bold) solid var(--major-color-heaveier);
+}
+
+.event-details textarea:focus{
+    border: var(--border-width-bold) solid var(--major-color-heaveier);
+}
+
+.event-details select {
+    padding: 5px;
+    background: transparent;
+    border-bottom: var(--border-width) solid var(--text-color-light);
+}
+
+.event-details button{
+    align-self: center;
+}
+
+/* Timeline */
+.timeline-container{
+    padding: var(--mb-0-75);
+}
+
+.timeline-container h1 {
+    font-size: var(--h1-font-size);
+    color: var(--text-color-light);
+    margin-bottom: var(--mb-1);
+    background-color: var(--container-color-dark);
+    padding: var(--mb-0-5);
+}
+
+.timeline-container h2 {
+    text-align: left;
+    font-size: var(--h2-font-size);
+    color: var(--title-color);
+}
+
+.timeline {
+    position: relative;
+    padding: var(--mb-1);
+    max-height: 50vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.event-container {
+    display: grid;
+    column-gap: var(--mb-1-5);
+    grid-template-columns: .03fr max-content 1fr;
+    transition: all .5s ease;
+}
+
+.event-avatar img {
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    object-fit: cover;
+    transition: all .3s ease;
+}
+
+.event-avatar img:hover {
+    transform: scale(1.01);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    transition: all .3s ease;
+}
+
+.event-rounder{
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 5px solid var(--major-color);
+    transform: translate(0, 10px);
+}
+
+.event-line{
+    display: block;
+    width: 5px;
+    height: 90%;
+    background-color: var(--major-color);
+    transform: translate(7px, 3px);
+}
+
+.event-user-time{
+    display: flex;
+    flex-direction: row;
+    background-color: var(--body-color);
+    border-radius: var(--border-radius);
+    padding: var(--mb-0-5) var(--mb-1);
+    transition: all .3s ease;
+}
+
+.event-time{
+    text-align: center;
+    margin-left: var(--mb-1);
+    color: var(--input-color);
+}
+
+.event-user-time:hover{
+    transform: scale(1.01);
+    transition: all .3s ease;
+}
+
+.event-info{
+    height: max-content;
+    background-color: var(--major-color-lighter);
+    border-radius: var(--border-radius);
+    padding: var(--mb-0-75) var(--mb-1);
+
+    transition: all .5s ease-in-out;
+}
+
+.event-info:hover{
+    background-color: var(--major-color-second);
+    transform: scale(1.01);
+    box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+    transition: all .3s ease;
+}
+
+.event-title,
+.event-content,
+.event-sig-content{
+    color: var(--text-color-light);
+}
+
+.event-title{
+    font-size: var(--h3-font-size);
+    margin-bottom: var(--mb-0-5);
+}
+
+.event-content{
+    font-size: var(--font-regular);
+}
+
+.event-sig-content{
+    font-size: var(--h4-font-size);
+    font-weight: var(--font-bold);
+    background-color: var(--minor-color);
+    padding: var(--mb-0-75);
+    margin: var(--mb-0-5) 0;
+}
+
+.event-sig-content input[type="checkbox"] {
+    border-radius: 50%; /* Make the checkbox round */
+}
+
+.event-sig-content li {
+    list-style: none; /* Remove default list styling */
+    margin-bottom: var(--mb-0-5); /* Add some spacing between items */
+}
+
+.event-sig-content label {
+    display: inline-block;
+    margin-right: var(--mb-0-5);
+}
+
+.profile-container {
+    padding: 20px;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.profile-container button {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: var(--mb-1);
+    margin-top: var(--mb-1);
+
+    font-size: var(--normal-font-size);
+    text-align: center;
+
+    width: 30%;
+}
+
+.profile-container button a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.profile-container img{
+    overflow: hidden;
+    border-radius: 50%;
+    width: 200px;
+    min-width: 200px;
+    height: 200px;
+    object-fit: cover;
+    margin-right: var(--mb-0-5);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 631px){
+    .calendar-info-container{
+        flex-direction: column;
+    }
+
+    .member-panel{
+        width: 100%;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .member-panel button{
+        height: 80%;
+        margin: var(--mb-0-25);
+    }
+
+    .main-panel{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 879px){
+    /* calendar 和 edit panel column摆放 */
+    .main-panel{
+        flex-direction: column;
+    }
+
+    .member-panel h1{
+        font-size: var(--h3-font-size);
+    }
+
+    .member-panel button{
+        font-size: var(--small-font-size);
+        flex-direction: column;
+    }
+
+    .member-panel button img{
+        margin-right: 0;
+        margin-bottom: var(--mb-0-25);
+    }
+
+    .member-panel button i{
+        margin-left: 0;
+        margin-top: var(--mb-0-25);
+    }
+
+    .calendar-panel{
+        width: 100%;
+    }
+
+    .edit-panel{
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 1201px) and (min-width: 880px){
+    .member-panel h1{
+        font-size: var(--h2-font-size);
+    }
+
+    .member-panel button{
+        font-size: var(--medium-font-size);
+        flex-direction: column;
+    }
+
+    .member-panel button img{
+        margin-right: 0;
+        margin-bottom: var(--mb-0-25);
+    }
+
+    .member-panel button i{
+        margin-left: 0;
+        margin-top: var(--mb-0-25);
+    }
+
+    /* edit panel： header button收缩，字体收缩 */
+}

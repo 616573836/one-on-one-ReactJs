@@ -339,3 +339,8 @@ button{
     display: flex;
     flex-direction: column;
 }
+
+.logout-button {
+    margin-top: auto;
+    margin-left: auto;
+  }

@@ -35,37 +35,85 @@ const SignUpComponent = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Username"
-          name="username"
-          onChange={handleChange}
-          value={formData.username}
-          required
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          name="email"
-          onChange={handleChange}
-          value={formData.email}
-          required
-        />
-        
-        <input
-          type="password"
-          placeholder="Password"
-          name="password"
-          onChange={handleChange}
-          value={formData.password}
-          required
-        />
-        
-        <button type="submit">Sign Up</button>
-      </form>
-    </div>
+    <>
+      <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+      <meta charSet="utf-8" />
+      <meta content="#a37fdf" name="theme-color" />
+      <meta content="Sign in / Sign up" property="og:title" />
+      <meta content="website" property="og:type" />
+      <meta data-intl-tel-input-cdn-path="intlTelInput/" />
+      <title>Sign in / Sign up</title>
+      <link href="../../STYLE/SHARED/general.css" media="screen" rel="stylesheet" />
+      <link
+        href="../../STYLE/SHARED/visitor-pages.css"
+        media="screen"
+        rel="stylesheet"
+      />
+      <link href="../../STYLE/signin-signup.css" media="screen" rel="stylesheet" />
+      <header
+        className="u-align-left u-clearfix u-header u-section-row-container"
+        id="sec-d402"
+      ></header>
+
+        <h1>One on One</h1>
+        <section className="u-clearfix u-section-1" id="sec-9364">
+          <div className="u-clearfix u-sheet u-sheet-1">
+            <div className="wrap">
+            <div className="container">
+            <div className="welcome">
+            <h1>Sign up</h1>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                placeholder="Username"
+                name="username"
+                onChange={handleChange}
+                value={formData.username}
+                required
+              />
+
+              <input
+                type="email"
+                placeholder="Email"
+                name="email"
+                onChange={handleChange}
+                value={formData.email}
+                required
+              />
+              
+              <input
+                type="password"
+                placeholder="Password"
+                name="password"
+                onChange={handleChange}
+                value={formData.password}
+                required
+              />
+              <p>     </p>
+          <button type="submit">Sign Up</button>
+        </form>
+      
+        </div>
+        </div>
+        </div>
+        </div>
+          
+
+        </section>
+      <footer
+    className="u-align-center u-clearfix u-footer u-grey-80 u-footer"
+        id="sec-6d3f"
+      >
+        <div className="u-clearfix u-sheet u-valign-middle u-sheet-1">
+          <p
+            className="u-small-text u-text u-text-variant u-text-1"
+            style={{ color: "white", fontSize: "1rem", letterSpacing: 0 }}
+          >
+            Copyright by Chuyue Zhang, Sirui Yu, Xuhui Chen, Xingrun Jiao{" "}
+          </p>
+        </div>
+  </footer>
+    </>
     
   );
 };
