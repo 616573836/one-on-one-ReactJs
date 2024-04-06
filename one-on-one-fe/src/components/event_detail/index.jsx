@@ -139,12 +139,12 @@ function EventDetail() {
             <p>Start Time: {eventDetail.start_time.replace("T", ", ")}</p>
             <p>End Time: {eventDetail.end_time.replace("T", ", ")}</p>
             <p>Created Time: {transformDateTime(eventDetail.created_time)}</p>
-            <br></br>
-            <hr></hr>
-            <br></br>
+            <br/>
+            <hr/>
+            <br/>
             <form>
                 <input type="text" name="name" value={eventDetail.name} onChange={handleChange} style={styles.largeInput} />
-                <textarea name="description" value={eventDetail.description} onChange={handleChange} style={styles.largeTextarea} ></textarea>
+                <textarea name="description" value={eventDetail.description} onChange={handleChange} style={styles.largeTextarea} />
                 <select name="availability" value={eventDetail.availability} onChange={handleChange}>
                     <option value="busy">Busy</option>
                     <option value="moderate">Moderate</option>
@@ -152,9 +152,9 @@ function EventDetail() {
                 </select>
                 <input type="datetime-local" name="start_time" value={eventDetail.start_time || ''} onChange={handleChange} />
                 <input type="datetime-local" name="end_time" value={eventDetail.end_time || ''} onChange={handleChange} />
-                <select name="calendarId" value={eventDetail.calendarId || ''} onChange={handleChange}></select>
+                <select name="calendarId" value={eventDetail.calendarId || ''} onChange={handleChange}/>
                 <button style={styles.button} type="button" onClick={handleUpdate}>Update Event</button>
-                <br></br>
+                <br/>
                 <button style={styles.button} type="button" onClick={handleDelete}>Delete Event</button>
             </form>
             <button style={styles.backButton} onClick={handleBack}>Back</button>

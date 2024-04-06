@@ -2,20 +2,25 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {useParams, useNavigate} from "react-router-dom";
+import EventList from "../events";
 
 const Calendar = () => {
     let { meetingID, userID } = useParams();
     const [calendarData, setCalendarData] = useState(null);
+    const [events, setEvents] = useState([]);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
+    const [showEventCreate, setShowEventCreate] = useState(false);
+    const [showEventEdit, setShowEventEdit] = useState(false);
     const navigate = useNavigate();
 
     const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const months = ['January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'];
+                    'July', 'August', 'September', 'October', 'November', 'December'];
 
     useEffect(() => {
         fetchCalendarData();
+        fetchEvents();
     }, [meetingID, userID]);
 
     const fetchCalendarData = async () => {
@@ -39,6 +44,34 @@ const Calendar = () => {
         }
     };
 
+    const fetchEvents = async () => {
+        try {
+            const response = await axios.get(`/api/meetings/${meetingID}/members/${userID}/calendar/events/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
+            setEvents(response.data);
+            if(response.data) console.warn("has data")
+            else console.warn("no data")
+        } catch (error) {
+            console.error('Error fetching calendar data:', error);
+            setEvents([]);
+        }
+    };
+
+    const handleEventCreate = () => {
+        if(!showEventCreate) setShowEventCreate(true);
+        else setShowEventCreate(false);
+    };
+
+    const handleEventEdit = () => {
+        if(!showEventEdit) setShowEventEdit(true);
+        else setShowEventEdit(false);
+    };
+
     const renderCalendar = () => {
         if (!calendarData || !startDate || !endDate) {
             return <div>Loading...</div>;
@@ -54,29 +87,80 @@ const Calendar = () => {
             const time = i % 2 === 0 ? `${Math.floor(i / 2)}:00 PM` : `${Math.floor(i / 2)}:30 PM`;
             timeSlots.push(time);
         }
-        
+
         // Calculate the number of days and hours between start and end dates
         const dayDifference = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
-        const hourDifference = 24;
+        const hourDifference = 48;
 
         const rows = [];
-        for(let day = 0; day < dayDifference && day < 5; day++){
-            for(let hour = 0; hour < hourDifference; hour++){
+        for (let hour = 0; hour < hourDifference; hour++) {
+            const cells = [];
+
+            cells.push(
+                <td>
+                    {timeSlots[hour]}
+                </td>
+            );
+
+            for (let day = 0; day < dayDifference && day < 5; day++) {
                 // Calculate the date for the current cell
-                // const currentDate = new Date(startDate);
-                // currentDate.setDate(startDate.getDate() + day);
-                // currentDate.setHours(startDate.getHours() + hour);
-                //
-                // // Push the cell to the row
-                // cells.push(
-                //     <td key={`${hour}-${day}`}>
-                //         {/* Render the cell content (e.g., date and time) */}
-                //         {currentDate.toLocaleString()}
-                //     </td>
-                // );
+                const currentDate = new Date(startDate.getDate());
+                currentDate.setDate(startDate.getDate() + day);
+                currentDate.setHours(startDate.getHours() + hour);
+
+                // Check if there is an event at the current time slot
+                const event = events.find(event => {
+                    const eventStartTime = new Date(event.start_time);
+                    const eventEndTime = new Date(event.end_time);
+                    return currentDate >= eventStartTime && currentDate < eventEndTime;
+                });
+
+                // Render a button if there is an event, otherwise render an empty cell
+                if (event) {
+                    let buttonColor = '';
+                    switch (event.availability) {
+                        case 'available':
+                            buttonColor = 'green';
+                            break;
+                        case 'moderate':
+                            buttonColor = 'yellow';
+                            break;
+                        case 'busy':
+                            buttonColor = 'red';
+                            break;
+                        default:
+                            buttonColor = 'transparent';
+                            break;
+                    }
+
+                    // Calculate rowspan if the event spans multiple rows (longer than 30 minutes)
+                    const rowspan = Math.ceil((new Date(event.end_time) - currentDate) / (1000 * 60 * 30));
+
+                    // Render a button to display event details
+                    cells.push(
+                        <td key={`${hour}-${day}`} rowSpan={rowspan}>
+                            <button style={{ backgroundColor: buttonColor }}
+                                    onClick={() => handleEventEdit(event)}>View Event
+                            </button>
+                        </td>
+                    );
+
+                    // Skip additional cells covered by the rowspan
+                    for (let i = 1; i < rowspan; i++) {
+                        cells.push(null);
+                    }
+                } else {
+                    // Render an empty cell
+                    cells.push(
+                        <td key={`${hour}-${day}`} >
+                            <button className="transparent-button"
+                                    onClick={handleEventCreate}>
+                            </button>
+                        </td>
+                    );
+                }
             }
-            // Push the row to the table rows array
-            // rows.push(<tr key={hour}>{cells}</tr>);
+            rows.push(<tr key={hour}>{cells}</tr>);
         }
 
         // Return the generated table
@@ -102,20 +186,10 @@ const Calendar = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {timeSlots.map((time, index) => (
-                            <tr key={index}>
-                                <td>{time}</td>
-                                {weekdays.map((day, idx) => (
-                                    <td key={idx}>
-                                        <button className="transparent-button"
-                                                onClick={() => console.log(`Clicked ${day} at ${time}`)}>
-                                        </button>
-                                    </td>
-                                ))}
-                            </tr>
-                        ))}
+                        {rows}
                     </tbody>
                 </table>
+                {showEventCreate && <EventList />}
             </>
         );
     };
