@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { checkIfEventsExist } from '../calendar_detail'
 
 const MemberDetail = () => {
 
@@ -52,7 +53,6 @@ const MemberDetail = () => {
             setShowUpdateForm(false); 
             getMember();
         } catch (error) {
-            
             console.error("Failed to update meeting:", error);
         }
     };
@@ -115,8 +115,6 @@ const MemberDetail = () => {
                     </button>
                 </form>
             )}
-
-            
         </div>
     );
 

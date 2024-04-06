@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 // import { formatTimestamp } from '../meeting_detail';
 import {useParams} from "react-router-dom";
@@ -15,7 +15,7 @@ const Calendar = () => {
 
     const fetchCalendarData = async () => {
         try {
-            const response = await axios.get(`http://127.0.0.1:8000/api/meetings/${meetingID}/members/${userID}/calendar/`, {
+            const response = await axios.get(`/api/meetings/${meetingID}/members/${userID}/calendar/`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -86,3 +86,33 @@ const Calendar = () => {
 };
 
 export default Calendar;
+
+export async function checkIfEventsExist(meetingId, userId) {
+    try {
+        // Make a GET request to fetch the list of events for the specified calendar
+        const response = await axios.get(`/api/meetings/${meetingId}/members/${userId}/calendar/events/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+            }
+        });
+
+        // Check if the response is successful (status code 200)
+        if (response.data) {
+            const eventData = await response.data;
+
+            // Check if the list of events is not empty
+            return eventData.length > 0;
+        } else {
+            // Handle the case where the request is not successful
+            console.error('Failed to fetch events:', response.statusText);
+            return false;
+        }
+    } catch (error) {
+        // Handle any errors that occur during the fetch operation
+        console.error('Error fetching events:', error.message);
+        return false;
+    }
+}
+
