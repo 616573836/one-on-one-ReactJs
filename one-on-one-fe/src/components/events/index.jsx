@@ -62,6 +62,10 @@ function EventList() {
         fetchEvents();
     };
 
+    const handleBack = () => {
+        navigate(`/meetings/${meetingId}/members/${memberId}/calendar`);
+    };
+
     function formatTimestamp(timestamp) {
         const date = new Date(timestamp);
         const year = date.getFullYear();
@@ -107,8 +111,26 @@ function EventList() {
                 <input name="end_time" type="datetime-local" value={newEvent.end_time} onChange={handleInputChange} required />
                 <button type="submit">Add Event</button>
             </form>
+            <button style={styles.backButton} onClick={handleBack}>Back to calendar</button>
         </div>
     );
+}
+
+const styles = {
+    backButton: {
+        display: 'inline-block',
+        marginTop: '10px',
+        marginRight: '5px',
+        marginLeft: '5px',
+        marginBottom: '5px',
+        padding: '10px 20px',
+        fontSize: '16px',
+        cursor: 'pointer',
+        color: 'white',
+        border: 'none',
+        borderRadius: '4px',
+        backgroundColor: '#007bff',
+    },
 }
 
 export default EventList;
