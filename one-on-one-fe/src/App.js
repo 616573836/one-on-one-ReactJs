@@ -8,7 +8,7 @@ import ProfileEdit from "./components/edit_profile";
 import Contact from "./components/contact";
 import MeetingList from "./components/meetings";
 import MeetingDetail from './components/meeting_detail';
-import ProfileD from "./components/contact";\
+import ProfileD from "./components/contact";
 import Calendar from './components/calendar_detail'
 import Member from './components/member';
 import EventList from "./components/events";
