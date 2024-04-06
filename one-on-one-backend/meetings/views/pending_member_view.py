@@ -8,6 +8,7 @@ from rest_framework import status
 from ..models.calendar import Calendar
 from rest_framework.permissions import AllowAny
 
+
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def confirm_member(request, token):
