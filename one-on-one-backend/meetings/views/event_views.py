@@ -61,7 +61,7 @@ def get_available_time_intersection(meeting_id):
 
 @api_view(['GET', 'POST'])
 
-@permission_classes([IsMember | IsAdminUser])
+@permission_classes([IsMember | IsAuthenticated | IsAdminUser])
 
 def event_list_view(request, meeting_id, user_id):
     try:
