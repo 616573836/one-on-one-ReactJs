@@ -1,6 +1,6 @@
+
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-// import { formatTimestamp } from '../meeting_detail';
 import {useParams, useNavigate} from "react-router-dom";
 
 const Calendar = () => {
@@ -9,6 +9,10 @@ const Calendar = () => {
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
     const navigate = useNavigate();
+
+    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const months = ['January', 'February', 'March', 'April', 'May', 'June',
+        'July', 'August', 'September', 'October', 'November', 'December'];
 
     useEffect(() => {
         fetchCalendarData();
@@ -40,43 +44,79 @@ const Calendar = () => {
             return <div>Loading...</div>;
         }
 
+        const timeSlots = [];
+        for (let i = 0; i < 24; i++) {
+            const time = i % 2 === 0 ? `${Math.floor(i / 2)}:00 AM` : `${Math.floor(i / 2)}:30 AM`;
+            timeSlots.push(time);
+        }
+
+        for (let i = 24; i < 48; i++) {
+            const time = i % 2 === 0 ? `${Math.floor(i / 2)}:00 PM` : `${Math.floor(i / 2)}:30 PM`;
+            timeSlots.push(time);
+        }
+        
         // Calculate the number of days and hours between start and end dates
         const dayDifference = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
         const hourDifference = 24;
 
-        // Array to store the table rows
         const rows = [];
-
-        // Loop to generate 48 rows
-        for (let hour = 0; hour < hourDifference; hour++) {
-            // Array to store cells of each row
-            const cells = [];
-
-            // Loop to generate 5 cells for each row (representing 5 days)
-            for (let day = 0; day < dayDifference && day < 5; day++) {
+        for(let day = 0; day < dayDifference && day < 5; day++){
+            for(let hour = 0; hour < hourDifference; hour++){
                 // Calculate the date for the current cell
-                const currentDate = new Date(startDate);
-                currentDate.setDate(startDate.getDate() + day);
-                currentDate.setHours(startDate.getHours() + hour);
-
-                // Push the cell to the row
-                cells.push(
-                    <td key={`${hour}-${day}`}>
-                        {/* Render the cell content (e.g., date and time) */}
-                        {currentDate.toLocaleString()}
-                    </td>
-                );
+                // const currentDate = new Date(startDate);
+                // currentDate.setDate(startDate.getDate() + day);
+                // currentDate.setHours(startDate.getHours() + hour);
+                //
+                // // Push the cell to the row
+                // cells.push(
+                //     <td key={`${hour}-${day}`}>
+                //         {/* Render the cell content (e.g., date and time) */}
+                //         {currentDate.toLocaleString()}
+                //     </td>
+                // );
             }
-
             // Push the row to the table rows array
-            rows.push(<tr key={hour}>{cells}</tr>);
+            // rows.push(<tr key={hour}>{cells}</tr>);
         }
 
         // Return the generated table
         return (
-            <table>
-                <tbody>{rows}</tbody>
-            </table>
+            <>
+                <h1>{calendarData.owner}'s Calendar</h1>
+                <h2>{months[startDate.getMonth()]} {startDate.getFullYear()}</h2>
+                <div>
+                    <button title="Previous week" type="button">
+                        &lt;
+                    </button>
+                    <button title="Next week" type="button">
+                        &gt;
+                    </button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th/>
+                            {weekdays.map((weekday) => {
+                                return <th className="weekday"><p>{weekday}</p></th>
+                            })}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {timeSlots.map((time, index) => (
+                            <tr key={index}>
+                                <td>{time}</td>
+                                {weekdays.map((day, idx) => (
+                                    <td key={idx}>
+                                        <button className="transparent-button"
+                                                onClick={() => console.log(`Clicked ${day} at ${time}`)}>
+                                        </button>
+                                    </td>
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </>
         );
     };
 
@@ -85,32 +125,12 @@ const Calendar = () => {
             {calendarData ? (renderCalendar()) : (<div>The user has not created a calendar.</div>)}
             <button style={styles.eventsButton} onClick={
                 () => navigate(`/meetings/${meetingID}/members/${userID}/calendar/events`,
-                { state: { calendarId: calendarData.id }})}>
+                    { state: { calendarId: calendarData.id }})}>
                 Events
             </button>
         </div>
     );
 };
-
-const styles = {
-    eventsButton: {
-        padding: '10px 20px',
-        textDecoration: 'none',
-        transition: 'all 0.5s',
-        textAlign: 'center',
-        display: 'inline-block',
-        marginTop: '10px',
-        marginRight: '5px',
-        marginLeft: '5px',
-        marginBottom: '5px',
-        fontSize: '16px',
-        cursor: 'pointer',
-        color: 'white',
-        border: 'none',
-        borderRadius: '4px',
-        backgroundColor: '#007bff',
-    },
-}
 
 export default Calendar;
 
@@ -143,3 +163,22 @@ export async function checkIfEventsExist(meetingId, userId) {
     }
 }
 
+const styles = {
+    eventsButton: {
+        padding: '10px 20px',
+        textDecoration: 'none',
+        transition: 'all 0.5s',
+        textAlign: 'center',
+        display: 'inline-block',
+        marginTop: '10px',
+        marginRight: '5px',
+        marginLeft: '5px',
+        marginBottom: '5px',
+        fontSize: '16px',
+        cursor: 'pointer',
+        color: 'white',
+        border: 'none',
+        borderRadius: '4px',
+        backgroundColor: '#007bff',
+    },
+}

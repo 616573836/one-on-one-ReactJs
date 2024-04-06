@@ -202,8 +202,8 @@ const MeetingDetail = () => {
                     {eventExistence[member.user] ? <p>Submitted</p> : <p>Not submitted</p>}
                     <a href={`/meetings/${meetingId}/members/${member.user}/`}
                        style={styles.detailButton}>Detail</a>
-                    <a href={`/meetings/${meetingId}/members/${member.user}/calendar/`}
-                       style={styles.calendarButton}>Calendar</a>
+                    <button onClick={() => navigate(`/meetings/${meetingId}/members/${member.user}/calendar/`)}
+                       style={styles.calendarButton}>Calendar</button>
                 </div>
             ))}
             <form onSubmit={createMember}>
