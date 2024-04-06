@@ -6,6 +6,7 @@ from django.db.models import Q
 from ..models.meeting import Meeting
 from ..models.node import JoinNode
 from ..models.member import Member
+from ..models.pre_member import PendingMember
 from ..permissions import IsMember, is_member
 from ..serializer.member_serializer import MemberSerializer
 from accounts.models.contact import Contact
@@ -13,6 +14,7 @@ from django.utils.crypto import get_random_string
 from django.core.mail import send_mail
 from django.urls import reverse
 from OneOnOne.settings import EMAIL_HOST_USER
+from django.utils.http import urlsafe_base64_encode
 
 
 
@@ -121,15 +123,20 @@ def member_view(request, meeting_id, user_id):
         contact_exists = Contact.objects.filter(
             (Q(user1=user) & Q(user2_id=user_id)) | (Q(user1_id=user_id) & Q(user2=user))
         ).first()
+
         if contact_exists:
-            member = Member.objects.create(meeting_id=meeting_id, user_id=user_id)
-            serializer = MemberSerializer(member)
+            token = get_random_string(64)
+            
+            confirmation_link = request.build_absolute_uri(reverse('meetings:confirm_member', args=[token]))
+            # member = Member.objects.create(meeting_id=meeting_id, user_id=user_id)
+            # serializer = MemberSerializer(member)
             # Determine the correct recipient based on the contact relationship
             recipient_user = contact_exists.user2 if contact_exists.user1 == user else contact_exists.user1
+            PendingMember.objects.create(user_id=user_id, meeting_id=meeting_id, token=token, email=recipient_user.email)
             link = 'http://localhost:3000/meetings/'+ str(meeting_id) +'/members/' + str(recipient_user.id)
             send_mail(
                 'Invitation from One on One',
-                f'Please specify your availability by following this link: {link}',
+                f'Please confirm your participation by following this link: {confirmation_link}',
                 EMAIL_HOST_USER,
                 [recipient_user.email],  # This is now dynamically set based on the contact relationship
                 fail_silently=False,
@@ -138,7 +145,7 @@ def member_view(request, meeting_id, user_id):
             # Optionally create JoinNode
             # JoinNode.objects.create(receiver_id=user_id, meeting_id=meeting_id, sender=user)
             
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response(status=status.HTTP_201_CREATED)
         else:
             return Response({"error": "Member is not in contact with the requesting user."},
                             status=status.HTTP_403_FORBIDDEN)
