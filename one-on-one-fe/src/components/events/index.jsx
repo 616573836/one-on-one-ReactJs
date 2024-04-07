@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 
-function EventList() {
+function EventList({ calendarID }) {
     const { meetingId, memberId } = useParams(); 
     const [events, setEvents] = useState([]);
     const navigate = useNavigate();
@@ -13,7 +13,7 @@ function EventList() {
         availability: 'available',
         start_time: '',
         end_time: '',
-        calendar: calendarId,
+        calendar: calendarId ? calendarId : calendarID,
     });
 
     const redirectToDetailPage = (eventId) => {
