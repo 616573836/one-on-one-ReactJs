@@ -33,8 +33,6 @@ const Calendar = () => {
                 }
             });
             setCalendarData(response.data);
-            if(response.data) console.warn("has data")
-            else console.warn("no data")
             // Extract start and end dates from calendar data
             setStartDate(new Date(response.data.start_date));
             setEndDate(new Date(response.data.end_date));
@@ -54,8 +52,6 @@ const Calendar = () => {
                 }
             });
             setEvents(response.data);
-            if(response.data) console.warn("has data")
-            else console.warn("no data")
         } catch (error) {
             console.error('Error fetching calendar data:', error);
             setEvents([]);
@@ -95,13 +91,11 @@ const Calendar = () => {
         const rows = [];
         for (let hour = 0; hour < hourDifference; hour++) {
             const cells = [];
-
             cells.push(
-                <td>
+                <td key={`${hour}-time`}>
                     {timeSlots[hour]}
                 </td>
             );
-
             for (let day = 0; day < dayDifference && day < 5; day++) {
                 // Calculate the date for the current cell
                 const currentDate = new Date(startDate.getDate());
@@ -111,8 +105,8 @@ const Calendar = () => {
                 // Check if there is an event at the current time slot
                 const event = events.find(event => {
                     const eventStartTime = new Date(event.start_time);
-                    const eventEndTime = new Date(event.end_time);
-                    return currentDate >= eventStartTime && currentDate < eventEndTime;
+                    return currentDate.getDate() === eventStartTime.getDate() &&
+                        currentDate.getHours() === eventStartTime.getHours();
                 });
 
                 // Render a button if there is an event, otherwise render an empty cell
@@ -140,15 +134,15 @@ const Calendar = () => {
                     cells.push(
                         <td key={`${hour}-${day}`} rowSpan={rowspan}>
                             <button style={{ backgroundColor: buttonColor }}
-                                    onClick={() => handleEventEdit(event)}>View Event
+                                    onClick={() => handleEventEdit()}>
                             </button>
                         </td>
                     );
 
                     // Skip additional cells covered by the rowspan
-                    for (let i = 1; i < rowspan; i++) {
-                        cells.push(null);
-                    }
+                    // for (let i = 1; i < rowspan; i++) {
+                    //     cells.push(null);
+                    // }
                 } else {
                     // Render an empty cell
                     cells.push(
@@ -185,9 +179,7 @@ const Calendar = () => {
                             })}
                         </tr>
                     </thead>
-                    <tbody>
-                        {rows}
-                    </tbody>
+                    <tbody>{rows}</tbody>
                 </table>
                 {showEventCreate && <EventList />}
             </>
