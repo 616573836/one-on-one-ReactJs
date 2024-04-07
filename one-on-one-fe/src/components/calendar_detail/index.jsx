@@ -104,7 +104,7 @@ const Calendar = () => {
                     {timeSlots[hour]}
                 </td>
             );
-            for (let day = 0; day < dayDifference && day < 5; day++) {
+            for (let day = 0; day < dayDifference && day < 7; day++) {
                 // Calculate the date for the current cell
                 const currentDate = new Date(startDate.getDate());
                 currentDate.setDate(startDate.getDate() + day);
@@ -119,6 +119,8 @@ const Calendar = () => {
 
                 // Render a button if there is an event, otherwise render an empty cell
                 if (event) {
+                    console.warn("current date " + currentDate.getDate() + "; current hour " +
+                                currentDate.getHours() + ". event start date " + event.start_time);
                     let buttonColor = '';
                     switch (event.availability) {
                         case 'available':
@@ -140,7 +142,8 @@ const Calendar = () => {
 
                     // Render a button to display event details
                     cells.push(
-                        <td key={`event-${event.id}`} rowSpan={rowspan}>
+                        // rowSpan={rowspan}
+                        <td key={`event-${event.id}`} >
                             <button style={{ backgroundColor: buttonColor }}
                                     onClick={() => handleEventEdit(event.id)}>
                             </button>
@@ -183,7 +186,12 @@ const Calendar = () => {
                         <tr>
                             <th/>
                             {weekdays.map((weekday) => {
-                                return <th className="weekday"><p>{weekday}</p></th>
+                                return (
+                                    <th className="weekday">
+                                        <p>{weekday}</p>
+                                        <p>{months[startDate.getMonth()]}</p>
+                                    </th>
+                                );
                             })}
                         </tr>
                     </thead>
