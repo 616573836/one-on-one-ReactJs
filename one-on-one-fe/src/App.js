@@ -14,7 +14,7 @@ import Calendar from './components/calendar_detail'
 import Member from './components/member';
 import EventList from "./components/events";
 import EventDetail from "./components/event_detail";
-// Other imports...
+
 const SidebarLayout = () => (
   <div style={{ display: 'flex' }}>
       <Sidebar />
@@ -23,7 +23,6 @@ const SidebarLayout = () => (
       </div>
   </div>
 );
-
 
 function App() {
   return (

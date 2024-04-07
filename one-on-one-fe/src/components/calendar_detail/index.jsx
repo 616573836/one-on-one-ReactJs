@@ -1,4 +1,3 @@
-
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {useParams, useNavigate} from "react-router-dom";
@@ -8,6 +7,7 @@ import Event from "../event_detail";
 const Calendar = () => {
     let { meetingID, userID } = useParams();
     const [calendarData, setCalendarData] = useState(null);
+    const [eventID, setEventID] = useState(null);
     const [events, setEvents] = useState([]);
     const [startDate, setStartDate] = useState(null);
     const [endDate, setEndDate] = useState(null);
@@ -67,10 +67,11 @@ const Calendar = () => {
         else setShowEventCreate(false);
     };
 
-    const handleEventEdit = () => {
+    const handleEventEdit = (eventId) => {
         if(!showEventEdit){
             setShowEventEdit(true);
             setShowEventCreate(false);
+            setEventID(eventId);
         }
         else setShowEventEdit(false);
     };
@@ -139,9 +140,9 @@ const Calendar = () => {
 
                     // Render a button to display event details
                     cells.push(
-                        <td key={`${hour}-${day}`} rowSpan={rowspan}>
+                        <td key={`event-${event.id}`} rowSpan={rowspan}>
                             <button style={{ backgroundColor: buttonColor }}
-                                    onClick={handleEventEdit}>
+                                    onClick={() => handleEventEdit(event.id)}>
                             </button>
                         </td>
                     );
@@ -189,7 +190,7 @@ const Calendar = () => {
                     <tbody>{rows}</tbody>
                 </table>
                 {showEventCreate && <EventList calendarID={calendarData.id} meetingID={meetingID} userID={userID}/>}
-                {showEventEdit && <Event calendarID={calendarData.id}/>} {/* meetingId, memberId, eventId */}
+                {showEventEdit && <Event meetingID={meetingID} userID={userID} eventID={eventID}/>}
             </>
         );
     };
