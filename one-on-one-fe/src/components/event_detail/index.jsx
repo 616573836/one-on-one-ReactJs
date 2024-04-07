@@ -74,7 +74,7 @@ function EventDetail() {
         };
         
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/members/${memberId}/calendar/events/${eventId}/`, {
+            const response = await fetch(`/api/meetings/${meetingId}/members/${memberId}/calendar/events/${eventId}/`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

@@ -3,6 +3,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import {useParams, useNavigate} from "react-router-dom";
 import EventList from "../events";
+import Event from "../event_detail";
 
 const Calendar = () => {
     let { meetingID, userID } = useParams();
@@ -59,12 +60,18 @@ const Calendar = () => {
     };
 
     const handleEventCreate = () => {
-        if(!showEventCreate) setShowEventCreate(true);
+        if(!showEventCreate){
+            setShowEventCreate(true);
+            setShowEventEdit(false);
+        }
         else setShowEventCreate(false);
     };
 
     const handleEventEdit = () => {
-        if(!showEventEdit) setShowEventEdit(true);
+        if(!showEventEdit){
+            setShowEventEdit(true);
+            setShowEventCreate(false);
+        }
         else setShowEventEdit(false);
     };
 
@@ -134,7 +141,7 @@ const Calendar = () => {
                     cells.push(
                         <td key={`${hour}-${day}`} rowSpan={rowspan}>
                             <button style={{ backgroundColor: buttonColor }}
-                                    onClick={() => handleEventEdit()}>
+                                    onClick={handleEventEdit}>
                             </button>
                         </td>
                     );
@@ -181,7 +188,8 @@ const Calendar = () => {
                     </thead>
                     <tbody>{rows}</tbody>
                 </table>
-                {showEventCreate && <EventList calendarID={calendarData.id}/>}
+                {showEventCreate && <EventList calendarID={calendarData.id}/>} {/* calendarID */}
+                {showEventEdit && <Event calendarID={calendarData.id}/>} {/* meetingId, memberId, eventId */}
             </>
         );
     };

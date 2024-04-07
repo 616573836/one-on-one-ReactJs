@@ -22,7 +22,7 @@ function EventList({ calendarID }) {
 
     const fetchEvents = async () => {
         try {
-            const response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/members/${memberId}/calendar/events/`, {
+            const response = await fetch(`/api/meetings/${meetingId}/members/${memberId}/calendar/events/`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -47,7 +47,7 @@ function EventList({ calendarID }) {
     let handleSubmit = async (e) => {
         e.preventDefault(); 
         console.warn(newEvent);
-        let response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/members/${memberId}/calendar/events/`, {
+        let response = await fetch(`/api/meetings/${meetingId}/members/${memberId}/calendar/events/`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -65,18 +65,6 @@ function EventList({ calendarID }) {
     const handleBack = () => {
         navigate(`/meetings/${meetingId}/members/${memberId}/calendar`);
     };
-
-    function formatTimestamp(timestamp) {
-        const date = new Date(timestamp);
-        const year = date.getFullYear();
-        const month = (date.getMonth() + 1).toString().padStart(2, '0'); 
-        const day = date.getDate().toString().padStart(2, '0');
-        const hours = date.getHours().toString().padStart(2, '0');
-        const minutes = date.getMinutes().toString().padStart(2, '0');
-        const seconds = date.getSeconds().toString().padStart(2, '0');
-      
-        return `${year}-${month}-${day}, ${hours}:${minutes}:${seconds}`;
-    }
 
     useEffect(() => {
         fetchEvents();
@@ -131,6 +119,17 @@ const styles = {
         borderRadius: '4px',
         backgroundColor: '#007bff',
     },
+}
+
+export function formatTimestamp(timestamp) {
+    const date = new Date(timestamp);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    const hours = date.getHours().toString().padStart(2, '0');
+    const minutes = date.getMinutes().toString().padStart(2, '0');
+    const seconds = date.getSeconds().toString().padStart(2, '0');
+    return `${year}-${month}-${day}, ${hours}:${minutes}:${seconds}`;
 }
 
 export default EventList;
