@@ -14,10 +14,12 @@ const MeetingDetail = () => {
     const [updatedName, setUpdatedName] = useState('');
     const [updatedDescription, setUpdatedDescription] = useState('');
     const [userID, setUserID] = useState('');
+    const [interaction, setInteraction] = useState({})
 
     useEffect(() => {
         fetchMeetingDetails();
         getMembers();
+        
     }, [meetingId]);
 
     useEffect(() => {
@@ -34,6 +36,22 @@ const MeetingDetail = () => {
             });
         });
     }
+
+    const fetchInteractions = async () => {
+        try {
+            let response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/interaction/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
+            let data = await response.json();
+            setInteraction(data);
+        } catch (error) {
+            console.error("Failed to fetch calendar details:", error);
+        } 
+    };
 
     const getMembers = async () => {
         try {
@@ -66,6 +84,7 @@ const MeetingDetail = () => {
             setMeeting(data);
             setUpdatedName(data.name);
             setUpdatedDescription(data.description);
+            if (meeting.state == "ready") fetchInteractions();
         } catch (error) {
             console.error("Failed to fetch meeting details:", error);
         } finally {
@@ -195,6 +214,15 @@ const MeetingDetail = () => {
                     </button>
                 </form>
             )}
+                <div>
+                {Object.entries(interaction).map(([key, { "start time": startTime, "end time": endTime }]) => (
+                    <div key={key}>
+                    <p>Interaction {key}:</p>
+                    <p>Start Time: {new Date(startTime).toLocaleString()}</p>
+                    <p>End Time: {new Date(endTime).toLocaleString()}</p>
+                    </div>
+                ))}
+                </div>
              {members?.map((member, index) => (
                 <div key={index} style={styles.meetingItem}>
                     <p>User: {member.username}</p>
