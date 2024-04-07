@@ -8,6 +8,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from ..models.event import Event
 from ..models.meeting import Meeting
 from ..models.calendar import Calendar
+from ..models.member import Member
 from ..serializer.event_serializer import EventSerializer
 from ..permissions import IsMember, is_member
 
@@ -87,31 +88,39 @@ def event_list_view(request, meeting_id, user_id):
             if serializer.is_valid():
                 serializer.save()
 
-                if Calendar.objects.filter(meeting=meeting, owner__isnull=True).exists():
-                    null_owner_calendar = Calendar.objects.get(meeting_id=meeting_id, owner__isnull=True)
-                    curr_intersection = get_available_time_intersection(meeting_id)
-                    curr_intersection_cleaned = []
-                    for i, (start_time, end_time) in enumerate(curr_intersection):
-                        is_duplicate = any(
-                            start_time == later_start and end_time == later_end
-                            for later_start, later_end in curr_intersection[i+1:]
-                        )
-                        if not is_duplicate:
-                            curr_intersection_cleaned.append((start_time, end_time))
-                    for start_time, end_time in curr_intersection_cleaned:
-                        print(f"Start time: {start_time}, End time: {end_time}")
-                        event = Event.objects.create(
-                                name = 'final decision',
-                                calendar=null_owner_calendar,
-                                availability=Event.Availability.AVAILABLE,
-                                start_time=start_time,
-                                end_time=end_time,
-                        )
-                        event.save()
+                members = Member.objects.filter(meeting = meeting)
+                meeting.submit_count += 1
+                if meeting.submit_count == len(members):
+                    meeting.state = "ready"
 
-                        meeting = Meeting.objects.get(id=meeting_id)
-                        meeting.state = Meeting.MeetingState.READY
-                        meeting.save()
+                meeting.save()
+
+                # if Calendar.objects.filter(meeting=meeting, owner__isnull=True).exists():
+                #     null_owner_calendar = Calendar.objects.get(meeting_id=meeting_id, owner__isnull=True)
+                #     curr_intersection = get_available_time_intersection(meeting_id)
+                #     curr_intersection_cleaned = []
+                #     for i, (start_time, end_time) in enumerate(curr_intersection):
+                #         is_duplicate = any(
+                #             start_time == later_start and end_time == later_end
+                #             for later_start, later_end in curr_intersection[i+1:]
+                #         )
+                #         if not is_duplicate:
+                #             curr_intersection_cleaned.append((start_time, end_time))
+                #     for start_time, end_time in curr_intersection_cleaned:
+                #         print(f"Start time: {start_time}, End time: {end_time}")
+                #         event = Event.objects.create(
+                #                 name = 'final decision',
+                #                 calendar=null_owner_calendar,
+                #                 availability=Event.Availability.AVAILABLE,
+                #                 start_time=start_time,
+                #                 end_time=end_time,
+                #         )
+                #         event.save()
+
+                        # meeting = Meeting.objects.get(id=meeting_id)
+                        # meeting.state = Meeting.MeetingState.READY
+                        # meeting.save()
+
 
                 return Response(serializer.data, status=status.HTTP_201_CREATED)
             else:
@@ -165,6 +174,13 @@ def event_view(request, meeting_id, user_id, event_id):
         
         if request.user == user:
             event.delete()
+
+            events = Event.objects.filter(calendar=calendar)
+
+            if len(events) == 0:
+                meeting.submit_count -= 1
+                meeting.state = "edit"
+                meeting.save()
             return Response(data={"detail": "Event deleted."}, status=status.HTTP_204_NO_CONTENT)
         else:
             return Response({"error": "You do not have permission to perform this action on other user."},

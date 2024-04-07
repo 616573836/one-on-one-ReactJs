@@ -109,9 +109,14 @@ def member_view(request, meeting_id, user_id):
         
         try:
             member.delete()
-            if not Member.objects.filter(meeting=meeting).exists():
+            members = Member.objects.filter(meeting=meeting)
+            if not members.exists():
                 meeting.delete()
                 return Response({"message": "Member and meeting deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
+
+            if meeting.submit_count == len(members):
+                meeting.state = "ready"
+                meeting.save()
             return Response({"Delete success"}, status=status.HTTP_204_NO_CONTENT)
         except Member.DoesNotExist:
             return Response({"error": "Member is not in meeting."}, status=status.HTTP_404_NOT_FOUND)
@@ -143,6 +148,9 @@ def member_view(request, meeting_id, user_id):
 
             # Optionally create JoinNode
             # JoinNode.objects.create(receiver_id=user_id, meeting_id=meeting_id, sender=user)
+
+            meeting.MeetingState = "edit"
+            meeting.save()
             
             return Response(status=status.HTTP_201_CREATED)
         else:
