@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 
-function EventList({ calendarID }) {
-    const { meetingId, memberId } = useParams(); 
+function EventList({ calendarID, meetingID, userID }) {
+    let {meetingId, memberId} = useParams();
+    if(meetingID && userID){
+        meetingId = meetingID;
+        memberId = userID;
+    }
+
     const [events, setEvents] = useState([]);
     const navigate = useNavigate();
     const location = useLocation();

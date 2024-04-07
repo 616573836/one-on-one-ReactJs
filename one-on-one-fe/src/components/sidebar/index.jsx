@@ -22,7 +22,6 @@ function Sidebar() {
         link: (linkName) => ({
             padding: '10px 15px',
             textDecoration: 'none',
-            color: 'black',
             display: 'block',
             whiteSpace: 'nowrap',
             overflow: 'hidden',

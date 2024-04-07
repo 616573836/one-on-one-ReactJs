@@ -8,14 +8,14 @@ const MemberDetail = () => {
     const navigate = useNavigate();
     let [member, setMember] = useState(null);
     const [eventExistence, setEventExistence] = useState(false);
-    const [loading, setLoading] = useState(false);
+    const [, setLoading] = useState(false);
     const [showUpdateForm, setShowUpdateForm] = useState(false);
     const [updatedRole, setUpdatedRole] = useState('');
 
     useEffect(() => {
         getMember();
         submitCalendar();
-    }, [meetingId,memberID]);
+    }, [meetingId, memberID]);
 
     const submitCalendar = () => {
         checkIfEventsExist(meetingId, memberID).then((exist) => {

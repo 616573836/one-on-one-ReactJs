@@ -188,7 +188,7 @@ const Calendar = () => {
                     </thead>
                     <tbody>{rows}</tbody>
                 </table>
-                {showEventCreate && <EventList calendarID={calendarData.id}/>} {/* calendarID */}
+                {showEventCreate && <EventList calendarID={calendarData.id} meetingID={meetingID} userID={userID}/>}
                 {showEventEdit && <Event calendarID={calendarData.id}/>} {/* meetingId, memberId, eventId */}
             </>
         );
