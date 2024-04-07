@@ -84,7 +84,7 @@ const MeetingDetail = () => {
             setMeeting(data);
             setUpdatedName(data.name);
             setUpdatedDescription(data.description);
-            if (meeting.state == "ready") fetchInteractions();
+            if (data.state == "ready") fetchInteractions();
         } catch (error) {
             console.error("Failed to fetch meeting details:", error);
         } finally {
@@ -214,15 +214,18 @@ const MeetingDetail = () => {
                     </button>
                 </form>
             )}
-                <div>
-                {Object.entries(interaction).map(([key, { "start time": startTime, "end time": endTime }]) => (
-                    <div key={key}>
-                    <p>Interaction {key}:</p>
-                    <p>Start Time: {new Date(startTime).toLocaleString()}</p>
-                    <p>End Time: {new Date(endTime).toLocaleString()}</p>
-                    </div>
-                ))}
+            {meeting && meeting.state === "edit" && (
+            <div>There is currently no suggested time.</div>
+            )}
+            <div>
+            {Object.entries(interaction).map(([key, { "start time": startTime, "end time": endTime }]) => (
+                <div key={key}>
+                <p>Suggested time {key}:</p>
+                <p>Start Time: {new Date(startTime).toLocaleString()}</p>
+                <p>End Time: {new Date(endTime).toLocaleString()}</p>
                 </div>
+            ))}
+            </div>
              {members?.map((member, index) => (
                 <div key={index} style={styles.meetingItem}>
                     <p>User: {member.username}</p>

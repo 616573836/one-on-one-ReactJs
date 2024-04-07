@@ -8,54 +8,55 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 from ..models.event import Event
 from ..models.meeting import Meeting
 from ..models.calendar import Calendar
-from ..models.member import Member
 from ..serializer.event_serializer import EventSerializer
 from ..permissions import IsMember, is_member
 
+from .meeting_views import update_meeting_state
 
-def find_intersection(curr_inter, new_inter):
-    
-    if len(curr_inter) == 0 or len(new_inter) == 0:
-        return []
-    
-    i,j = 0,0
-    intersection = []
-    while i < len(curr_inter) and j < len(new_inter):
-
-        start1, end1 = curr_inter[i]
-        start2, end2 = new_inter[j]
-
-        if start1 <= end2 and start2 <= end1:
-            intersection.append((max(start1,start2),min(end1,end2)))
-
-        if end1 < end2:
-            i = i + 1
-        else:
-            j = j + 1
-
-    return intersection
-    
-        
-
-
-def get_available_time_intersection(meeting_id):
-    calendars_raw = Calendar.objects.filter(meeting_id=meeting_id).exclude(owner__isnull=True)
-    
-    calendars = []
-    for index in range(len(calendars_raw)):
-        calendar = calendars_raw[index]
-        events = Event.objects.filter(calendar=calendar, availability=Event.Availability.AVAILABLE).order_by('start_time')
-        calendars.append([])
-        for event in events:
-            calendars[index].append((event.start_time, event.end_time))
-    
-    curr_calendar = calendars[0]
-    for calendar in calendars[1:]:
-        curr_intersection = find_intersection(curr_calendar,calendar)
-        if len(curr_intersection) == 0:
-            return []
-    
-    return curr_intersection
+#
+# def find_intersection(curr_inter, new_inter):
+#
+#     if len(curr_inter) == 0 or len(new_inter) == 0:
+#         return []
+#
+#     i,j = 0,0
+#     intersection = []
+#     while i < len(curr_inter) and j < len(new_inter):
+#
+#         start1, end1 = curr_inter[i]
+#         start2, end2 = new_inter[j]
+#
+#         if start1 <= end2 and start2 <= end1:
+#             intersection.append((max(start1,start2),min(end1,end2)))
+#
+#         if end1 < end2:
+#             i = i + 1
+#         else:
+#             j = j + 1
+#
+#     return intersection
+#
+#
+#
+#
+# def get_available_time_intersection(meeting_id):
+#     calendars_raw = Calendar.objects.filter(meeting_id=meeting_id).exclude(owner__isnull=True)
+#
+#     calendars = []
+#     for index in range(len(calendars_raw)):
+#         calendar = calendars_raw[index]
+#         events = Event.objects.filter(calendar=calendar, availability=Event.Availability.AVAILABLE).order_by('start_time')
+#         calendars.append([])
+#         for event in events:
+#             calendars[index].append((event.start_time, event.end_time))
+#
+#     curr_calendar = calendars[0]
+#     for calendar in calendars[1:]:
+#         curr_intersection = find_intersection(curr_calendar,calendar)
+#         if len(curr_intersection) == 0:
+#             return []
+#
+#     return curr_intersection
 
 
 
@@ -88,12 +89,8 @@ def event_list_view(request, meeting_id, user_id):
             if serializer.is_valid():
                 serializer.save()
 
-                members = Member.objects.filter(meeting = meeting)
-                meeting.submit_count += 1
-                if meeting.submit_count == len(members):
-                    meeting.state = "ready"
+                update_meeting_state(meeting_id)
 
-                meeting.save()
 
                 # if Calendar.objects.filter(meeting=meeting, owner__isnull=True).exists():
                 #     null_owner_calendar = Calendar.objects.get(meeting_id=meeting_id, owner__isnull=True)
@@ -175,12 +172,7 @@ def event_view(request, meeting_id, user_id, event_id):
         if request.user == user:
             event.delete()
 
-            events = Event.objects.filter(calendar=calendar)
-
-            if len(events) == 0:
-                meeting.submit_count -= 1
-                meeting.state = "edit"
-                meeting.save()
+            update_meeting_state(meeting_id)
             return Response(data={"detail": "Event deleted."}, status=status.HTTP_204_NO_CONTENT)
         else:
             return Response({"error": "You do not have permission to perform this action on other user."},

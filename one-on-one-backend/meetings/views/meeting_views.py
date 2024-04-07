@@ -123,3 +123,30 @@ def find_intersection(curr_inter, new_inter):
             j = j + 1
 
     return intersection
+
+
+def all_submitted(meeting_id):
+
+    meeting = Meeting.objects.get(pk = meeting_id)
+
+    calendars = Calendar.objects.filter(meeting = meeting)
+
+    for calendar in calendars:
+        events = Event.objects.filter(calendar = calendar)
+        if not events:
+            return False
+
+    return True
+
+def update_meeting_state(meeting_id):
+    meeting = Meeting.objects.get(pk=meeting_id)
+
+    if not all_submitted(meeting_id):
+        meeting.state = "edit"
+
+    if not get_available_time_intersection(meeting_id):
+        meeting.state = "edit"
+    else:
+        meeting.state = "ready"
+
+    meeting.save()
