@@ -1,219 +1,202 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
+import { DayPilot, DayPilotCalendar, DayPilotNavigator } from "@daypilot/daypilot-lite-react";
 import axios from 'axios';
 import {useParams, useNavigate} from "react-router-dom";
 import EventList from "../events";
 import Event from "../event_detail";
+import "./CalendarStyles.css";
+
+const styles = {
+    wrap: {
+        display: "flex"
+    },
+    left: {
+        marginRight: "10px"
+    },
+    main: {
+        flexGrow: "1"
+    },
+    eventsButton: {
+        padding: '10px 20px',
+        textDecoration: 'none',
+        transition: 'all 0.5s',
+        textAlign: 'center',
+        display: 'inline-block',
+        marginTop: '10px',
+        marginRight: '5px',
+        marginLeft: '5px',
+        marginBottom: '5px',
+        fontSize: '16px',
+        cursor: 'pointer',
+        color: 'white',
+        border: 'none',
+        borderRadius: '4px',
+        backgroundColor: '#007bff',
+    },
+};
 
 const Calendar = () => {
-    let { meetingID, userID } = useParams();
-    const [calendarData, setCalendarData] = useState(null);
-    const [eventID, setEventID] = useState(null);
-    const [events, setEvents] = useState([]);
-    const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
-    const [showEventCreate, setShowEventCreate] = useState(false);
-    const [showEventEdit, setShowEventEdit] = useState(false);
-    const navigate = useNavigate();
+    const calendarRef = useRef()
 
-    const weekdays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
-    const months = ['January', 'February', 'March', 'April', 'May', 'June',
-                    'July', 'August', 'September', 'October', 'November', 'December'];
+    const editEvent = async (e) => {
+        const dp = calendarRef.current.control;
+        const modal = await DayPilot.Modal.prompt("Update event text:", e.text());
+        if (!modal.result) { return; }
+        e.data.text = modal.result;
+        dp.events.update(e);
+    };
 
-    useEffect(() => {
-        fetchCalendarData();
-        fetchEvents();
-    }, [meetingID, userID]);
-
-    const fetchCalendarData = async () => {
-        try {
-            const response = await axios.get(`/api/meetings/${meetingID}/members/${userID}/calendar/`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-                }
+    const [calendarConfig, setCalendarConfig] = useState({
+        viewType: "Week",
+        durationBarVisible: false,
+        timeRangeSelectedHandling: "Enabled",
+        onTimeRangeSelected: async args => {
+            const dp = calendarRef.current.control;
+            const modal = await DayPilot.Modal.prompt("Create a new event:", "Event 1");
+            dp.clearSelection();
+            if (!modal.result) { return; }
+            dp.events.add({
+                start: args.start,
+                end: args.end,
+                id: DayPilot.guid(),
+                text: modal.result
             });
-            setCalendarData(response.data);
-            // Extract start and end dates from calendar data
-            setStartDate(new Date(response.data.start_date));
-            setEndDate(new Date(response.data.end_date));
-        } catch (error) {
-            console.error('Error fetching calendar data:', error);
-            setCalendarData(null);
-        }
-    };
-
-    const fetchEvents = async () => {
-        try {
-            const response = await axios.get(`/api/meetings/${meetingID}/members/${userID}/calendar/events/`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
-                }
-            });
-            setEvents(response.data);
-        } catch (error) {
-            console.error('Error fetching calendar data:', error);
-            setEvents([]);
-        }
-    };
-
-    const handleEventCreate = () => {
-        if(!showEventCreate){
-            setShowEventCreate(true);
-            setShowEventEdit(false);
-        }
-        else setShowEventCreate(false);
-    };
-
-    const handleEventEdit = (eventId) => {
-        if(!showEventEdit){
-            setShowEventEdit(true);
-            setShowEventCreate(false);
-            setEventID(eventId);
-        }
-        else setShowEventEdit(false);
-    };
-
-    const renderCalendar = () => {
-        if (!calendarData || !startDate || !endDate) {
-            return <div>Loading...</div>;
-        }
-
-        const timeSlots = [];
-        for (let i = 0; i < 24; i++) {
-            const time = i % 2 === 0 ? `${Math.floor(i / 2)}:00 AM` : `${Math.floor(i / 2)}:30 AM`;
-            timeSlots.push(time);
-        }
-
-        for (let i = 24; i < 48; i++) {
-            const time = i % 2 === 0 ? `${Math.floor(i / 2)}:00 PM` : `${Math.floor(i / 2)}:30 PM`;
-            timeSlots.push(time);
-        }
-
-        // Calculate the number of days and hours between start and end dates
-        const dayDifference = Math.ceil((endDate - startDate) / (1000 * 60 * 60 * 24));
-        const hourDifference = 48;
-
-        const rows = [];
-        for (let hour = 0; hour < hourDifference; hour++) {
-            const cells = [];
-            cells.push(
-                <td key={`${hour}-time`}>
-                    {timeSlots[hour]}
-                </td>
-            );
-            for (let day = 0; day < dayDifference && day < 7; day++) {
-                // Calculate the date for the current cell
-                const currentDate = new Date(startDate.getDate());
-                currentDate.setDate(startDate.getDate() + day);
-                currentDate.setHours(startDate.getHours() + hour);
-
-                // Check if there is an event at the current time slot
-                const event = events.find(event => {
-                    const eventStartTime = new Date(event.start_time);
-                    return currentDate.getDate() === eventStartTime.getDate() &&
-                        currentDate.getHours() === eventStartTime.getHours();
-                });
-
-                // Render a button if there is an event, otherwise render an empty cell
-                if (event) {
-                    console.warn("current date " + currentDate.getDate() + "; current hour " +
-                                currentDate.getHours() + ". event start date " + event.start_time);
-                    let buttonColor = '';
-                    switch (event.availability) {
-                        case 'available':
-                            buttonColor = 'green';
-                            break;
-                        case 'moderate':
-                            buttonColor = 'yellow';
-                            break;
-                        case 'busy':
-                            buttonColor = 'red';
-                            break;
-                        default:
-                            buttonColor = 'transparent';
-                            break;
+        },
+        onEventClick: async args => {
+            await editEvent(args.e);
+        },
+        contextMenu: new DayPilot.Menu({
+            items: [
+                {
+                    text: "Delete",
+                    onClick: async args => {
+                        const dp = calendarRef.current.control;
+                        dp.events.remove(args.source);
+                    },
+                },
+                {
+                    text: "-"
+                },
+                {
+                    text: "Edit...",
+                    onClick: async args => {
+                        await editEvent(args.source);
                     }
+                }
+            ]
+        }),
+        onBeforeEventRender: args => {
+            args.data.areas = [
+                {
+                    top: 3,
+                    right: 3,
+                    width: 20,
+                    height: 20,
+                    symbol: "icons/daypilot.svg#minichevron-down-2",
+                    fontColor: "#fff",
+                    toolTip: "Show context menu",
+                    action: "ContextMenu",
+                },
+                {
+                    top: 3,
+                    right: 25,
+                    width: 20,
+                    height: 20,
+                    symbol: "icons/daypilot.svg#x-circle",
+                    fontColor: "#fff",
+                    action: "None",
+                    toolTip: "Delete event",
+                    onClick: async args => {
+                        const dp = calendarRef.current.control;
+                        dp.events.remove(args.source);
+                    }
+                }
+            ];
 
-                    // Calculate rowspan if the event spans multiple rows (longer than 30 minutes)
-                    const rowspan = Math.ceil((new Date(event.end_time) - currentDate) / (1000 * 60 * 30));
 
-                    // Render a button to display event details
-                    cells.push(
-                        // rowSpan={rowspan}
-                        <td key={`event-${event.id}`} >
-                            <button style={{ backgroundColor: buttonColor }}
-                                    onClick={() => handleEventEdit(event.id)}>
-                            </button>
-                        </td>
-                    );
-
-                    // Skip additional cells covered by the rowspan
-                    // for (let i = 1; i < rowspan; i++) {
-                    //     cells.push(null);
-                    // }
-                } else {
-                    // Render an empty cell
-                    cells.push(
-                        <td key={`${hour}-${day}`} >
-                            <button className="transparent-button"
-                                    onClick={handleEventCreate}>
-                            </button>
-                        </td>
-                    );
+            const participants = args.data.participants;
+            if (participants > 0) {
+                // show one icon for each participant
+                for (let i = 0; i < participants; i++) {
+                    args.data.areas.push({
+                        bottom: 5,
+                        right: 5 + i * 30,
+                        width: 24,
+                        height: 24,
+                        action: "None",
+                        image: `https://picsum.photos/24/24?random=${i}`,
+                        style: "border-radius: 50%; border: 2px solid #fff; overflow: hidden;",
+                    });
                 }
             }
-            rows.push(<tr key={hour}>{cells}</tr>);
         }
+    });
 
-        // Return the generated table
-        return (
-            <>
-                <h1>{calendarData.owner}'s Calendar</h1>
-                <h2>{months[startDate.getMonth()]} {startDate.getFullYear()}</h2>
-                <div>
-                    <button title="Previous week" type="button">
-                        &lt;
-                    </button>
-                    <button title="Next week" type="button">
-                        &gt;
-                    </button>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th/>
-                            {weekdays.map((weekday) => {
-                                return (
-                                    <th className="weekday">
-                                        <p>{weekday}</p>
-                                        <p>{months[startDate.getMonth()]}</p>
-                                    </th>
-                                );
-                            })}
-                        </tr>
-                    </thead>
-                    <tbody>{rows}</tbody>
-                </table>
-                {showEventCreate && <EventList calendarID={calendarData.id} meetingID={meetingID} userID={userID}/>}
-                {showEventEdit && <Event meetingID={meetingID} userID={userID} eventID={eventID}/>}
-            </>
-        );
-    };
+    useEffect(() => {
+        const events = [
+            {
+                id: 1,
+                text: "Event 1",
+                start: "2023-10-02T10:30:00",
+                end: "2023-10-02T13:00:00",
+                participants: 2,
+            },
+            {
+                id: 2,
+                text: "Event 2",
+                start: "2023-10-03T09:30:00",
+                end: "2023-10-03T11:30:00",
+                backColor: "#6aa84f",
+                participants: 1,
+            },
+            {
+                id: 3,
+                text: "Event 3",
+                start: "2023-10-03T12:00:00",
+                end: "2023-10-03T15:00:00",
+                backColor: "#f1c232",
+                participants: 3,
+            },
+            {
+                id: 4,
+                text: "Event 4",
+                start: "2023-10-01T11:30:00",
+                end: "2023-10-01T14:30:00",
+                backColor: "#cc4125",
+                participants: 4,
+            },
+        ];
+
+        const startDate = "2023-10-02";
+
+        calendarRef.current.control.update({startDate, events});
+    }, []);
 
     return (
-        <div>
-            {calendarData ? (renderCalendar()) : (<div>The user has not created a calendar.</div>)}
-            <button style={styles.eventsButton} onClick={
-                () => navigate(`/meetings/${meetingID}/members/${userID}/calendar/events`,
-                    { state: { calendarId: calendarData.id }})}>
-                Events
-            </button>
+        <div style={styles.wrap}>
+            <div style={styles.left}>
+                <DayPilotNavigator
+                    selectMode={"Week"}
+                    showMonths={3}
+                    skipMonths={3}
+                    startDate={"2023-10-02"}
+                    selectionDay={"2023-10-02"}
+                    onTimeRangeSelected={ args => {
+                        calendarRef.current.control.update({
+                            startDate: args.day
+                        });
+                    }}
+                />
+            </div>
+            <div style={styles.main}>
+                <DayPilotCalendar
+                    {...calendarConfig}
+                    ref={calendarRef}
+                />
+            </div>
         </div>
     );
-};
+}
 
 export default Calendar;
 
@@ -244,24 +227,4 @@ export async function checkIfEventsExist(meetingId, userId) {
         console.error('Error fetching events:', error.message);
         return false;
     }
-}
-
-const styles = {
-    eventsButton: {
-        padding: '10px 20px',
-        textDecoration: 'none',
-        transition: 'all 0.5s',
-        textAlign: 'center',
-        display: 'inline-block',
-        marginTop: '10px',
-        marginRight: '5px',
-        marginLeft: '5px',
-        marginBottom: '5px',
-        fontSize: '16px',
-        cursor: 'pointer',
-        color: 'white',
-        border: 'none',
-        borderRadius: '4px',
-        backgroundColor: '#007bff',
-    },
 }
