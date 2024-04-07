@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-function EventDetail() {
-    const { meetingId, memberId, eventId } = useParams();
+function EventDetail({meetingID, userID, eventID}) {
+    let { meetingId, memberId, eventId } = useParams();
+    if(meetingID && userID && eventID){
+        meetingId = meetingID;
+        memberId = userID;
+        eventId = eventID;
+    }
+
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const navigate = useNavigate();
