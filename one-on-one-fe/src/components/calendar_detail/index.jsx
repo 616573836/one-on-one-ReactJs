@@ -1,10 +1,10 @@
 import React, {useEffect, useRef, useState} from 'react';
-import { DayPilot, DayPilotCalendar, DayPilotNavigator } from "@daypilot/daypilot-lite-react";
+import {DayPilot, DayPilotCalendar, DayPilotNavigator} from "@daypilot/daypilot-lite-react";
 import axios from 'axios';
-import {useParams, useNavigate} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
+import "./CalendarStyles.css";
 import EventList from "../events";
 import Event from "../event_detail";
-import "./CalendarStyles.css";
 
 const styles = {
     wrap: {
@@ -36,10 +36,69 @@ const styles = {
 };
 
 const Calendar = () => {
+    let { meetingID, userID } = useParams();
+    const [calendarData, setCalendarData] = useState(null);
+    const [eventID, setEventID] = useState(null);
+    const [events, setEvents] = useState([]);
+    const [startDate, setStartDate] = useState(null);
+    const [endDate, setEndDate] = useState(null);
+    const navigate = useNavigate();
     const calendarRef = useRef()
+
+    useEffect(() => {
+        fetchCalendarData();
+        fetchEvents();
+    }, [meetingID, userID]);
+
+    const fetchCalendarData = async () => {
+        try {
+            const response = await axios.get(`/api/meetings/${meetingID}/members/${userID}/calendar/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
+            setCalendarData(response.data);
+            setStartDate(new Date(response.data.start_date));
+            setEndDate(new Date(response.data.end_date));
+        } catch (error) {
+            console.error('Error fetching calendar data:', error);
+            setCalendarData(null);
+        }
+    };
+
+    const fetchEvents = async () => {
+        try {
+            const response = await axios.get(`/api/meetings/${meetingID}/members/${userID}/calendar/events/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
+            setEvents(response.data);
+        } catch (error) {
+            console.error('Error fetching calendar data:', error);
+            setEvents([]);
+        }
+    };
 
     const editEvent = async (e) => {
         const dp = calendarRef.current.control;
+        const modalContent = (
+            <Event meetingID={meetingID} userID={userID} eventID={eventID}/>
+        );
+
+        const onClose = () => {
+
+        };
+
+        DayPilot.Modal.show(EventUpdateModal, {
+            onClose: onClose,
+            children: modalContent
+        });
+
         const modal = await DayPilot.Modal.prompt("Update event text:", e.text());
         if (!modal.result) { return; }
         e.data.text = modal.result;
@@ -50,6 +109,8 @@ const Calendar = () => {
         viewType: "Week",
         durationBarVisible: false,
         timeRangeSelectedHandling: "Enabled",
+
+        // TODO: modify to Event Create Page
         onTimeRangeSelected: async args => {
             const dp = calendarRef.current.control;
             const modal = await DayPilot.Modal.prompt("Create a new event:", "Event 1");
@@ -62,14 +123,16 @@ const Calendar = () => {
                 text: modal.result
             });
         },
+
+        // TODO: Change to Event Edit
         onEventClick: async args => {
             await editEvent(args.e);
         },
+
         contextMenu: new DayPilot.Menu({
             items: [
                 {
-                    text: "Delete",
-                    onClick: async args => {
+                    text: "Delete", onClick: async args => {
                         const dp = calendarRef.current.control;
                         dp.events.remove(args.source);
                     },
@@ -78,13 +141,13 @@ const Calendar = () => {
                     text: "-"
                 },
                 {
-                    text: "Edit...",
-                    onClick: async args => {
+                    text: "Edit...", onClick: async args => {
                         await editEvent(args.source);
                     }
                 }
             ]
         }),
+
         onBeforeEventRender: args => {
             args.data.areas = [
                 {
@@ -112,27 +175,12 @@ const Calendar = () => {
                     }
                 }
             ];
-
-
-            const participants = args.data.participants;
-            if (participants > 0) {
-                // show one icon for each participant
-                for (let i = 0; i < participants; i++) {
-                    args.data.areas.push({
-                        bottom: 5,
-                        right: 5 + i * 30,
-                        width: 24,
-                        height: 24,
-                        action: "None",
-                        image: `https://picsum.photos/24/24?random=${i}`,
-                        style: "border-radius: 50%; border: 2px solid #fff; overflow: hidden;",
-                    });
-                }
-            }
         }
     });
 
+    // TODO: Event Config
     useEffect(() => {
+        // const modiEvents = modifyEventData(events)
         const events = [
             {
                 id: 1,
@@ -149,26 +197,7 @@ const Calendar = () => {
                 backColor: "#6aa84f",
                 participants: 1,
             },
-            {
-                id: 3,
-                text: "Event 3",
-                start: "2023-10-03T12:00:00",
-                end: "2023-10-03T15:00:00",
-                backColor: "#f1c232",
-                participants: 3,
-            },
-            {
-                id: 4,
-                text: "Event 4",
-                start: "2023-10-01T11:30:00",
-                end: "2023-10-01T14:30:00",
-                backColor: "#cc4125",
-                participants: 4,
-            },
         ];
-
-        const startDate = "2023-10-02";
-
         calendarRef.current.control.update({startDate, events});
     }, []);
 
@@ -199,6 +228,47 @@ const Calendar = () => {
 }
 
 export default Calendar;
+
+const EventUpdateModal = ({ onClose, children }) => {
+    return (
+        <div className="modal">
+            <div className="modal-content">
+                {children}
+                <span className="close" onClick={onClose}>&times;</span>
+            </div>
+        </div>
+    );
+};
+
+const modifyEventData = (events) => {
+    return events.map(event => {
+        let backColor;
+        switch (event.availability) {
+            case 'available':
+                backColor = 'green';
+                break;
+            case 'moderate':
+                backColor = 'yellow';
+                break;
+            case 'busy':
+                backColor = 'red';
+                break;
+            default:
+                backColor = 'transparent';
+                break;
+        }
+
+        return {
+            id: event.id,
+            text: event.name,
+            description: event.description,
+            start: event.start_time,
+            end: event.end_time,
+            calendar: event.calendar,
+            backColor: backColor
+        };
+    });
+};
 
 export async function checkIfEventsExist(meetingId, userId) {
     try {
