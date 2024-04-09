@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-function EventDetail({meetingID, userID, eventID}) {
+function EventDetail({meetingID, userID, eventID, flag = true}) {
     let { meetingId, memberId, eventId } = useParams();
     if(meetingID && userID && eventID){
         meetingId = meetingID;
@@ -61,7 +61,7 @@ function EventDetail({meetingID, userID, eventID}) {
     };
 
     const handleBack = () => {
-        navigate(`/meetings/${meetingId}/members/${memberId}/calendar/events`);
+        flag ? navigate(`/meetings/${meetingId}/members/${memberId}/calendar/events`) : window.location.reload();
     };
 
     if (loading) {

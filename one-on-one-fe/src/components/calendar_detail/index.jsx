@@ -198,7 +198,7 @@ const Calendar = () => {
                     <tbody>{rows}</tbody>
                 </table>
                 {showEventCreate && <EventList calendarID={calendarData.id} meetingID={meetingID} userID={userID}/>}
-                {showEventEdit && <Event meetingID={meetingID} userID={userID} eventID={eventID}/>}
+                {showEventEdit && <Event meetingID={meetingID} userID={userID} eventID={eventID} flag = {false}/>}
             </>
         );
     };

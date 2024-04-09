@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 
-function EventList({ calendarID, meetingID, userID }) {
+function EventList({ calendarID, meetingID, userID}) {
     let {meetingId, memberId} = useParams();
     if(meetingID && userID){
         meetingId = meetingID;
@@ -69,6 +69,7 @@ function EventList({ calendarID, meetingID, userID }) {
 
     const handleBack = () => {
         navigate(`/meetings/${meetingId}/members/${memberId}/calendar`);
+        window.location.reload();
     };
 
     useEffect(() => {
@@ -78,6 +79,77 @@ function EventList({ calendarID, meetingID, userID }) {
     return (
         <div>
             <h2>Events</h2>
+            <h4>Add New Event</h4>
+            <form onSubmit={handleSubmit} style={styles.form}>
+                <div style={styles.formGroup}>
+                    <label htmlFor="name" style={styles.label}>Name</label>
+                    <input 
+                        id="name"
+                        name="name" 
+                        placeholder="Name" 
+                        value={newEvent.name} 
+                        onChange={handleInputChange} 
+                        required 
+                        style={styles.input} 
+                    />
+                </div>
+
+                <div style={styles.formGroup}>
+                    <label htmlFor="description" style={styles.label}>Description</label>
+                    <input 
+                        id="description"
+                        name="description" 
+                        placeholder="Description" 
+                        value={newEvent.description} 
+                        onChange={handleInputChange} 
+                        style={styles.input} 
+                    />
+                </div>
+
+                <div style={styles.formGroup}>
+                    <label htmlFor="availability" style={styles.label}>Availability</label>
+                    <select 
+                        id="availability"
+                        name="availability" 
+                        value={newEvent.availability} 
+                        onChange={handleInputChange}
+                        style={styles.select} 
+                    >
+                        <option value="busy">Busy</option>
+                        <option value="moderate">Moderate</option>
+                        <option value="available">Available</option>
+                    </select>
+                </div>
+
+                <div style={styles.formGroup}>
+                    <label htmlFor="start_time" style={styles.label}>Start Time</label>
+                    <input 
+                        id="start_time"
+                        name="start_time" 
+                        type="datetime-local" 
+                        value={newEvent.start_time} 
+                        onChange={handleInputChange} 
+                        required 
+                        style={styles.input} 
+                    />
+                </div>
+
+                <div style={styles.formGroup}>
+                    <label htmlFor="end_time" style={styles.label}>End Time</label>
+                    <input 
+                        id="end_time"
+                        name="end_time" 
+                        type="datetime-local" 
+                        value={newEvent.end_time} 
+                        onChange={handleInputChange} 
+                        required 
+                        style={styles.input} 
+                    />
+                </div>
+
+                <button type="submit" style={styles.button}>Add Event</button>
+                <button style={styles.backButton} onClick={handleBack}> Back to calendar</button>
+            </form>
             <div>
                 {events?.map((event, index) => (
                     <div key={index}>
@@ -91,20 +163,6 @@ function EventList({ calendarID, meetingID, userID }) {
                     </div>
                 ))}
             </div>
-            <h4>Add New Event</h4>
-            <form onSubmit={handleSubmit}>
-                <input name="name" placeholder="Name" value={newEvent.name} onChange={handleInputChange} required />
-                <input name="description" placeholder="Description" value={newEvent.description} onChange={handleInputChange} />
-                <select name="availability" value={newEvent.availability} onChange={handleInputChange}>
-                    <option value="busy">Busy</option>
-                    <option value="moderate">Moderate</option>
-                    <option value="available">Available</option>
-                </select>
-                <input name="start_time" type="datetime-local" value={newEvent.start_time} onChange={handleInputChange} required />
-                <input name="end_time" type="datetime-local" value={newEvent.end_time} onChange={handleInputChange} required />
-                <button type="submit">Add Event</button>
-            </form>
-            <button style={styles.backButton} onClick={handleBack}>Back to calendar</button>
         </div>
     );
 }
@@ -122,8 +180,52 @@ const styles = {
         color: 'white',
         border: 'none',
         borderRadius: '4px',
-        backgroundColor: '#007bff',
+        backgroundColor: '#f4511e',
     },
+    form: {
+        display: 'flex',
+        flexDirection: 'column',
+        maxWidth: '500px',
+        margin: '20px auto', // Center the form with some margin around it
+        padding: '20px', // Padding inside the form for spacing
+        border: '2px solid #ccc', // Visible frame around the form
+        borderRadius: '8px', // Optional: rounded corners for the frame
+        backgroundColor: '#fff', // Background color for the form
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)', // Optional: subtle shadow for depth
+    },
+    formGroup: {
+        marginBottom: '15px',
+        textAlign: 'left', // Ensure text aligns to the left
+    },
+    label: {
+        display: 'block', // Ensure the label takes its own line
+        marginBottom: '5px',
+        fontWeight: 'bold',
+    },
+    input: {
+        padding: '8px',
+        fontSize: '16px',
+        border: '1px solid #ccc',
+        borderRadius: '4px',
+        textAlign: 'left', // Text inside inputs left-aligned
+    },
+    select: {
+        padding: '8px',
+        fontSize: '16px',
+        border: '1px solid #ccc',
+        borderRadius: '4px',
+        textAlign: 'left', // Make sure text in select is left-aligned, might not apply in all browsers
+    },
+    button: {
+        padding: '10px 15px',
+        fontSize: '16px',
+        backgroundColor: '#007bff',
+        color: 'white',
+        border: 'none',
+        borderRadius: '4px',
+        cursor: 'pointer',
+        textAlign: 'center', // Center text in the button, though it's the default
+    }
 }
 
 export function formatTimestamp(timestamp) {
