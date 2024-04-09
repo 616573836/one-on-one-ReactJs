@@ -26,5 +26,6 @@ urlpatterns = [
     path('<int:meeting_id>/nodes/<str:node_type>/', node_views.type_node_list_view, name="type-node-list"),
     path('<int:meeting_id>/nodes/<str:node_type>/<int:node_id>/', node_views.type_node_view, name="node"),
 
-    path('<int:meeting_id>/poll/<int:index>/', poll_views.pull_view, name="submit-poll")
+    path('<int:meeting_id>/poll/<int:index>/', poll_views.pull_view, name="submit-poll"),
+    path('<int:meeting_id>/decision/', poll_views.fetch_decision, name="decision")
 ]

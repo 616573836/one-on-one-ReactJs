@@ -15,6 +15,7 @@ const MeetingDetail = () => {
     const [updatedDescription, setUpdatedDescription] = useState('');
     const [userID, setUserID] = useState('');
     const [interaction, setInteraction] = useState({})
+    const [decision, setDecision] = useState({})
 
     useEffect(() => {
         fetchMeetingDetails();
@@ -48,6 +49,22 @@ const MeetingDetail = () => {
             });
             let data = await response.json();
             setInteraction(data);
+        } catch (error) {
+            console.error("Failed to fetch calendar details:", error);
+        } 
+    };
+
+    const fetchDecision = async () => {
+        try {
+            let response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/decision/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
+            let data = await response.json();
+            setDecision(data);
         } catch (error) {
             console.error("Failed to fetch calendar details:", error);
         } 
@@ -108,6 +125,8 @@ const MeetingDetail = () => {
             setUpdatedName(data.name);
             setUpdatedDescription(data.description);
             if (data.state === "ready" || data.state === "approving") fetchInteractions();
+
+            if (data.state === "finalized") fetchDecision();
         } catch (error) {
             console.error("Failed to fetch meeting details:", error);
         } finally {
@@ -263,6 +282,15 @@ const MeetingDetail = () => {
             {meeting && meeting.state === "ready" && (
             <button style={styles.button} onClick={() => startPolling()}>Start a poll</button>
             )}
+            {decision && (
+            <div>
+                <div>
+                    <p>Decision</p>
+                    <p>Start Time: {new Date(decision.start_time).toLocaleString()}</p>
+                    <p>End Time: {new Date(decision.end_time).toLocaleString()}</p>
+                </div>
+
+            </div>)}
             <div>
             {Object.entries(interaction).map(([key, { "start time": startTime, "end time": endTime }]) => (
                 <div key={key}>

@@ -34,13 +34,13 @@ def fetch_decision(request, meeting_id):
 
     meeting = Meeting.objects.get(pk = meeting_id)
 
-    polls = Poll.objects.get(meeting = meeting)
+    polls = Poll.objects.filter(meeting = meeting)
 
     intersections = get_available_time_intersection(meeting_id)
 
     results = []
     for i in range(len(intersections)):
-        results[i] = 0
+        results.append(0)
 
     for poll in polls:
         results[poll.suggested_time_index] += 1
