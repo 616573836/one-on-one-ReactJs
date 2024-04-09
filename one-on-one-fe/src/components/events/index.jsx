@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 
-function EventList({ calendarID, meetingID, userID}) {
+function EventList({ calendarID, meetingID, userID, flag = true}) {
     let {meetingId, memberId} = useParams();
     if(meetingID && userID){
         meetingId = meetingID;
@@ -151,7 +151,7 @@ function EventList({ calendarID, meetingID, userID}) {
                 <button style={styles.backButton} onClick={handleBack}> Back to calendar</button>
             </form>
             <div>
-                {events?.map((event, index) => (
+                {flag && events?.map((event, index) => (
                     <div key={index}>
                         <h5>Event No.{index+1}: {event.name}</h5>
                         <p>{event.description}</p>
