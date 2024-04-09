@@ -148,7 +148,7 @@ function EventList({ calendarID, meetingID, userID, flag = true}) {
                 </div>
 
                 <button type="submit" style={styles.button}>Add Event</button>
-                <button style={styles.backButton} onClick={handleBack}> Back to calendar</button>
+                <button style={styles.backButton} onClick={handleBack}> {flag ? 'Back to calendar' : 'Back'} </button>
             </form>
             <div>
                 {flag && events?.map((event, index) => (
