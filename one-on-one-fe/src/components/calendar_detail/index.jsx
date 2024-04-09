@@ -41,7 +41,8 @@ const Calendar = () => {
     const [eventID, setEventID] = useState(null);
     const [events, setEvents] = useState([]);
     const [startDate, setStartDate] = useState(null);
-    const [endDate, setEndDate] = useState(null);
+    const [showEventCreate, setShowEventCreate] = useState(false);
+    const [showEventEdit, setShowEventEdit] = useState(false);
     const navigate = useNavigate();
     const calendarRef = useRef()
 
@@ -61,7 +62,6 @@ const Calendar = () => {
             });
             setCalendarData(response.data);
             setStartDate(new Date(response.data.start_date));
-            setEndDate(new Date(response.data.end_date));
         } catch (error) {
             console.error('Error fetching calendar data:', error);
             setCalendarData(null);
@@ -78,27 +78,34 @@ const Calendar = () => {
                 }
             });
             setEvents(response.data);
+            events.map((event, index) => (
+               console.log("event " + index + ": " + event.name)
+            ));
         } catch (error) {
             console.error('Error fetching calendar data:', error);
             setEvents([]);
         }
     };
 
+    const handleEventCreate = () => {
+        if(!showEventCreate){
+            setShowEventCreate(true);
+            setShowEventEdit(false);
+        }
+        else setShowEventCreate(false);
+    };
+
+    const handleEventEdit = (eventId) => {
+        if(!showEventEdit){
+            setShowEventEdit(true);
+            setShowEventCreate(false);
+            setEventID(eventId);
+        }
+        else setShowEventEdit(false);
+    };
+
     const editEvent = async (e) => {
         const dp = calendarRef.current.control;
-        const modalContent = (
-            <Event meetingID={meetingID} userID={userID} eventID={eventID}/>
-        );
-
-        const onClose = () => {
-
-        };
-
-        DayPilot.Modal.show(EventUpdateModal, {
-            onClose: onClose,
-            children: modalContent
-        });
-
         const modal = await DayPilot.Modal.prompt("Update event text:", e.text());
         if (!modal.result) { return; }
         e.data.text = modal.result;
@@ -180,25 +187,24 @@ const Calendar = () => {
 
     // TODO: Event Config
     useEffect(() => {
-        // const modiEvents = modifyEventData(events)
-        const events = [
-            {
-                id: 1,
-                text: "Event 1",
-                start: "2023-10-02T10:30:00",
-                end: "2023-10-02T13:00:00",
-                participants: 2,
-            },
-            {
-                id: 2,
-                text: "Event 2",
-                start: "2023-10-03T09:30:00",
-                end: "2023-10-03T11:30:00",
-                backColor: "#6aa84f",
-                participants: 1,
-            },
-        ];
-        calendarRef.current.control.update({startDate, events});
+        const modifyEvents = modifyEventData(events);
+        // const events = [
+        //     {
+        //         id: 1,
+        //         text: "Event 1",
+        //         start_time: "2023-10-02T10:30:00",
+        //         end: "2023-10-02T13:00:00",
+        //     },
+        //     {
+        //         id: 2,
+        //         text: "Event 2",
+        //         start: "2023-10-03T09:30:00",
+        //         end: "2023-10-03T11:30:00",
+        //         backColor: "#6aa84f",
+        //     },
+        // ];
+        // calendarRef.current.control.update({startDate, events});
+        calendarRef.current.control.update({startDate, modifyEvents});
     }, []);
 
     return (
@@ -223,6 +229,8 @@ const Calendar = () => {
                     ref={calendarRef}
                 />
             </div>
+            {showEventEdit && <Event meetingID={meetingID} userID={userID} eventID={eventID} flag = {false}/>}
+            {showEventCreate && <EventList calendarID={calendarData.id} meetingID={meetingID} userID={userID} flag = {false}/>}
         </div>
     );
 }
@@ -258,15 +266,13 @@ const modifyEventData = (events) => {
                 break;
         }
 
-        return {
+        return new DayPilot.Event({
             id: event.id,
             text: event.name,
-            description: event.description,
             start: event.start_time,
             end: event.end_time,
-            calendar: event.calendar,
             backColor: backColor
-        };
+        });
     });
 };
 

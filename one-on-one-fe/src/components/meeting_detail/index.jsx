@@ -84,7 +84,7 @@ const MeetingDetail = () => {
             setMeeting(data);
             setUpdatedName(data.name);
             setUpdatedDescription(data.description);
-            if (meeting.state == "ready") fetchInteractions();
+            if (meeting.state === "ready") fetchInteractions();
         } catch (error) {
             console.error("Failed to fetch meeting details:", error);
         } finally {
