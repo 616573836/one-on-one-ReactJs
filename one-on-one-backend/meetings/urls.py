@@ -10,6 +10,7 @@ router.register(r'', meeting_views.MeetingViewSet, basename='meeting')
 urlpatterns = [
     path('', include(router.urls)),
     path('<int:meeting_id>/interaction/', meeting_views.get_intersections, name="interaction"),
+    path('<int:meeting_id>/start_poll/', meeting_views.start_poll_view, name="start_poll"),
     path('<int:meeting_id>/members/', member_views.member_list_view, name="member_list"),
     path('<int:meeting_id>/members/<int:user_id>/', member_views.member_view, name="member"),
     path('confirm_member/<str:token>/', pending_member_view.confirm_member, name="confirm_member"),

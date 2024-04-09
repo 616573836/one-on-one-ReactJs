@@ -150,3 +150,17 @@ def update_meeting_state(meeting_id):
         meeting.state = "ready"
 
     meeting.save()
+
+@api_view(['POST'])
+def start_poll_view(request, meeting_id):
+    meeting = Meeting.objects.get(pk=meeting_id)
+
+    if meeting.state == "approving":
+        return Response(data={"error": "The meeting has started a polling, please refresh."}, status=status.HTTP_400_BAD_REQUEST)
+
+    if meeting.state != "ready":
+        return Response(data={"error": "Meeting status incorrect, please refresh."},
+                        status=status.HTTP_400_BAD_REQUEST)
+    meeting.state = "approving"
+    meeting.save()
+    return Response(data={"detail": "polling started."}, status = status.HTTP_200_OK)
