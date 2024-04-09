@@ -115,6 +115,26 @@ const MeetingDetail = () => {
         }
     };
 
+    const submitPoll = async (index) => {
+        try {
+            let response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/poll/${index}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
+            let data = await response.json();
+
+            if (!response.ok) {
+                alert(data.error);
+            }
+            
+        } catch (error) {
+            console.error("Failed to fetch calendar details:", error);
+        } 
+    };
+
     const deleteMeeting = async () => {
         if (window.confirm("Are you sure you want to delete this meeting?")) {
             try {
@@ -250,7 +270,7 @@ const MeetingDetail = () => {
                 <p>Start Time: {new Date(startTime).toLocaleString()}</p>
                 <p>End Time: {new Date(endTime).toLocaleString()}</p>
                 {meeting.state === "approving" &&
-                <button style={styles.button} onClick={() => startPolling()}>Start a poll</button>}
+                <button style={styles.button} onClick={() => submitPoll(key)}>Submit Poll</button>}
                 </div>
             ))}
             </div>

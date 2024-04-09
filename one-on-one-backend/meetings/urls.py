@@ -2,6 +2,7 @@ from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import meeting_views, calendar_views, member_views, node_views, event_views
 from .views import pending_member_view
+from .views import poll_views
 app_name = 'meetings'
 
 router = DefaultRouter()
@@ -24,4 +25,6 @@ urlpatterns = [
     path('<int:meeting_id>/nodes/', node_views.node_list_view, name="node-list"),
     path('<int:meeting_id>/nodes/<str:node_type>/', node_views.type_node_list_view, name="type-node-list"),
     path('<int:meeting_id>/nodes/<str:node_type>/<int:node_id>/', node_views.type_node_view, name="node"),
+
+    path('<int:meeting_id>/poll/<int:index>/', poll_views.pull_view, name="submit-poll")
 ]
