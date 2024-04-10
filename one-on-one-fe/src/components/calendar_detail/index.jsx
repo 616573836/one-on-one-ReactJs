@@ -45,7 +45,6 @@ const styles = {
 const Calendar = () => {
     let { meetingID, userID } = useParams();
     const [calendarData, setCalendarData] = useState(null);
-    const [calendarID, setCalendarID] = useState(null);
     const [eventID, setEventID] = useState(null);
     const [eventStartTime, setEventStartTime] = useState(null);
     const [events, setEvents] = useState([]);
@@ -54,11 +53,87 @@ const Calendar = () => {
     const [showEventEdit, setShowEventEdit] = useState(false);
     const navigate = useNavigate();
     const calendarRef = useRef()
+    const [calendarConfig, setCalendarConfig] = useState(null)
 
     useEffect(() => {
         fetchCalendarData();
         fetchEvents();
     }, [meetingID, userID]);
+
+    useEffect(() => {
+        setCalendarConfig({
+            viewType: "Week",
+            durationBarVisible: false,
+            timeRangeSelectedHandling: "Enabled",
+            contextMenu: new DayPilot.Menu({
+                items: [
+                    {
+                        text: "Delete", onClick: async args => {
+                            const dp = calendarRef.current.control;
+                            dp.events.remove(args.source);
+                        },
+                    },
+                    {
+                        text: "-"
+                    },
+                    {
+                        text: "Edit...", onClick: async args => {
+                            await editEvent(args.source);
+                        }
+                    }
+                ]
+            }),
+            onBeforeEventRender: args => {
+                args.data.areas = [
+                    {
+                        top: 3,
+                        right: 3,
+                        width: 20,
+                        height: 20,
+                        symbol: "icons/daypilot.svg#minichevron-down-2",
+                        fontColor: "#fff",
+                        toolTip: "Show context menu",
+                        action: "ContextMenu",
+                    },
+                    {
+                        top: 3,
+                        right: 25,
+                        width: 20,
+                        height: 20,
+                        symbol: "icons/daypilot.svg#x-circle",
+                        fontColor: "#fff",
+                        action: "None",
+                        toolTip: "Delete event",
+                        onClick: async args => {
+                            const dp = calendarRef.current.control;
+                            dp.events.remove(args.source);
+                        }
+                    }
+                ];
+            },
+            onTimeRangeSelected: args => {
+                const dp = calendarRef.current.control;
+                dp.clearSelection();
+                setEventStartTime(args.start);
+                handleEventCreate();
+            },
+            onEventClick: args => {
+                editEvent(args.e);
+            },
+            onEventResized: async args => {
+                updateEvent(args.e, calendarData?.id)
+            },
+            onEventMoved: async args => {
+                updateEvent(args.e, calendarData?.id)
+            },
+        })
+    }, [calendarData]);
+
+    useEffect(() => {
+        const currEvents = modifyEventData(events);
+        const dp = calendarRef.current.control;
+        dp.update({startDate, events: currEvents});
+    }, [events]);
 
     const fetchCalendarData = async () => {
         try {
@@ -71,8 +146,6 @@ const Calendar = () => {
             });
 
             setCalendarData(response.data);
-            setCalendarID(response.data.id);
-            console.log("compare " + response.data.id + " " + calendarID);
             setStartDate(new Date(response.data.start_date));
         } catch (error) {
             console.error('Error fetching calendar data:', error);
@@ -119,81 +192,8 @@ const Calendar = () => {
         dp.events.update(e);
     };
 
-    // TODO: Event Config
-    useEffect(() => {
-        const currEvents = modifyEventData(events);
-        const dp = calendarRef.current.control;
-        dp.update({startDate, events: currEvents});
-    }, [events]);
-
-    const [calendarConfig, setCalendarConfig] = useState({
-        viewType: "Week",
-        durationBarVisible: false,
-        timeRangeSelectedHandling: "Enabled",
-        contextMenu: new DayPilot.Menu({
-            items: [
-                {
-                    text: "Delete", onClick: async args => {
-                        const dp = calendarRef.current.control;
-                        dp.events.remove(args.source);
-                    },
-                },
-                {
-                    text: "-"
-                },
-                {
-                    text: "Edit...", onClick: async args => {
-                        await editEvent(args.source);
-                    }
-                }
-            ]
-        }),
-        onBeforeEventRender: args => {
-            args.data.areas = [
-                {
-                    top: 3,
-                    right: 3,
-                    width: 20,
-                    height: 20,
-                    symbol: "icons/daypilot.svg#minichevron-down-2",
-                    fontColor: "#fff",
-                    toolTip: "Show context menu",
-                    action: "ContextMenu",
-                },
-                {
-                    top: 3,
-                    right: 25,
-                    width: 20,
-                    height: 20,
-                    symbol: "icons/daypilot.svg#x-circle",
-                    fontColor: "#fff",
-                    action: "None",
-                    toolTip: "Delete event",
-                    onClick: async args => {
-                        const dp = calendarRef.current.control;
-                        dp.events.remove(args.source);
-                    }
-                }
-            ];
-        },
-        onTimeRangeSelected: args => {
-            const dp = calendarRef.current.control;
-            dp.clearSelection();
-            setEventStartTime(args.start);
-            handleEventCreate();
-        },
-        onEventClick: args => {
-            editEvent(args.e);
-        },
-        onEventResized: async args => {
-            updateEvent(args.e)
-        },
-        onEventMoved: async args => {
-            updateEvent(args.e)
-        },
-    });
-
-    const updateEvent = async (e) => {
+    const updateEvent = async (e, calendarID) => {
+        fetchCalendarData();
         console.log("daypilot start time " + e.data.start.value)
 
         const submissionData = {
