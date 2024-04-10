@@ -316,12 +316,12 @@ const MeetingDetail = () => {
             {meeting && meeting.state === "ready" && (
             <button style={styles.button} onClick={() => startPolling()}>Start a poll</button>
             )}
-            {decision && meeting.state === "finalized" && (
+            {Object.keys(decision).length !== 0 && meeting.state === "finalized" && (
             <div>
                 <div>
                     <p>Decision</p>
-                    <p>Start Time: {formatSuggestedTime(decision.start_time).toLocaleString()}</p>
-                    <p>End Time: {formatSuggestedTime(decision.end_time).toLocaleString()}</p>
+                    <p>Start Time: {formatSuggestedTime(decision.start_time)}</p>
+                    <p>End Time: {formatSuggestedTime(decision.end_time)}</p>
                 </div>
 
             </div>)}
@@ -329,8 +329,8 @@ const MeetingDetail = () => {
             {Object.keys(vote).length === 0 && Object.entries(interaction).map(([key, { "start time": startTime, "end time": endTime }]) => (
                 <div key={key}>
                 <p>Suggested time {key}:</p>
-                <p>Start Time: {formatSuggestedTime(startTime).toLocaleString()}</p>
-                <p>End Time: {formatSuggestedTime(endTime).toLocaleString()}</p>
+                <p>Start Time: {formatSuggestedTime(startTime)}</p>
+                <p>End Time: {formatSuggestedTime(endTime)}</p>
                 {meeting.state === "approving" &&
                 <button style={styles.button} onClick={() => submitPoll(key)}>Vote suggested time {key}</button>}
                 </div>
@@ -338,8 +338,8 @@ const MeetingDetail = () => {
             {meeting && meeting.state === "approving" && Object.keys(vote).length !== 0 && (
                 <div>
                     <p>You have submitted a vote!</p>
-                    <p>Start Time: {formatSuggestedTime(vote.start_time).toLocaleString()}</p>
-                <p>End Time: {formatSuggestedTime(vote.end_time).toLocaleString()}</p>
+                    <p>Start Time: {formatSuggestedTime(vote.start_time)}</p>
+                <p>End Time: {formatSuggestedTime(vote.end_time)}</p>
                 </div>
             )}
             </div>
