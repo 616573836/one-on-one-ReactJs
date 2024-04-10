@@ -169,16 +169,41 @@ const Calendar = () => {
             ];
         },
 
-        // TODO: modify to Event Create Page
         onTimeRangeSelected: async args => {
             const dp = calendarRef.current.control;
             dp.clearSelection();
             setEventStartTime(args.start);
             handleEventCreate();
         },
-        // TODO: Change to Event Edit
+
         onEventClick: async args => {
             await editEvent(args.e);
+        },
+
+        onEventMoved: async function (args) {
+            const submissionData = {
+                id: args.e.id,
+                name: args.e.text,
+                start_time: args.e.start,
+                end_time: args.e.end,
+            };
+
+            try {
+                const response = await fetch(`/api/meetings/${meetingID}/members/${userID}/calendar/events/${args.e.id}/`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                    },
+                    body: JSON.stringify(submissionData)
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+            } catch (error) {
+                console.error('Error updating event:', error);
+            }
         },
     });
 
