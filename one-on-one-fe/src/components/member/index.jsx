@@ -91,24 +91,24 @@ const MemberDetail = () => {
             <h3 style={{fontSize: '60px'}}>{member.username}</h3>
             <p style={{fontSize: '30px'}}>role: {member.role}</p>
             {eventExistence ? <p style={{fontSize: '30px'}}>Submitted</p> : <p style={{fontSize: '30px'}}>Not submitted</p>}
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
-            <button style={styles.calendarButton} onClick={
-                () => navigate(`/meetings/${meetingId}/members/${memberID}/calendar/`)}>
-                Calendar
-            </button>
-            <button onClick={() => navigate(`/meetings/${meetingId}/`)}>
-                Back
-            </button>
-            <button  onClick={() => setShowUpdateForm(true)}>
-                Update
-            </button>
-            <button  onClick={() => deleteMember()}>
-                Delete
-            </button>
+            <div style={{display: 'flex', justifyContent: 'center', gap: '10px'}}>
+                <button onClick={() => navigate(`/meetings/${meetingId}/`)}>
+                    Back
+                </button>
+                <button style={styles.calendarButton} onClick={
+                    () => navigate(`/meetings/${meetingId}/members/${memberID}/calendar/`)}>
+                    Calendar
+                </button>
+                <button onClick={() => setShowUpdateForm(true)}>
+                    Update
+                </button>
+                <button onClick={() => deleteMember()}>
+                    Delete
+                </button>
             </div>
             {showUpdateForm && (
                 <form onSubmit={handleUpdate} style={styles.form}>
-                    <div>
+                <div>
                         <label>Role:</label>
                         <select
                             value={updatedRole}
