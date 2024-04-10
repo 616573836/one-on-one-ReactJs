@@ -157,21 +157,34 @@ const Calendar = () => {
     };
 
     const handleEventCreate = () => {
-        if(!showEventCreate){
-            setShowEventCreate(true);
-            setShowEventEdit(false);
-        }
-        else setShowEventCreate(false);
+        console.log("1 show event edit " + showEventEdit)
+        console.log("1 show event create " + showEventCreate)
+        if(showEventCreate) setShowEventCreate(false);
+        else setShowEventCreate(true);
     };
 
     const handleEventEdit = (eventId) => {
-        if(!showEventEdit){
+        console.log("2 show event edit " + showEventEdit)
+        console.log("2 show event create " + showEventCreate)
+        if(showEventEdit)
+            setShowEventEdit(false);
+        else {
             setShowEventEdit(true);
-            setShowEventCreate(false);
             setEventID(eventId);
         }
-        else setShowEventEdit(false);
     };
+
+    useEffect(() => {
+        if(showEventEdit) setShowEventCreate(false)
+        console.log("show event edit " + showEventEdit)
+        console.log("show event create " + showEventCreate)
+    }, [showEventEdit])
+
+    useEffect(() => {
+        if(showEventCreate) setShowEventEdit(false)
+        console.log("show event edit " + showEventEdit)
+        console.log("show event create " + showEventCreate)
+    }, [showEventCreate])
 
     const editEvent = async (e) => {
         const dp = calendarRef.current.control;
@@ -180,9 +193,6 @@ const Calendar = () => {
     };
 
     const updateEvent = async (e, calendarID) => {
-        fetchCalendarData();
-        console.log("daypilot start time " + e.data.start.value)
-
         const submissionData = {
             name: e.data.text,
             calendar: calendarID,
@@ -266,7 +276,7 @@ const modifyEventData = (events) => {
                 backColor = 'transparent';
                 break;
         }
-        console.log("backend start time " + event.start_time);
+
         return {
             id: event.id,
             text: event.name,
