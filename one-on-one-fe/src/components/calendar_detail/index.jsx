@@ -16,6 +16,9 @@ const styles = {
     main: {
         flexGrow: "1"
     },
+    right: {
+        marginLeft: "10px"
+    },
     eventsButton: {
         padding: '10px 20px',
         textDecoration: 'none',
@@ -202,18 +205,22 @@ const Calendar = () => {
                             });
                         }}
                     />
+                    <button style={styles.eventsButton} onClick={
+                        () => navigate(`/meetings/${meetingID}/members/${userID}/calendar/events`,
+                            {state: {calendarId: calendarData.id}})}>
+                        Events
+                    </button>
                 </div>
                 <div style={styles.main}>
                     <DayPilotCalendar {...calendarConfig} ref={calendarRef}/>
                 </div>
-                {showEventEdit && <Event meetingID={meetingID} userID={userID} eventID={eventID} flag={false}/>}
-                {showEventCreate && <EventList calendarID={calendarData.id} meetingID={meetingID} userID={userID} flag={false}/>}
             </div>
-            <button style={styles.eventsButton} onClick={
-                () => navigate(`/meetings/${meetingID}/members/${userID}/calendar/events`,
-                    {state: {calendarId: calendarData.id}})}>
-                Events
-            </button>
+            <div style={styles.wrap}>
+                <div style={styles.main}>
+                    {showEventEdit && <Event meetingID={meetingID} userID={userID} eventID={eventID} flag={false}/>}
+                    {showEventCreate && <EventList calendarID={calendarData.id} meetingID={meetingID} userID={userID} flag={false}/>}
+                </div>
+            </div>
         </>
     );
 }
