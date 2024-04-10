@@ -186,8 +186,9 @@ footer{
 }
 
 form label {
-    color: var(--container-color);
+    color: var(--container-color-dark);
     font-weight: 400;
+	
 }
 
 .form-horizontal .form-group {
