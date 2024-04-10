@@ -10,7 +10,7 @@ source venv/bin/activate
 
 # Install required Python packages
 pip install --upgrade pip wheel
-pip install Django Markdown django-filter djangorestframework djangorestframework-simplejwt django-rest-auth
+pip install Django Markdown django-filter djangorestframework djangorestframework-simplejwt django-rest-auth django-cors-headers
 
 # Run migrations
 python manage.py makemigrations
