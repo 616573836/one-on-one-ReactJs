@@ -71,6 +71,21 @@ const Calendar = () => {
                         text: "Delete", onClick: async args => {
                             const dp = calendarRef.current.control;
                             dp.events.remove(args.source);
+                            try {
+                                const response = await fetch(`/api/meetings/${meetingID}/members/${userID}/calendar/events/${eventID}`, {
+                                    method: 'DELETE',
+                                    headers: {
+                                        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                                    },
+                                });
+
+                                if (!response.ok) {
+                                    throw new Error(`HTTP error! status: ${response.status}`);
+                                }
+                                window.location.reload();
+                            } catch (error) {
+                                console.error('Error deleting event:', error);
+                            }
                         },
                     },
                     {
@@ -83,34 +98,6 @@ const Calendar = () => {
                     }
                 ]
             }),
-            onBeforeEventRender: args => {
-                args.data.areas = [
-                    {
-                        top: 3,
-                        right: 3,
-                        width: 20,
-                        height: 20,
-                        symbol: "icons/daypilot.svg#minichevron-down-2",
-                        fontColor: "#fff",
-                        toolTip: "Show context menu",
-                        action: "ContextMenu",
-                    },
-                    {
-                        top: 3,
-                        right: 25,
-                        width: 20,
-                        height: 20,
-                        symbol: "icons/daypilot.svg#x-circle",
-                        fontColor: "#fff",
-                        action: "None",
-                        toolTip: "Delete event",
-                        onClick: async args => {
-                            const dp = calendarRef.current.control;
-                            dp.events.remove(args.source);
-                        }
-                    }
-                ];
-            },
             onTimeRangeSelected: args => {
                 const dp = calendarRef.current.control;
                 dp.clearSelection();
@@ -127,7 +114,7 @@ const Calendar = () => {
                 updateEvent(args.e, calendarData?.id)
             },
         })
-    }, [calendarData]);
+    }, [calendarData, eventID]);
 
     useEffect(() => {
         const currEvents = modifyEventData(events);
