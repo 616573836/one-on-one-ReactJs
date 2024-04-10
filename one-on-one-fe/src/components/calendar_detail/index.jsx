@@ -45,6 +45,7 @@ const styles = {
 const Calendar = () => {
     let { meetingID, userID } = useParams();
     const [calendarData, setCalendarData] = useState(null);
+    const [calendarID, setCalendarID] = useState(null);
     const [eventID, setEventID] = useState(null);
     const [eventStartTime, setEventStartTime] = useState(null);
     const [events, setEvents] = useState([]);
@@ -68,7 +69,10 @@ const Calendar = () => {
                     'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
                 }
             });
+
             setCalendarData(response.data);
+            setCalendarID(response.data.id);
+            console.log("compare " + response.data.id + " " + calendarID);
             setStartDate(new Date(response.data.start_date));
         } catch (error) {
             console.error('Error fetching calendar data:', error);
@@ -172,45 +176,50 @@ const Calendar = () => {
                 }
             ];
         },
-
         onTimeRangeSelected: args => {
             const dp = calendarRef.current.control;
             dp.clearSelection();
             setEventStartTime(args.start);
             handleEventCreate();
         },
-
         onEventClick: args => {
             editEvent(args.e);
         },
-
-        onEventMoved: async function (args) {
-            const event = args.e;
-            const submissionData = {
-                id: event.data.id,
-                name: event.data.text,
-                start_time: event.data.start,
-                end_time: event.data.end,
-            };
-
-            try {
-                const response = await fetch(`/api/meetings/${meetingID}/members/${userID}/calendar/events/${args.e.id}/`, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
-                    },
-                    body: JSON.stringify(submissionData)
-                });
-
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-            } catch (error) {
-                console.error('Error updating event:', error);
-            }
+        onEventResized: async args => {
+            updateEvent(args.e)
+        },
+        onEventMoved: async args => {
+            updateEvent(args.e)
         },
     });
+
+    const updateEvent = async (e) => {
+        console.log("daypilot start time " + e.data.start.value)
+
+        const submissionData = {
+            name: e.data.text,
+            calendar: calendarID,
+            start_time: e.data.start.value + 'Z',
+            end_time: e.data.end.value + 'Z',
+        };
+
+        try {
+            const response = await fetch(`/api/meetings/${meetingID}/members/${userID}/calendar/events/${e.data.id}/`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                },
+                body: JSON.stringify(submissionData)
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+        } catch (error) {
+            console.error('Error updating event:', error);
+        }
+    }
 
     return (
         <>
@@ -270,7 +279,7 @@ const modifyEventData = (events) => {
                 backColor = 'transparent';
                 break;
         }
-
+        console.log("backend start time " + event.start_time);
         return {
             id: event.id,
             text: event.name,
