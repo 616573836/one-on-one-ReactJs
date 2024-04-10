@@ -66,6 +66,7 @@ function EventList({ calendarID, meetingID, userID, startTime, flag = true}) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
         fetchEvents();
+        if (!flag) window.location.reload();
     };
 
     const handleBack = () => {
