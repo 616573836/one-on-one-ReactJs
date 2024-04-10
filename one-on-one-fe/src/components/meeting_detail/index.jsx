@@ -28,6 +28,12 @@ const MeetingDetail = () => {
         submitCalendar();
     }, [meetingId, members])
 
+    useEffect(() => {
+        if (meeting && (meeting.state === "ready" || meeting.state === "approving")) {
+          fetchInteractions();
+        }
+      }, [meeting]);
+
     const submitCalendar = () => {
         members?.forEach((member) => {
             checkIfEventsExist(meetingId, member.user).then((exist) => {
@@ -126,8 +132,6 @@ const MeetingDetail = () => {
             setMeeting(data);
             setUpdatedName(data.name);
             setUpdatedDescription(data.description);
-            if (data.state === "ready" || data.state === "approving") fetchInteractions();
-
             if (data.state === "finalized") fetchDecision();
         } catch (error) {
             console.error("Failed to fetch meeting details:", error);
@@ -262,6 +266,14 @@ const MeetingDetail = () => {
         return `${year}-${month}-${day}, ${hours}:${minutes}:${seconds}`;
     }
 
+    const formatSuggestedTime = (isoString) => {
+
+        const [date, time] = isoString.split('T');
+        const formattedTime = time.split('Z')[0];
+      
+        return `${date}, ${formattedTime}`;
+      };
+
     return (
         <div style={styles.container}>
             <h1>{meeting.name}</h1>
@@ -311,12 +323,12 @@ const MeetingDetail = () => {
             {meeting && meeting.state === "ready" && (
             <button style={styles.button} onClick={() => startPolling()}>Start a poll</button>
             )}
-            {decision && meeting.state === "finalized" && (
+            {Object.keys(decision).length !== 0 && meeting.state === "finalized" && (
             <div>
                 <div>
                     <p>Decision</p>
-                    <p>Start Time: {new Date(decision.start_time).toLocaleString()}</p>
-                    <p>End Time: {new Date(decision.end_time).toLocaleString()}</p>
+                    <p>Start Time: {formatSuggestedTime(decision.start_time)}</p>
+                    <p>End Time: {formatSuggestedTime(decision.end_time)}</p>
                 </div>
 
             </div>)}
@@ -324,8 +336,8 @@ const MeetingDetail = () => {
             {Object.keys(vote).length === 0 && Object.entries(interaction).map(([key, { "start time": startTime, "end time": endTime }]) => (
                 <div key={key}>
                 <p>Suggested time {key}:</p>
-                <p>Start Time: {new Date(startTime).toLocaleString()}</p>
-                <p>End Time: {new Date(endTime).toLocaleString()}</p>
+                <p>Start Time: {formatSuggestedTime(startTime)}</p>
+                <p>End Time: {formatSuggestedTime(endTime)}</p>
                 {meeting.state === "approving" &&
                 <button style={styles.button} onClick={() => submitPoll(key)}>Vote suggested time {key}</button>}
                 </div>
@@ -333,8 +345,8 @@ const MeetingDetail = () => {
             {meeting && meeting.state === "approving" && Object.keys(vote).length !== 0 && (
                 <div>
                     <p>You have submitted a vote!</p>
-                    <p>Start Time: {new Date(vote.start_time).toLocaleString()}</p>
-                <p>End Time: {new Date(vote.end_time).toLocaleString()}</p>
+                    <p>Start Time: {formatSuggestedTime(vote.start_time)}</p>
+                <p>End Time: {formatSuggestedTime(vote.end_time)}</p>
                 </div>
             )}
             </div>

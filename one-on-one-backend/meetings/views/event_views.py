@@ -158,6 +158,7 @@ def event_view(request, meeting_id, user_id, event_id):
             serializer = EventSerializer(event, data=request.data)
             if serializer.is_valid():
                 serializer.save()
+                update_meeting_state(meeting_id)
                 return Response(serializer.data)
             else:
                 return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
