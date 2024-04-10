@@ -60,3 +60,21 @@ def fetch_decision(request, meeting_id):
         status = status.HTTP_200_OK
     )
 
+
+@api_view(['GET'])
+def fetch_poll(request, meeting_id):
+    meeting = Meeting.objects.get(pk=meeting_id)
+
+    poll = Poll.objects.filter(user=request.user, meeting=meeting).first()
+    if not poll:
+        return Response(data={"detail": "Not submitted vote yet"}, status=status.HTTP_400_BAD_REQUEST)
+
+    voted = get_available_time_intersection(meeting_id)[poll.suggested_time_index]
+
+    return Response(
+        data={
+            "start_time": voted[0],
+            "end_time": voted[1],
+        },
+        status=status.HTTP_200_OK
+    )
