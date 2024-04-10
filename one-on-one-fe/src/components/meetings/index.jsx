@@ -142,7 +142,7 @@ const styles = {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: '70vh',
+        height: 'auto',
       },
     detailButton: {
         padding: '10px 20px',
