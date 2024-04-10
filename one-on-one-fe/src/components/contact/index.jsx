@@ -119,6 +119,7 @@ const ContactListComponent = () => {
     return (
         <div>
         <div><h1>Contact List</h1></div>
+        
         <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
             <div style={{ width: '50%', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <input
@@ -131,22 +132,24 @@ const ContactListComponent = () => {
                 <button onClick={handleSearch} style={{ padding: '8px 16px' }}>Search</button>
             </div>
         </div>
-        <table style={{ width: '100%', textAlign: 'center' }}>
-            <thead>
+
+
+        <table style={{ marginTop: '80px',marginLeft: '100px', width: '100%', textAlign: 'center' }}>
+            <thead style={{fontSize: '18px'}}>
                 <tr>
                     <th>Alias</th>
                     <th>Created</th>
                     <th>Email</th>
-                    <th>Actions</th>
+                    <th style={{ textAlign: 'left', paddingLeft: '100px' }}>Actions</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody style={{fontSize: '16px'}}>
                 {contactsData.map((contact) => (
                     <tr key={contact.id}>
                         <td>{contact.alias}</td>
                         <td>{contact.created}</td>
                         <td>{contact.email}</td>
-                        <td>
+                        <td >
                             <button onClick={() => setViewingContact(contact)}>View Contact Details</button>
                             <button onClick={() => deleteContact(contact.id)}>Delete Contact</button>
                         </td>
@@ -154,9 +157,9 @@ const ContactListComponent = () => {
                 ))}
             </tbody>
         </table>
-        <div><button onClick={() => setAddContPop(true)}>Create & Invite new Contact</button></div>
+        <div style={{marginTop: '100px',marginLeft: '530px'}}><button onClick={() => setAddContPop(true)}>Create & Invite new Contact</button></div>
         {addContPop && 
-            <AddContactPopup
+            <AddContactPopup 
                 onConfirm={addContact}
                 onClose={() => setAddContPop(false)}
             />

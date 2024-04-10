@@ -124,7 +124,13 @@ function EventDetail({meetingID, userID, eventID, flag = true}) {
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-            navigate(`/meetings/${meetingId}/members/${memberId}/calendar/events`);
+            if (flag){
+                navigate(`/meetings/${meetingId}/members/${memberId}/calendar/events`);
+            }else {
+                navigate(`/meetings/${meetingId}/members/${memberId}/calendar`);
+                window.location.reload();
+            }
+
         } catch (error) {
             console.error('Error deleting event:', error);
             setError(error);
