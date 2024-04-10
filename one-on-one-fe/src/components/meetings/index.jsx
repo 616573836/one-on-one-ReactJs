@@ -58,8 +58,8 @@ const MeetingList = () => {
     }
 
     return (
-        <div style={styles.container}>
-            <form onSubmit={createMeeting} style={styles.form}>
+        <div >
+            <form onSubmit={createMeeting} >
                 <input
                     style={styles.input}
                     type="text"
@@ -74,17 +74,19 @@ const MeetingList = () => {
                     value={meetingDescription}
                     onChange={(e) => setMeetingDescription(e.target.value)}
                 />
-                <button type="submit" style={styles.button}>Create Meeting</button>
+                <button type="submit" >Create Meeting</button>
             </form>
-            <div style={styles.container}>
-                <div style={styles.meetingList}>
+            <div style={styles.buttonContainer}>
+                <div >
                     {meetings?.map((meeting, index) => (
-                        <div key={index} style={styles.meetingItem}>
-                            <h2>{meeting.name}</h2>
+                        <div key={index} >
+                            <h1>{meeting.name}</h1>
                             <p>Description: {meeting.description}</p>
                             <p>Created: {formatTimestamp(meeting.created_time)}</p>
                             <p>Current State: {meeting.state}</p>
-                            <button style={styles.detailButton} onClick={() => navigate(`/meetings/${meeting.id}/`)}>
+                            <button  
+                            style={{ marginLeft: 'auto', display: 'block', marginRight: 'auto' }}
+                            onClick={() => navigate(`/meetings/${meeting.id}/`)}>
                                 Detail 
                             </button>
                         </div>
@@ -106,8 +108,9 @@ const styles = {
     input: {
         marginRight: '10px',
         padding: '10px',
-        border: '1px solid #ccc',
+        border: '1px solid #666',
         borderRadius: '4px',
+        marginBottom: '10px',
         width: '200px',
     },
     button: {
@@ -126,6 +129,12 @@ const styles = {
         paddingBottom: '10px',
         marginBottom: '10px',
     },
+    buttonContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '70vh',
+      },
     detailButton: {
         padding: '10px 20px',
         textDecoration: 'none',
@@ -133,7 +142,7 @@ const styles = {
         textAlign: 'center',
         display: 'inline-block',
         marginTop: '10px',
-        marginRight: '5px',
+        marginRight: '3px',
         marginLeft: '5px',
         marginBottom: '5px',
         fontSize: '16px',

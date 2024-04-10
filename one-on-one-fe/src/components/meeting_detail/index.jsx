@@ -324,7 +324,7 @@ const MeetingDetail = () => {
                 <p>Start Time: {new Date(startTime).toLocaleString()}</p>
                 <p>End Time: {new Date(endTime).toLocaleString()}</p>
                 {meeting.state === "approving" &&
-                <button style={styles.button} onClick={() => submitPoll(key)}>Submit Poll</button>}
+                <button style={styles.button} onClick={() => submitPoll(key)}>Vote suggested time {key}</button>}
                 </div>
             ))}
             {meeting && meeting.state === "approving" && Object.keys(vote).length !== 0 && (

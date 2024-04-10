@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import '../sign_up/general.css'
 
 const SignInComponent = () => {
+  
     const navigate = useNavigate();
     
 
@@ -33,6 +36,7 @@ const SignInComponent = () => {
   
 
   return (
+    
     <>
       <meta content="width=device-width, initial-scale=1.0" name="viewport" />
       <meta charSet="utf-8" />
@@ -48,6 +52,7 @@ const SignInComponent = () => {
         rel="stylesheet"
       />
       <link href="../../STYLE/signin-signup.css" media="screen" rel="stylesheet" />
+     
       <header
         className="u-align-left u-clearfix u-header u-section-row-container"
         id="sec-d402"
@@ -59,7 +64,7 @@ const SignInComponent = () => {
             <div className="wrap">
             <div className="container">
             <div className="welcome">
-            <h1>Sign in</h1>
+            <h1 className="major-color">Sign in</h1>
     
       <form onSubmit={handleSubmit}>
         <input
@@ -81,6 +86,7 @@ const SignInComponent = () => {
         <p></p>
         <button type="submit">Sign In </button>
         <p></p>
+        <p>Do not have account?</p>
         <button onClick={() => navigate('/signup')}>Sign up</button>
         </form>
       
@@ -107,5 +113,6 @@ const SignInComponent = () => {
   </>
   );
 };
+
 
 export default SignInComponent;

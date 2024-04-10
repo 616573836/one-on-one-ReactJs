@@ -6,11 +6,13 @@ import { useNavigate } from 'react-router-dom';
 
 const ProfileViewComponent = () => {
   const [profileData, setProfileData] = useState({});
+  const [imageData, setImageData] = useState('');
   const navigate = useNavigate();
 
 
   const logout = () => {
       localStorage.removeItem('accessToken'); // Clear the access token
+      localStorage.removeItem('profileImage');
       navigate('/login'); // Redirect to login page
   };
 
@@ -23,6 +25,10 @@ const ProfileViewComponent = () => {
       localStorage.setItem("userid", response.data.id);
     })
     .catch(error => console.error('Error fetching profile data:', error));
+    const storedImage = localStorage.getItem('profileImage');
+    if (storedImage) {
+      setImageData(storedImage);
+    }
   }, []);
 
   return (
@@ -46,13 +52,27 @@ const ProfileViewComponent = () => {
     
     <div>
       <h1>Profile</h1>
+      <p>Profile Image</p>
+      {imageData && (
+  <div>
+    
+    <img src={imageData} alt="Profile" style={{ 
+      width: '100%', 
+      maxWidth: '300px', 
+      height: '400px', 
+      display: 'block', 
+      marginLeft: 'auto', 
+      marginRight: 'auto'
+    }} />
+  </div>
+)}
       <p>Username: {profileData.username}</p>
       <p>Email: {profileData.email}</p>
       <p>User ID: {profileData.id}</p>
+      
       <form>
       <button onClick={() => navigate('/profile/edit')}>Edit My Profile</button>
-      <button onClick={() => navigate('/meetings')}>Meetings</button>
-      <button onClick={() => navigate('/contact')}>Contacts</button>
+      
       </form>
     </div>   
     </> 
