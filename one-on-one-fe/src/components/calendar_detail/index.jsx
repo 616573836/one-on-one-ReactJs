@@ -173,23 +173,24 @@ const Calendar = () => {
             ];
         },
 
-        onTimeRangeSelected: async args => {
+        onTimeRangeSelected: args => {
             const dp = calendarRef.current.control;
             dp.clearSelection();
             setEventStartTime(args.start);
             handleEventCreate();
         },
 
-        onEventClick: async args => {
-            await editEvent(args.e);
+        onEventClick: args => {
+            editEvent(args.e);
         },
 
         onEventMoved: async function (args) {
+            const event = args.e;
             const submissionData = {
-                id: args.e.id,
-                name: args.e.text,
-                start_time: args.e.start,
-                end_time: args.e.end,
+                id: event.data.id,
+                name: event.data.text,
+                start_time: event.data.start,
+                end_time: event.data.end,
             };
 
             try {
