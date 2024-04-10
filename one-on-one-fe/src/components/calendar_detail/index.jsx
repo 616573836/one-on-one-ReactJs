@@ -10,6 +10,10 @@ const styles = {
     wrap: {
         display: "flex"
     },
+    wrapRow: {
+        display: "flex",
+        flexDirection: "column",
+    },
     left: {
         marginRight: "10px"
     },
@@ -221,11 +225,17 @@ const Calendar = () => {
                             });
                         }}
                     />
-                    <button style={styles.eventsButton} onClick={
-                        () => navigate(`/meetings/${meetingID}/members/${userID}/calendar/events`,
-                            {state: {calendarId: calendarData.id}})}>
-                        Events
-                    </button>
+                    <div style={styles.wrapRow}>
+                        <button style={styles.eventsButton} onClick={
+                            () => navigate(`/meetings/${meetingID}/members/${userID}/calendar/events`,
+                                {state: {calendarId: calendarData.id}})}>
+                            Events
+                        </button>
+                        <button style={styles.eventsButton} onClick={
+                            () => navigate(`/meetings/${meetingID}/members/${userID}/`)}>
+                            Back
+                        </button>
+                    </div>
                 </div>
                 <div style={styles.main}>
                     <DayPilotCalendar {...calendarConfig} ref={calendarRef}/>
