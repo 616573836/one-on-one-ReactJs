@@ -47,6 +47,7 @@ const Calendar = () => {
     const calendarRef = useRef()
 
     useEffect(() => {
+        console.log("fetch calendar and events");
         fetchCalendarData();
         fetchEvents();
     }, [meetingID, userID]);
@@ -78,6 +79,8 @@ const Calendar = () => {
                 }
             });
             setEvents(response.data);
+            console.log("event length " + events.length);
+
             events.map((event, index) => (
                console.log("event " + index + ": " + event.name)
             ));
@@ -106,9 +109,10 @@ const Calendar = () => {
 
     const editEvent = async (e) => {
         const dp = calendarRef.current.control;
-        const modal = await DayPilot.Modal.prompt("Update event text:", e.text());
-        if (!modal.result) { return; }
-        e.data.text = modal.result;
+        // const modal = await DayPilot.Modal.prompt("Update event text:", e.text());
+        // if (!modal.result) { return; }
+        // e.data.text = modal.result;
+        handleEventEdit();
         dp.events.update(e);
     };
 
@@ -116,26 +120,6 @@ const Calendar = () => {
         viewType: "Week",
         durationBarVisible: false,
         timeRangeSelectedHandling: "Enabled",
-
-        // TODO: modify to Event Create Page
-        onTimeRangeSelected: async args => {
-            const dp = calendarRef.current.control;
-            const modal = await DayPilot.Modal.prompt("Create a new event:", "Event 1");
-            dp.clearSelection();
-            if (!modal.result) { return; }
-            dp.events.add({
-                start: args.start,
-                end: args.end,
-                id: DayPilot.guid(),
-                text: modal.result
-            });
-        },
-
-        // TODO: Change to Event Edit
-        onEventClick: async args => {
-            await editEvent(args.e);
-        },
-
         contextMenu: new DayPilot.Menu({
             items: [
                 {
@@ -154,7 +138,6 @@ const Calendar = () => {
                 }
             ]
         }),
-
         onBeforeEventRender: args => {
             args.data.areas = [
                 {
@@ -182,71 +165,68 @@ const Calendar = () => {
                     }
                 }
             ];
-        }
+        },
+
+        // TODO: modify to Event Create Page
+        onTimeRangeSelected: async args => {
+            const dp = calendarRef.current.control;
+            // const modal = await DayPilot.Modal.prompt("Create a new event:", "Event 1");
+            // dp.clearSelection();
+            // if (!modal.result) { return; }
+            // dp.events.add({
+            //     start: args.start,
+            //     end: args.end,
+            //     id: DayPilot.guid(),
+            //     text: modal.result
+            // });
+            handleEventCreate();
+        },
+        // TODO: Change to Event Edit
+        onEventClick: async args => {
+            await editEvent(args.e);
+        },
     });
 
     // TODO: Event Config
     useEffect(() => {
-        const modifyEvents = modifyEventData(events);
-        // const events = [
-        //     {
-        //         id: 1,
-        //         text: "Event 1",
-        //         start_time: "2023-10-02T10:30:00",
-        //         end: "2023-10-02T13:00:00",
-        //     },
-        //     {
-        //         id: 2,
-        //         text: "Event 2",
-        //         start: "2023-10-03T09:30:00",
-        //         end: "2023-10-03T11:30:00",
-        //         backColor: "#6aa84f",
-        //     },
-        // ];
-        // calendarRef.current.control.update({startDate, events});
-        calendarRef.current.control.update({startDate, modifyEvents});
-    }, []);
+        const currEvents = modifyEventData(events);
+        const dp = calendarRef.current.control;
+        dp.update({startDate, events: currEvents});
+    }, [events]);
 
     return (
-        <div style={styles.wrap}>
-            <div style={styles.left}>
-                <DayPilotNavigator
-                    selectMode={"Week"}
-                    showMonths={3}
-                    skipMonths={3}
-                    startDate={"2023-10-02"}
-                    selectionDay={"2023-10-02"}
-                    onTimeRangeSelected={ args => {
-                        calendarRef.current.control.update({
-                            startDate: args.day
-                        });
-                    }}
-                />
+        <>
+            <div style={styles.wrap}>
+                <div style={styles.left}>
+                    <DayPilotNavigator
+                        selectMode={"Week"}
+                        showMonths={2} skipMonths={2}
+                        startDate={startDate} selectionDay={startDate}
+                        onTimeRangeSelected={args => {
+                            calendarRef.current.control.update({
+                                startDate: args.day
+                            });
+                        }}
+                    />
+                </div>
+                <div style={styles.main}>
+                    <DayPilotCalendar
+                        {...calendarConfig}
+                        ref={calendarRef}
+                    />
+                </div>
+                {showEventEdit && <Event meetingID={meetingID} userID={userID} eventID={eventID} flag={false}/>}
+                {showEventCreate &&
+                    <EventList calendarID={calendarData.id} meetingID={meetingID} userID={userID} flag={false}/>}
             </div>
-            <div style={styles.main}>
-                <DayPilotCalendar
-                    {...calendarConfig}
-                    ref={calendarRef}
-                />
-            </div>
-            {showEventEdit && <Event meetingID={meetingID} userID={userID} eventID={eventID} flag = {false}/>}
-            {showEventCreate && <EventList calendarID={calendarData.id} meetingID={meetingID} userID={userID} flag = {false}/>}
-        </div>
+            <button style={styles.eventsButton} onClick={
+                () => navigate(`/meetings/${meetingID}/members/${userID}/calendar/events`,
+                    {state: {calendarId: calendarData.id}})}>
+                Events
+            </button>
+        </>
     );
 }
-
-export default Calendar;
-
-const EventUpdateModal = ({ onClose, children }) => {
-    return (
-        <div className="modal">
-            <div className="modal-content">
-                {children}
-                <span className="close" onClick={onClose}>&times;</span>
-            </div>
-        </div>
-    );
-};
 
 const modifyEventData = (events) => {
     return events.map(event => {
@@ -266,15 +246,17 @@ const modifyEventData = (events) => {
                 break;
         }
 
-        return new DayPilot.Event({
+        return {
             id: event.id,
             text: event.name,
-            start: event.start_time,
-            end: event.end_time,
+            start: new DayPilot.Date(event.start_time),
+            end: new DayPilot.Date(event.end_time),
             backColor: backColor
-        });
+        };
     });
 };
+
+export default Calendar;
 
 export async function checkIfEventsExist(meetingId, userId) {
     try {

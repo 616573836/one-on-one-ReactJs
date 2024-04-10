@@ -1,7 +1,8 @@
+
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 
-function EventDetail({meetingID, userID, eventID}) {
+function EventDetail({meetingID, userID, eventID, flag = true}) {
     let { meetingId, memberId, eventId } = useParams();
     if(meetingID && userID && eventID){
         meetingId = meetingID;
@@ -39,8 +40,8 @@ function EventDetail({meetingID, userID, eventID}) {
                 const adjustedData = {
                     ...data,
                     start_time: data.start_time.slice(0, 16),
-                    end_time: data.end_time.slice(0, 16), 
-                };                
+                    end_time: data.end_time.slice(0, 16),
+                };
                 setEventDetail(adjustedData);
                 setLoading(false);
             } catch (error) {
@@ -52,7 +53,7 @@ function EventDetail({meetingID, userID, eventID}) {
 
         fetchEventDetail();
     }, [meetingId, memberId, eventId]);
-    
+
     const handleChange = (e) => {
         setEventDetail({
             ...eventDetail,
@@ -61,7 +62,7 @@ function EventDetail({meetingID, userID, eventID}) {
     };
 
     const handleBack = () => {
-        navigate(`/meetings/${meetingId}/members/${memberId}/calendar/events`);
+        flag ? navigate(`/meetings/${meetingId}/members/${memberId}/calendar/events`) : window.location.reload();
     };
 
     if (loading) {
@@ -78,7 +79,7 @@ function EventDetail({meetingID, userID, eventID}) {
             start_time: new Date(eventDetail.start_time).toISOString().slice(0, 19) + 'Z',
             end_time: new Date(eventDetail.end_time).toISOString().slice(0, 19) + 'Z',
         };
-        
+
         try {
             const response = await fetch(`/api/meetings/${meetingId}/members/${memberId}/calendar/events/${eventId}/`, {
                 method: 'PUT',
@@ -88,7 +89,7 @@ function EventDetail({meetingID, userID, eventID}) {
                 },
                 body: JSON.stringify(submissionData)
             });
-            
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -105,13 +106,13 @@ function EventDetail({meetingID, userID, eventID}) {
             setError(error);
         }
     };
-    
+
     const handleDelete = async () => {
         const isConfirmed = window.confirm("Are you sure to delete this event?");
         if (!isConfirmed) {
             return;
         }
-    
+
         try {
             const response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/members/${memberId}/calendar/events/${eventId}`, {
                 method: 'DELETE',
@@ -119,7 +120,7 @@ function EventDetail({meetingID, userID, eventID}) {
                     'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
                 },
             });
-    
+
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -129,7 +130,7 @@ function EventDetail({meetingID, userID, eventID}) {
             setError(error);
         }
     };
-    
+
     function transformDateTime(dateTimeString) {
         const datePart = dateTimeString.substring(0, 10);
         const timePart = dateTimeString.substring(11, 16);
@@ -173,8 +174,8 @@ const styles = {
         width: '100%',
         maxWidth: '500px',
         marginBottom: '15px',
-        border: '1px solid #ccc', 
-        padding: '8px', 
+        border: '1px solid #ccc',
+        padding: '8px',
         borderRadius: '4px',
     },
     largeTextarea: {
@@ -183,7 +184,7 @@ const styles = {
         height: '150px',
         marginBottom: '15px',
         border: '1px solid #ccc',
-        padding: '8px', 
+        padding: '8px',
         borderRadius: '4px',
     },
     container: {
