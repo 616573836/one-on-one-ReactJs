@@ -47,7 +47,6 @@ const Calendar = () => {
     const calendarRef = useRef()
 
     useEffect(() => {
-        console.log("fetch calendar and events");
         fetchCalendarData();
         fetchEvents();
     }, [meetingID, userID]);
@@ -79,11 +78,6 @@ const Calendar = () => {
                 }
             });
             setEvents(response.data);
-            console.log("event length " + events.length);
-
-            events.map((event, index) => (
-               console.log("event " + index + ": " + event.name)
-            ));
         } catch (error) {
             console.error('Error fetching calendar data:', error);
             setEvents([]);
@@ -112,9 +106,16 @@ const Calendar = () => {
         // const modal = await DayPilot.Modal.prompt("Update event text:", e.text());
         // if (!modal.result) { return; }
         // e.data.text = modal.result;
-        handleEventEdit();
+        handleEventEdit(e.data.id);
         dp.events.update(e);
     };
+
+    // TODO: Event Config
+    useEffect(() => {
+        const currEvents = modifyEventData(events);
+        const dp = calendarRef.current.control;
+        dp.update({startDate, events: currEvents});
+    }, [events]);
 
     const [calendarConfig, setCalendarConfig] = useState({
         viewType: "Week",
@@ -169,7 +170,7 @@ const Calendar = () => {
 
         // TODO: modify to Event Create Page
         onTimeRangeSelected: async args => {
-            const dp = calendarRef.current.control;
+            // const dp = calendarRef.current.control;
             // const modal = await DayPilot.Modal.prompt("Create a new event:", "Event 1");
             // dp.clearSelection();
             // if (!modal.result) { return; }
@@ -187,13 +188,6 @@ const Calendar = () => {
         },
     });
 
-    // TODO: Event Config
-    useEffect(() => {
-        const currEvents = modifyEventData(events);
-        const dp = calendarRef.current.control;
-        dp.update({startDate, events: currEvents});
-    }, [events]);
-
     return (
         <>
             <div style={styles.wrap}>
@@ -210,14 +204,10 @@ const Calendar = () => {
                     />
                 </div>
                 <div style={styles.main}>
-                    <DayPilotCalendar
-                        {...calendarConfig}
-                        ref={calendarRef}
-                    />
+                    <DayPilotCalendar {...calendarConfig} ref={calendarRef}/>
                 </div>
                 {showEventEdit && <Event meetingID={meetingID} userID={userID} eventID={eventID} flag={false}/>}
-                {showEventCreate &&
-                    <EventList calendarID={calendarData.id} meetingID={meetingID} userID={userID} flag={false}/>}
+                {showEventCreate && <EventList calendarID={calendarData.id} meetingID={meetingID} userID={userID} flag={false}/>}
             </div>
             <button style={styles.eventsButton} onClick={
                 () => navigate(`/meetings/${meetingID}/members/${userID}/calendar/events`,
