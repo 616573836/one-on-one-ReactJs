@@ -42,6 +42,7 @@ const Calendar = () => {
     let { meetingID, userID } = useParams();
     const [calendarData, setCalendarData] = useState(null);
     const [eventID, setEventID] = useState(null);
+    const [eventStartTime, setEventStartTime] = useState(null);
     const [events, setEvents] = useState([]);
     const [startDate, setStartDate] = useState(null);
     const [showEventCreate, setShowEventCreate] = useState(false);
@@ -106,9 +107,6 @@ const Calendar = () => {
 
     const editEvent = async (e) => {
         const dp = calendarRef.current.control;
-        // const modal = await DayPilot.Modal.prompt("Update event text:", e.text());
-        // if (!modal.result) { return; }
-        // e.data.text = modal.result;
         handleEventEdit(e.data.id);
         dp.events.update(e);
     };
@@ -173,16 +171,9 @@ const Calendar = () => {
 
         // TODO: modify to Event Create Page
         onTimeRangeSelected: async args => {
-            // const dp = calendarRef.current.control;
-            // const modal = await DayPilot.Modal.prompt("Create a new event:", "Event 1");
-            // dp.clearSelection();
-            // if (!modal.result) { return; }
-            // dp.events.add({
-            //     start: args.start,
-            //     end: args.end,
-            //     id: DayPilot.guid(),
-            //     text: modal.result
-            // });
+            const dp = calendarRef.current.control;
+            dp.clearSelection();
+            setEventStartTime(args.start);
             handleEventCreate();
         },
         // TODO: Change to Event Edit
@@ -218,7 +209,8 @@ const Calendar = () => {
             <div style={styles.wrap}>
                 <div style={styles.main}>
                     {showEventEdit && <Event meetingID={meetingID} userID={userID} eventID={eventID} flag={false}/>}
-                    {showEventCreate && <EventList calendarID={calendarData.id} meetingID={meetingID} userID={userID} flag={false}/>}
+                    {showEventCreate && <EventList calendarID={calendarData.id} meetingID={meetingID} userID={userID}
+                                                   startTime={eventStartTime} flag={false}/>}
                 </div>
             </div>
         </>

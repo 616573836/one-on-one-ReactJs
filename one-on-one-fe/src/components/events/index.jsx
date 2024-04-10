@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 
-function EventList({ calendarID, meetingID, userID, flag = true}) {
+function EventList({ calendarID, meetingID, userID, startTime, flag = true}) {
     let {meetingId, memberId} = useParams();
     if(meetingID && userID){
         meetingId = meetingID;
@@ -16,8 +16,8 @@ function EventList({ calendarID, meetingID, userID, flag = true}) {
         name: '',
         description: '',
         availability: 'available',
-        start_time: '',
-        end_time: '',
+        start_time: startTime ? startTime : '',
+        end_time: startTime ? startTime : '',
         calendar: calendarId ? calendarId : calendarID,
     });
 
