@@ -75,11 +75,20 @@ const MeetingList = () => {
                     onChange={(e) => setMeetingDescription(e.target.value)}
                 />
                 <button type="submit" >Create Meeting</button>
+                <p></p>
             </form>
             <div style={styles.buttonContainer}>
                 <div >
                     {meetings?.map((meeting, index) => (
-                        <div key={index} >
+                       <div key={index} style={{ marginBottom: '20px' }}> {/* Add some margin for spacing between items */}
+                       {/* Short line before meeting name */}
+                       <div style={{
+                         height: '2px',
+                         width: '500px', // Adjust the width as needed
+                         backgroundColor: '#000', // Line color
+                         marginBottom: '5px', // Space between the line and the text
+                         marginLeft: '0', // Aligns the line to the start of the text
+                       }}></div>
                             <h1>{meeting.name}</h1>
                             <p>Description: {meeting.description}</p>
                             <p>Created: {formatTimestamp(meeting.created_time)}</p>
