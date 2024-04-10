@@ -91,6 +91,9 @@ const SignUpComponent = () => {
               />
               <p>     </p>
           <button type="submit">Sign Up</button>
+          <p></p>
+          <p>Already have account?</p>
+          <button onClick={() => navigate('/login')}>Sign in</button>
         </form>
       
         </div>

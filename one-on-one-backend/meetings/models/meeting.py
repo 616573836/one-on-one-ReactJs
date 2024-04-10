@@ -15,7 +15,6 @@ class Meeting(models.Model):
     state = models.CharField(choices=MeetingState, max_length=20, default='edit')
     created_time = models.DateTimeField(auto_now_add=True, null=True)
     modified_time = models.DateTimeField(auto_now=True, null=True)
-    submit_count = models.IntegerField(default = 0)
 
     class Meta:
         ordering = ('id',)

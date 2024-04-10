@@ -8,6 +8,8 @@ from rest_framework import status
 from ..models.calendar import Calendar
 from rest_framework.permissions import AllowAny
 
+from .meeting_views import update_meeting_state
+
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
@@ -16,6 +18,7 @@ def confirm_member(request, token):
     if pending_member:
         Member.objects.create(user_id=pending_member.user_id, meeting_id=pending_member.meeting_id)
         Calendar.objects.create(meeting_id=pending_member.meeting_id, owner_id=pending_member.user_id)
+        update_meeting_state(pending_member.meeting_id)
         pending_member.delete()
         return Response({"message": "Membership confirmed."}, status=status.HTTP_200_OK)
     return Response({"error": "Invalid or expired confirmation token."}, status=status.HTTP_400_BAD_REQUEST)

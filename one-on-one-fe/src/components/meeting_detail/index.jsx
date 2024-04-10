@@ -15,6 +15,7 @@ const MeetingDetail = () => {
     const [updatedDescription, setUpdatedDescription] = useState('');
     const [userID, setUserID] = useState('');
     const [interaction, setInteraction] = useState({})
+    const [decision, setDecision] = useState({})
 
     useEffect(() => {
         fetchMeetingDetails();
@@ -53,6 +54,45 @@ const MeetingDetail = () => {
         } 
     };
 
+    const fetchDecision = async () => {
+        try {
+            let response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/decision/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
+            let data = await response.json();
+            setDecision(data);
+        } catch (error) {
+            console.error("Failed to fetch calendar details:", error);
+        } 
+    };
+
+    const startPolling = async () => {
+        try {
+            let response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/start_poll/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
+            let data = await response.json();
+
+            if (!response.ok) {
+                alert(data.error);
+            } else {
+                const updatedMeeting = { ...meeting, state: "approving" };
+                setMeeting(updatedMeeting);
+            }
+            
+        } catch (error) {
+            console.error("Failed to fetch calendar details:", error);
+        } 
+    };
+
     const getMembers = async () => {
         try {
             let response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/members/`, {
@@ -84,12 +124,34 @@ const MeetingDetail = () => {
             setMeeting(data);
             setUpdatedName(data.name);
             setUpdatedDescription(data.description);
-            if (meeting.state === "ready") fetchInteractions();
+            if (data.state === "ready" || data.state === "approving") fetchInteractions();
+
+            if (data.state === "finalized") fetchDecision();
         } catch (error) {
             console.error("Failed to fetch meeting details:", error);
         } finally {
             setLoading(false);
         }
+    };
+
+    const submitPoll = async (index) => {
+        try {
+            let response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/poll/${index}/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
+            let data = await response.json();
+
+            if (!response.ok) {
+                alert(data.error);
+            }
+            
+        } catch (error) {
+            console.error("Failed to fetch calendar details:", error);
+        } 
     };
 
     const deleteMeeting = async () => {
@@ -214,16 +276,33 @@ const MeetingDetail = () => {
                     </button>
                 </form>
             )}
+            {meeting && meeting.state === "edit" && (
+            <div>There is currently no suggested time.</div>
+            )}
+            {meeting && meeting.state === "ready" && (
+            <button style={styles.button} onClick={() => startPolling()}>Start a poll</button>
+            )}
+            {decision && (
+            <div>
                 <div>
-                {Object.entries(interaction).map(([key, { "start time": startTime, "end time": endTime }]) => (
-                    <div key={key}>
-                    <p>Interaction {key}:</p>
-                    <p>Start Time: {new Date(startTime).toLocaleString()}</p>
-                    <p>End Time: {new Date(endTime).toLocaleString()}</p>
-                    </div>
-                ))}
+                    <p>Decision</p>
+                    <p>Start Time: {new Date(decision.start_time).toLocaleString()}</p>
+                    <p>End Time: {new Date(decision.end_time).toLocaleString()}</p>
                 </div>
-             {members?.map((member, index) => (
+
+            </div>)}
+            <div>
+            {Object.entries(interaction).map(([key, { "start time": startTime, "end time": endTime }]) => (
+                <div key={key}>
+                <p>Suggested time {key}:</p>
+                <p>Start Time: {new Date(startTime).toLocaleString()}</p>
+                <p>End Time: {new Date(endTime).toLocaleString()}</p>
+                {meeting.state === "approving" &&
+                <button style={styles.button} onClick={() => submitPoll(key)}>Submit Poll</button>}
+                </div>
+            ))}
+            </div>
+             {meeting && meeting.state !== "approving" && meeting.state !== "finalized" && members?.map((member, index) => (
                 <div key={index} style={styles.meetingItem}>
                     <p>User: {member.username}</p>
                     <p>Role: {member.role}</p>
@@ -234,16 +313,17 @@ const MeetingDetail = () => {
                        style={styles.calendarButton}>Calendar</button>
                 </div>
             ))}
-            <form onSubmit={createMember}>
-                <input
-                    type="text"
-                    value={userID}
-                    onChange={(e) => setUserID(e.target.value)}
-                    placeholder="Enter User ID"
-                    required
-                />
-                <button type="submit">Create Member</button>
-            </form>
+            {meeting && meeting.state !== "approving" && meeting.state !== "finalized" &&
+                < form onSubmit={createMember}>
+                    <input
+                        type="text"
+                        value={userID}
+                        onChange={(e) => setUserID(e.target.value)}
+                        placeholder="Enter User ID"
+                        required
+                    />
+                    <button type="submit">Create Member</button>
+                </form>}
         </div>
     );
 };
