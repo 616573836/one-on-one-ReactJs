@@ -28,6 +28,12 @@ const MeetingDetail = () => {
         submitCalendar();
     }, [meetingId, members])
 
+    useEffect(() => {
+        if (meeting && (meeting.state === "ready" || meeting.state === "approving")) {
+          fetchInteractions();
+        }
+      }, [meeting]);
+
     const submitCalendar = () => {
         members?.forEach((member) => {
             checkIfEventsExist(meetingId, member.user).then((exist) => {
@@ -126,8 +132,6 @@ const MeetingDetail = () => {
             setMeeting(data);
             setUpdatedName(data.name);
             setUpdatedDescription(data.description);
-            if (data.state === "ready" || data.state === "approving") fetchInteractions();
-
             if (data.state === "finalized") fetchDecision();
         } catch (error) {
             console.error("Failed to fetch meeting details:", error);
