@@ -15,6 +15,7 @@ from django.core.mail import send_mail
 from django.urls import reverse
 from OneOnOne.settings import EMAIL_HOST_USER
 from django.utils.http import urlsafe_base64_encode
+from ..models.calendar import Calendar
 
 from .meeting_views import update_meeting_state
 
@@ -95,14 +96,18 @@ def member_view(request, meeting_id, user_id):
     elif request.method == 'DELETE':
         try:
             member = Member.objects.get(user=user_id, meeting=meeting_id)
+            calendar = Calendar.objects.get(owner = user_id, meeting = meeting_id)
         except:
             return Response({"error": "Member does not exist."}, status=status.HTTP_404_NOT_FOUND)
         
         if request.user == member.user:
             member.delete()
+            calendar.delete()
             if not Member.objects.filter(meeting=meeting).exists():
                 meeting.delete()
                 return Response({"message": "Member and meeting deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
+            else:
+                update_meeting_state(meeting_id)
             return Response({"message": "Delete success"}, status=status.HTTP_204_NO_CONTENT)
 
 
@@ -111,12 +116,13 @@ def member_view(request, meeting_id, user_id):
         
         try:
             member.delete()
+            calendar.delete()
             members = Member.objects.filter(meeting=meeting)
             if not members.exists():
                 meeting.delete()
                 return Response({"message": "Member and meeting deleted successfully."}, status=status.HTTP_204_NO_CONTENT)
-
-            update_meeting_state(meeting_id)
+            else:
+                update_meeting_state(meeting_id)
             return Response({"Delete success"}, status=status.HTTP_204_NO_CONTENT)
         except Member.DoesNotExist:
             return Response({"error": "Member is not in meeting."}, status=status.HTTP_404_NOT_FOUND)

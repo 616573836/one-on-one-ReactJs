@@ -16,6 +16,7 @@ const MeetingDetail = () => {
     const [userID, setUserID] = useState('');
     const [interaction, setInteraction] = useState({})
     const [decision, setDecision] = useState({})
+    const [vote, setVote] = useState({})
 
     useEffect(() => {
         fetchMeetingDetails();
@@ -49,6 +50,7 @@ const MeetingDetail = () => {
             });
             let data = await response.json();
             setInteraction(data);
+            if (meeting.state === "approving") fetchVote();
         } catch (error) {
             console.error("Failed to fetch calendar details:", error);
         } 
@@ -147,12 +149,36 @@ const MeetingDetail = () => {
 
             if (!response.ok) {
                 alert(data.error);
+            } else {
+                fetchVote();
             }
             
         } catch (error) {
             console.error("Failed to fetch calendar details:", error);
         } 
     };
+
+    const fetchVote = async () => {
+        try {
+            let response = await fetch(`http://127.0.0.1:8000/api/meetings/${meetingId}/poll/`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+                }
+            });
+            let data = await response.json();
+
+            if (response.ok) {
+                setVote(data);
+            }
+            
+        } catch (error) {
+            console.error("Failed to fetch calendar details:", error);
+        } 
+    };
+
+
 
     const deleteMeeting = async () => {
         if (window.confirm("Are you sure you want to delete this meeting?")) {
@@ -282,7 +308,7 @@ const MeetingDetail = () => {
             {meeting && meeting.state === "ready" && (
             <button style={styles.button} onClick={() => startPolling()}>Start a poll</button>
             )}
-            {decision && (
+            {decision && meeting.state === "finalized" && (
             <div>
                 <div>
                     <p>Decision</p>
@@ -292,7 +318,7 @@ const MeetingDetail = () => {
 
             </div>)}
             <div>
-            {Object.entries(interaction).map(([key, { "start time": startTime, "end time": endTime }]) => (
+            {Object.keys(vote).length === 0 && Object.entries(interaction).map(([key, { "start time": startTime, "end time": endTime }]) => (
                 <div key={key}>
                 <p>Suggested time {key}:</p>
                 <p>Start Time: {new Date(startTime).toLocaleString()}</p>
@@ -301,6 +327,13 @@ const MeetingDetail = () => {
                 <button style={styles.button} onClick={() => submitPoll(key)}>Submit Poll</button>}
                 </div>
             ))}
+            {meeting && meeting.state === "approving" && Object.keys(vote).length !== 0 && (
+                <div>
+                    <p>You have submitted a vote!</p>
+                    <p>Start Time: {new Date(vote.start_time).toLocaleString()}</p>
+                <p>End Time: {new Date(vote.end_time).toLocaleString()}</p>
+                </div>
+            )}
             </div>
              {meeting && meeting.state !== "approving" && meeting.state !== "finalized" && members?.map((member, index) => (
                 <div key={index} style={styles.meetingItem}>
