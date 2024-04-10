@@ -88,22 +88,24 @@ const MemberDetail = () => {
 
     return (
         <div style={styles.container}>
-            <h1>{member.username}</h1>
-            <p>role: {member.role}</p>
-            {eventExistence ? <p>Submitted</p> : <p>Not submitted</p>}
+            <h3 style={{fontSize: '60px'}}>{member.username}</h3>
+            <p style={{fontSize: '30px'}}>role: {member.role}</p>
+            {eventExistence ? <p style={{fontSize: '30px'}}>Submitted</p> : <p style={{fontSize: '30px'}}>Not submitted</p>}
+            <div style={{ display: 'flex', justifyContent: 'center', gap: '10px' }}>
             <button style={styles.calendarButton} onClick={
                 () => navigate(`/meetings/${meetingId}/members/${memberID}/calendar/`)}>
                 Calendar
             </button>
-            <button style={styles.backButton} onClick={() => navigate(`/meetings/${meetingId}/`)}>
+            <button onClick={() => navigate(`/meetings/${meetingId}/`)}>
                 Back
             </button>
-            <button style={styles.button} onClick={() => setShowUpdateForm(true)}>
+            <button  onClick={() => setShowUpdateForm(true)}>
                 Update
             </button>
-            <button style={styles.button} onClick={() => deleteMember()}>
+            <button  onClick={() => deleteMember()}>
                 Delete
             </button>
+            </div>
             {showUpdateForm && (
                 <form onSubmit={handleUpdate} style={styles.form}>
                     <div>
@@ -117,7 +119,7 @@ const MemberDetail = () => {
                             <option value="member">Member</option>
                         </select>
                     </div>
-                    <button type="submit" style={styles.button}>
+                    <button type="submit" >
                         Submit Update
                     </button>
                 </form>
@@ -136,6 +138,11 @@ const styles = {
         maxWidth: '600px',
         margin: '20px auto',
         boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+        display: 'flex', // Use flexbox for layout
+    flexDirection: 'column', // Stack children vertically
+    justifyContent: 'center', // Center children vertically in the container
+    alignItems: 'center', // Center children horizontally in the container
+    height: '60vh'
     },
     backButton: {
         marginTop: '20px',

@@ -276,15 +276,18 @@ const MeetingDetail = () => {
             <p>Description: {meeting.description}</p>
             <p>State: {meeting.state}</p>
             <p>Created: {formatTimestamp(meeting.created_time)}</p>
-            <button style={styles.backButton} onClick={() => navigate("/meetings")}>
+            <div style={{display: 'flex', justifyContent: 'center', gap: '20px', fontSize: '16px'}}>
+            <button onClick={() => navigate("/meetings")}>
                 Back
             </button>
-            <button style={styles.button} onClick={() => deleteMeeting()}>
+            <button onClick={() => deleteMeeting()}>
                 Delete
             </button>
-            <button style={styles.button} onClick={() => setShowUpdateForm(true)}>
+            <button onClick={() => setShowUpdateForm(true)}>
                 Update
             </button>
+            </div>
+            <p></p>
             {showUpdateForm && (
                 <form onSubmit={handleUpdate} style={styles.form}>
                     <div>
@@ -311,7 +314,7 @@ const MeetingDetail = () => {
                 </form>
             )}
             {meeting && meeting.state === "edit" && (
-            <div>There is currently no suggested time.</div>
+            <div style={{ textAlign: 'center', width: '100%' }}>There is currently no suggested time.</div>
             )}
             {meeting && meeting.state === "ready" && (
             <button style={styles.button} onClick={() => startPolling()}>Start a poll</button>
@@ -344,19 +347,24 @@ const MeetingDetail = () => {
             )}
             </div>
              {meeting && meeting.state !== "approving" && meeting.state !== "finalized" && members?.map((member, index) => (
-                <div key={index} style={styles.meetingItem}>
-                    <p>User: {member.username}</p>
+                <div key={index} style={{display: 'flex', // Use Flexbox
+    flexDirection: 'column'}}>
+                    
+                    <p style={{ borderTop: "2px solid #add8e6", paddingTop: "10px", marginTop: "20px", fontSize: '16px' }}>
+        User: {member.username}
+    </p>
                     <p>Role: {member.role}</p>
                     {eventExistence[member.user] ? <p>Submitted</p> : <p>Not submitted</p>}
-                    <a href={`/meetings/${meetingId}/members/${member.user}/`}
-                       style={styles.detailButton}>Detail</a>
+                    <button onClick={() => navigate(`/meetings/${meetingId}/members/${member.user}/`)}
+                       >Detail</button>
                     <button onClick={() => navigate(`/meetings/${meetingId}/members/${member.user}/calendar/`)}
-                       style={styles.calendarButton}>Calendar</button>
+                       >Calendar</button>
                 </div>
             ))}
             {meeting && meeting.state !== "approving" && meeting.state !== "finalized" &&
                 < form onSubmit={createMember}>
                     <input
+                        style={styles.input}
                         type="text"
                         value={userID}
                         onChange={(e) => setUserID(e.target.value)}
@@ -376,7 +384,9 @@ const styles = {
         lineHeight: '1.6',
         maxWidth: '600px',
         margin: '20px auto',
-        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)',
+        boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)'
+
+        
     },
     backButton: {
         display: 'inline-block',
